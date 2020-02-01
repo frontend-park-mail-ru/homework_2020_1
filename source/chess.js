@@ -1,3 +1,5 @@
+//Вариант 5
+//Губанова Виктория
 'use strict';
 
 const chess = function (number) {
