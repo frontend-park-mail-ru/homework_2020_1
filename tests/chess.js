@@ -37,4 +37,42 @@ QUnit.module('Тестируем функцию chess', function () {
 		assert.strictEqual(chess('8'), expected);
 	});
 
+	//Добавленные тесты
+	QUnit.test('Шахматная доска 5 на 5', function (assert) {
+		const expected =
+			'* * *\n' +
+			' * * \n' +
+			'* * *\n' +
+			' * * \n' +
+			'* * *\n';
+		assert.strictEqual(chess(5), expected);
+		assert.strictEqual(chess('5'), expected);
+	});
+
+	QUnit.test('Шахматная доска размером меньше 2', function (assert) {
+		const expected = null;
+		assert.strictEqual(chess(-1), expected);
+		assert.strictEqual(chess('-1'), expected);
+		assert.strictEqual(chess(0), expected);
+		assert.strictEqual(chess('0'), expected);
+		assert.strictEqual(chess(-100), expected);
+		assert.strictEqual(chess('-100'), expected);
+	});
+
+
+	QUnit.test('Шахматная доска 10 на 10', function (assert) {
+		const expected =
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n';
+		assert.strictEqual(chess(10), expected);
+		assert.strictEqual(chess('10'), expected);
+	});
 });
