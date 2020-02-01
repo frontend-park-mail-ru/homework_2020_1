@@ -75,4 +75,11 @@ QUnit.module('Тестируем функцию chess', function () {
 		assert.strictEqual(chess(10), expected);
 		assert.strictEqual(chess('10'), expected);
 	});
+
+	QUnit.test('Шахматная доска не может быть создана строкой', function (assert) {
+		const expected = null;
+		assert.strictEqual(chess('Hello, world!'), expected);
+	});
+
 });
+
