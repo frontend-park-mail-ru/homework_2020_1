@@ -25,7 +25,7 @@ const createRegStr = () => {
 
 /**
  * @description реализация rle-сжатия
- * @param {string} исходная строка
+ * @param {string} input исходная строка
  * @returns {string} возвращает результирующую сжатую строку
  * @returns {null} в случае, если на вход пришла не строка
  */
