@@ -1,6 +1,17 @@
 'use strict';
 
+/**
+ * @description Разница между символами UNICODE 
+ * @const {number}
+ * @default
+ */
+
 const UNICODE_SHIFT = 32;
+
+/**
+ * @description Создание строки для регулярного выражения
+ * @returns {string} возвращает созданную строку
+ */
 
 const createRegStr = () => {
     let regStr = '([A]){2,}|([a]){2,}';
@@ -11,6 +22,13 @@ const createRegStr = () => {
     }
     return regStr;
 };
+
+/**
+ * @description реализация rle-сжатия
+ * @param {string} исходная строка
+ * @returns {string} возвращает результирующую сжатую строку
+ * @returns {null} в случае, если на вход пришла не строка
+ */
 
 const rle = (input) => {
     if (typeof input !== 'string') {
