@@ -20,11 +20,11 @@ const chess = (inputData) => {
     const number = typeof inputData === "number" ? inputData : Number(inputData);
     let output = '';
 
-    if(isNaN(number)){
+    if ( isNaN(number) ) {
         return null;
     }
 
-    if(number < MIN_BOARD_SIZE) {
+    if (number < MIN_BOARD_SIZE) {
         return null;
     }
 
