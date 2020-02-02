@@ -38,18 +38,25 @@ QUnit.module('Тестируем функцию roman', function () {
         assert.strictEqual(roman('2017'), 'MMXVII');
     });
 
-    QUnit.test('Нагрузочный тест', function (assert) {
-
-        let r = 0;
-        for( let i = 0; i < 100; i++ ) {
-            r = Math.floor( Math.random() * 4000 )
-
-            assert.strictEqual( r, roman( roman( r ) ) )
-        }
+    QUnit.test('Проверка граничных условий 1', function (assert) {
+        assert.throws(() => roman("a"),
+          new Error(`Roman digits are I, V, X, L, C, D, M`),
+          'Обрабатывает некорректный ввод');
+        assert.throws(() => roman("iIvVa"),
+          new Error(`Roman digits are I, V, X, L, C, D, M`),
+          'Обрабатывает некорректный ввод');
+        assert.strictEqual(roman('MMMCMXCIX'), 3999);
     });
-    QUnit.test('Нагрузочный тест для всех римских чисел', function (assert) {
 
-        for( let i = 1; i < 4000; i++ )
-            assert.strictEqual( i, roman( roman( i ) ) )
+    QUnit.test('Проверка граничных условий 2', function (assert) {
+        assert.throws(() => roman(4000),
+          new Error(`Roman Number's are in range from 0 to 3999`),
+          'Обрабатывает некорректный ввод');
+        assert.throws(() => roman(-1),
+          new Error(`Roman Number's are in range from 0 to 3999`),
+          'Обрабатывает некорректный ввод');
+        assert.strictEqual(roman('3999'), 'MMMCMXCIX');
+        assert.strictEqual(roman('0'), '');
     });
+    
 });
