@@ -44,9 +44,9 @@ QUnit.module('Тестируем функцию euclid', function () {
 	});
 
 	QUnit.test('Результат должен быть неопределен для набора, состоящего только из нулей', function(assert) {
-		assert.strictEqual(euclid(0), UndefinedValue, 'euclid(0) === undefined');
-		assert.strictEqual(euclid(0, 0), UndefinedValue, 'euclid(0, 0) === undefined');
-		assert.strictEqual(euclid(0, 0, 0, 0, 0, 0), UndefinedValue, 'euclid(0, 0, 0, 0, 0) === undefined');
+		assert.strictEqual(euclid(0), UNDEFINED_VALUE, 'euclid(0) === undefined');
+		assert.strictEqual(euclid(0, 0), UNDEFINED_VALUE, 'euclid(0, 0) === undefined');
+		assert.strictEqual(euclid(0, 0, 0, 0, 0, 0), UNDEFINED_VALUE, 'euclid(0, 0, 0, 0, 0) === undefined');
 	});
 
 	QUnit.test('При этом их наличие в определяемом наборе не приводит к ошибке', function(assert) {
@@ -55,7 +55,7 @@ QUnit.module('Тестируем функцию euclid', function () {
 	});
 
 	QUnit.test('Тест на невалидные данные', function(assert) {
-		assert.strictEqual(euclid('data', 5, 1, 'number', 'integer', 10), InvalidData, 'euclid(\'data\', 5, 1, \'number\', \'integer\', 10) - Некорректные входные данные');
-		assert.strictEqual(euclid('1', '2', '3', '4', '5'), InvalidData, 'euclid(\'1\', \'2\', \'3\', \'4\', \'5\') - Некорректные входные данные');
+		assert.strictEqual(euclid('data', 5, 1, 'number', 'integer', 10), INVALID_DATA, 'euclid(\'data\', 5, 1, \'number\', \'integer\', 10) - Некорректные входные данные');
+		assert.strictEqual(euclid('1', '2', '3', '4', '5'), INVALID_DATA, 'euclid(\'1\', \'2\', \'3\', \'4\', \'5\') - Некорректные входные данные');
 	});
 });

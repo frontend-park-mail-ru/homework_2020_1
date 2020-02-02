@@ -1,7 +1,7 @@
 'use strict';
 
-const UndefinedValue = "Undefined greatest common divisor";
-const InvalidData = "Only integer arguments supported";
+const UNDEFINED_VALUE = 'Undefined greatest common divisor';
+const INVALID_DATA = 'Only integer arguments supported';
 
 /**
  *  Вычисляет наибольший общий делитель двух заданных чисел путём деления с остатком
@@ -17,7 +17,7 @@ const InvalidData = "Only integer arguments supported";
 
 const gcdOfPair = (firstNum, secondNum) => {
     if (firstNum === 0 && secondNum === 0) {
-         return UndefinedValue;
+         return UNDEFINED_VALUE;
     }
 
     firstNum = Math.abs(firstNum);
@@ -37,18 +37,18 @@ const gcdOfPair = (firstNum, secondNum) => {
  *
  * @param {...number} numbers - набор чисел
  *
- * @returns {number}
+ * @returns {(number|string)}
  *
  * @example
  *    euclid(16, 32, 64, 128, 100)
  */
 
-function euclid(numbers) {
+function euclid(...numbers) {
     let allZeroCheck = true;
 
     for (let number of arguments) {
         if (!Number.isInteger(number)) {
-            return InvalidData;
+            return INVALID_DATA;
         }
 
         if (number !== 0 && allZeroCheck) {
@@ -57,24 +57,22 @@ function euclid(numbers) {
     }
 
     if (allZeroCheck) {
-        return UndefinedValue;
+        return UNDEFINED_VALUE;
     }
 
-    let stack = Array.from(arguments);
-
-    while (stack.length !== 1) {
-        let gcdValue = gcdOfPair(stack.pop(), stack.pop());
+    while (numbers.length !== 1) {
+        let gcdValue = gcdOfPair(numbers.pop(), numbers.pop());
 
         if (gcdValue === 1) {
             return 1;
         }
 
-        if (gcdValue === UndefinedValue) {
+        if (gcdValue === UNDEFINED_VALUE) {
             continue;
         }
 
-        stack.push(gcdValue);
+        numbers.push(gcdValue);
     }
 
-    return stack.pop();
+    return numbers.pop();
 }
