@@ -2,12 +2,12 @@
 
 QUnit.module('Тестируем функцию tree', function () {
     QUnit.test('Ёлочек высотой ниже трёх не бывает', function (assert) {
-        assert.strictEqual(tree(0), undefined);
-        assert.strictEqual(tree(1), undefined);
-        assert.strictEqual(tree(2), undefined);
-        assert.strictEqual(tree('0'), undefined);
-        assert.strictEqual(tree('1'), undefined);
-        assert.strictEqual(tree('2'), undefined);
+        assert.strictEqual(tree(0), '');
+        assert.strictEqual(tree(1), '');
+        assert.strictEqual(tree(2), '');
+        assert.strictEqual(tree('0'), '');
+        assert.strictEqual(tree('1'), '');
+        assert.strictEqual(tree('2'), '');
     });
 
     QUnit.test('Ёлочка высотой 3', function (assert) {
@@ -99,19 +99,19 @@ QUnit.module('Парочка дополнительных тестов функ�
 
 QUnit.module('Некорректные данные', function () {
     QUnit.test('Некорректная строка на вход', function (assert) {
-        assert.strictEqual(tree('1jfopejg'), undefined);
-        assert.strictEqual(tree('7jdihsdsfgrgb'), undefined);
-        assert.strictEqual(tree('6.6765123hjkcs'), undefined);
-        assert.strictEqual(tree('QWERTY'), undefined);
+        assert.strictEqual(tree('1jfopejg'), '');
+        assert.strictEqual(tree('7jdihsdsfgrgb'), '');
+        assert.strictEqual(tree('6.6765123hjkcs'), '');
+        assert.strictEqual(tree('QWERTY'), '');
     });
     QUnit.test('Дробное число на вход', function (assert) {
-        assert.strictEqual(tree(4.5777), undefined);
-        assert.strictEqual(tree(3.0032), undefined);
+        assert.strictEqual(tree(4.5777), '');
+        assert.strictEqual(tree(3.0032), '');
     });
     QUnit.test('Объект на вход', function (assert) {
-        assert.strictEqual(tree({key : value}), undefined);
+        assert.strictEqual(tree({key : 'value'}), '');
     });
     QUnit.test('Массив на вход', function (assert) {
-        assert.strictEqual(tree([]), undefined);
+        assert.strictEqual(tree([]), '');
     });
 });

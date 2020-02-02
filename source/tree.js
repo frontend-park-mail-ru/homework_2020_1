@@ -3,12 +3,12 @@
 const tree = (height) => {
     const type = typeof height;
     if (type != 'number' && type != 'string') {
-        return undefined;
+        return '';
     }
     const minHeight = 3;
     height = + height;
     if (!Number.isInteger(height) || height < minHeight) {
-        return undefined;
+        return '';
     }
 
     let resultString = '';
