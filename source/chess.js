@@ -17,10 +17,10 @@ const MIN_BOARD_SIZE = 2;
  * @returns {null} если на вход принимается число, меньше минимального размера доски или строка
  */
 const chess = (inputData) => {
-    let number = inputData.type === Number ? inputData : Number(inputData);
+    const number = typeof inputData === "number" ? inputData : Number(inputData);
     let output = '';
 
-    if( isNaN(number) ){
+    if(isNaN(number)){
         return null;
     }
 
