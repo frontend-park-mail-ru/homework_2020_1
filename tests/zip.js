@@ -74,4 +74,34 @@ QUnit.module('Тестируем функцию zip', function () {
 		};
 		assert.deepEqual(zip({name: 'age'}, {value: 42}, {name: 'cost'}, {value: -6}), obj);
 	});
+
+	QUnit.test('Копирование методов', function (assert) {
+		let obj = {
+			name: 'scotch.io',
+			exec: function ert() {
+				return true;
+			},
+		};
+
+		assert.deepEqual(zip(obj), obj);
+	});
+
+	QUnit.test('Глубокое копирование', function (assert) {
+		let obj = {
+			a: 1,
+			b: {
+				c: 2,
+			},
+		};
+
+		const zip_res = zip(obj);
+		assert.deepEqual(zip_res, {a: 1, b: {c: 2}});
+
+		let newObj = Object.assign({}, obj);
+
+		newObj.a = 20;
+		newObj.b.c = 30;
+
+		assert.deepEqual(zip_res, {a: 1, b: {c: 2}});
+	});
 });
