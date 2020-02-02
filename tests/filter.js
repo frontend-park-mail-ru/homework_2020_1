@@ -25,4 +25,9 @@ QUnit.module('Проверка работы функции filter', function () 
 		assert.strictEqual(filter(`<script>alert('1');</script>`, [ 'strong', 'em' ]), '&lt;script&gt;alert(&#39;1&#39;);&lt;/script&gt;');
 		assert.strictEqual(filter(`<img src="bad" onerror="alert('1');">`, [ 'strong', 'em' ]), '&lt;img src=&quot;bad&quot; onerror=&quot;alert(&#39;1&#39;);&quot;&gt;');
 	});
+
+	QUnit.test('filter экранирует цепочечные неравенства', function (assert) {
+		assert.strictEqual(filter('1 + 2 < 4 < 5 < 6!', [ 'strong', 'em' ]), '1 + 2 &lt; 4 &lt; 5 &lt; 6!');
+		assert.strictEqual(filter('6 > 5 > 4 > 1 + 2!', [ 'strong', 'em' ]), '6 &gt; 5 &gt; 4 &gt; 1 + 2!');
+	});
 });
