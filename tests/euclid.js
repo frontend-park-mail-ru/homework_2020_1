@@ -38,15 +38,15 @@ QUnit.module('Тестируем функцию euclid', function () {
 
 	QUnit.test('Функция корректно работает на отрицательных числах (определена как алгоритм над модулями этих чисел)', function(assert) {
 		let resultWithPositive = euclid(585, 81, 189);
-		assert.strictEqual(resultWithPositive, 9);
+		assert.strictEqual(resultWithPositive, 9, 'euclid(585, 81, 189) === 9');
 
-		assert.strictEqual(euclid(-585, 81, -189), resultWithPositive);
+		assert.strictEqual(euclid(-585, 81, -189), resultWithPositive, 'euclid(-585, 81, -189) === 9');
 	});
 
 	QUnit.test('Результат должен быть неопределен для набора, состоящего только из нулей', function(assert) {
-		assert.strictEqual(euclid(0), undefined, 'euclid(0) === undefined');
-		assert.strictEqual(euclid(0, 0), undefined, 'euclid(0, 0) === undefined');
-		assert.strictEqual(euclid(0, 0, 0, 0, 0, 0), undefined, 'euclid(0, 0, 0, 0, 0) === undefined');
+		assert.strictEqual(euclid(0), UndefinedValue, 'euclid(0) === undefined');
+		assert.strictEqual(euclid(0, 0), UndefinedValue, 'euclid(0, 0) === undefined');
+		assert.strictEqual(euclid(0, 0, 0, 0, 0, 0), UndefinedValue, 'euclid(0, 0, 0, 0, 0) === undefined');
 	});
 
 	QUnit.test('При этом их наличие в определяемом наборе не приводит к ошибке', function(assert) {
@@ -54,4 +54,8 @@ QUnit.module('Тестируем функцию euclid', function () {
 		assert.strictEqual(euclid(6006, 0, 0, 3738735, 51051, 0), 3003, 'euclid(6006, 0, 0, 3738735, 51051, 0) === 3003');
 	});
 
+	QUnit.test('Тест на невалидные данные', function(assert) {
+		assert.strictEqual(euclid('data', 5, 1, 'number', 'integer', 10), InvalidData, 'euclid(\'data\', 5, 1, \'number\', \'integer\', 10) - Некорректные входные данные');
+		assert.strictEqual(euclid('1', '2', '3', '4', '5'), InvalidData, 'euclid(\'1\', \'2\', \'3\', \'4\', \'5\') - Некорректные входные данные');
+	});
 });
