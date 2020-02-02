@@ -20,23 +20,26 @@ const ROMAN_NUMBERS = {
   1000 : 'M',
 };
 
-const DIGITS = Object.keys( NUMBERS );
+const DIGITS = Object.keys(NUMBERS);
 
 const roman = roman => {
-  const isNumeric = Number.isInteger( roman ) || /^\d+$/.test( roman );
+  const isNumeric = Number.isInteger(roman) || /^\d+$/.test(roman);
   
   if (!isNumeric) {
     
-    if( !/^[iIvVxXlLcCdDmM]+$/.test(roman) )
+    if ( !/^[iIvVxXlLcCdDmM]+$/.test(roman) ) {
       throw new Error(`Roman digits are I, V, X, L, C, D, M`);
+    }
+    
     return roman
       .toUpperCase()
       .split('')
       .reduce( ( prev, el, ind, str ) => (
         // True in case of IX = -1 + 10, IL = -1 + 50, etc.
-        DIGITS.indexOf( el ) < DIGITS.indexOf( str[ ind + 1 ] ) ?
-          prev - NUMBERS[ el ] : prev + NUMBERS[ el ]
+        DIGITS.indexOf(el) < DIGITS.indexOf(str[ ind + 1 ]) ?
+          prev - NUMBERS[el] : prev + NUMBERS[el]
       ), 0);
+    
   } else {
     roman = Number(roman);
     let res = '';
@@ -53,22 +56,22 @@ const roman = roman => {
                    roman <= 999 ? 100 :
                    roman <= 3999 ? 1000 : null; // won't be null.
       
-      if( roman >= 9 * base ) {
+      if (roman >= 9 * base) {
         // IX, LM, etc
-        res += ROMAN_NUMBERS[ base ]+ROMAN_NUMBERS[ base * 10 ];
+        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 10];
         roman -= 9 * base;
-      } else if( roman >= 5 * base ) {
+      } else if (roman >= 5 * base) {
         // V, L, D
-        res += ROMAN_NUMBERS[ base * 5 ];
+        res += ROMAN_NUMBERS[base * 5];
         roman -= 5 * base;
-      } else if( roman >= 4 * base ) {
+      } else if (roman >= 4 * base) {
         // IV, XL, CD
-        res += ROMAN_NUMBERS[ base ]+ROMAN_NUMBERS[ base * 5 ];
+        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 5];
         roman -= 4 * base;
       }
       
-      while( roman >= base ) {
-        res += ROMAN_NUMBERS[ base ];
+      while (roman >= base) {
+        res += ROMAN_NUMBERS[base];
         roman -= base;
       }
     }
