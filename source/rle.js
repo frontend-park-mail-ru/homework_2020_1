@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @description реализация rle-сжатия
  * @param {string} input исходная строка
