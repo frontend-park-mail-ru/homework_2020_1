@@ -1,6 +1,7 @@
 'use strict';
 
 QUnit.module('Тестируем функцию format', function () {
+
 	QUnit.test('format работает правильно c одной колонкой и положительными числами', function (assert) {
 		const input = [ 0, 1, 2, 10, 100, 1000, 10000 ];
 
