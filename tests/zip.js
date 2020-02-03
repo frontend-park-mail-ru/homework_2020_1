@@ -115,42 +115,42 @@ QUnit.module('Тестируем функцию zip', function () {
             },
         };
 
-        const zip_res = zip(obj);
-        assert.deepEqual(zip_res, {a: 1, b: {c: 2}});
+        const zipResult = zip(obj);
+        assert.deepEqual(zipResult, {a: 1, b: {c: 2}});
 
         let newObj = Object.assign({}, obj);
 
         newObj.a = 20;
         newObj.b.c = 30;
 
-        assert.deepEqual(zip_res, {a: 1, b: {c: 2}});
+        assert.deepEqual(zipResult, {a: 1, b: {c: 2}});
     });
 
     QUnit.test('Слияния вложенных объектов', function (assert) {
         const obj12 = {a: {b: {c: 1, d: 1, e: {r: 1}}}};
         const obj11 = {a: {b: {d: 12}}};
 
-        const res_obj1 = {a: {b: {c: 1, d: 12, e: {r: 1}}}};
-        assert.deepEqual(zip(obj11, obj12), res_obj1);
+        const resObj1 = {a: {b: {c: 1, d: 12, e: {r: 1}}}};
+        assert.deepEqual(zip(obj11, obj12), resObj1);
 
         const obj21 = {a: {b: {x: 12}}};
         const obj22 = {a: {b: {c: 1, d: 1, e: {r: 1}}}};
 
-        const res_obj2 = {a: {b: {c: 1, d: 1, x: 12, e: {r: 1}}}};
-        assert.deepEqual(zip(obj21, obj22), res_obj2);
+        const resObj2 = {a: {b: {c: 1, d: 1, x: 12, e: {r: 1}}}};
+        assert.deepEqual(zip(obj21, obj22), resObj2);
 
         const obj31 = {g: {a: 1}};
         const obj32 = {gg: {a: 2}};
 
-        const res_obj3 = {g: {a: 1}, gg: {a: 2}};
-        assert.deepEqual(zip(obj31, obj32), res_obj3);
+        const resObj3 = {g: {a: 1}, gg: {a: 2}};
+        assert.deepEqual(zip(obj31, obj32), resObj3);
 
         const obj51 = {a: {b: 1}};
         const obj53 = {a: {b: 0}};
         const obj52 = {n: {b: 2}};
         const obj54 = {x: {s: 4}};
 
-        const res_obj4 = {a: {b: 1}, n: {b: 2}, x: {s: 4}};
-        assert.deepEqual(zip(obj51, obj52, obj53, obj54), res_obj4);
+        const resObj4 = {a: {b: 1}, n: {b: 2}, x: {s: 4}};
+        assert.deepEqual(zip(obj51, obj52, obj53, obj54), resObj4);
     });
 });
