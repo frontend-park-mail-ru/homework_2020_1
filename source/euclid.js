@@ -19,6 +19,11 @@ function euclid(...nums) {
     return nums[0];
 
     function nod(lo, hi) {
+        if (!Number.isFinite(lo) 
+         || !Number.isFinite(hi)) {
+             return NaN;
+         }
+
         // нули делятся на сколь угодно большое число,
         // они нам не интересны
         if (!(lo * hi).toFixed(10)) {
