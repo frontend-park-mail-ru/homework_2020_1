@@ -91,6 +91,20 @@ QUnit.module('Тестируем функцию zip', function () {
         assert.deepEqual(zip(123), {});
         assert.deepEqual(zip('Test'), {});
         assert.deepEqual(zip([1, 2, 3]), {});
+        let obj = {
+            a: 'a',
+            b: {
+                c: 'c',
+                d: 'd',
+            },
+        }
+
+        obj.c = obj.b;
+        obj.e = obj.a;
+        obj.b.c = obj.c;
+        obj.b.d = obj.b;
+        obj.b.e = obj.b.c;
+        assert.deepEqual(zip(obj),Object.assign({}, obj));
     });
 
     QUnit.test('Глубокое копирование', function (assert) {

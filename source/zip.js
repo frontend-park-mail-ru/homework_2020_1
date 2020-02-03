@@ -5,6 +5,7 @@ const zip = (...objects) => {
 
     objects.reverse().forEach((obj) => {
         if (Object.prototype.toString.call(obj) !== '[object Object]') {
+            console.error('Invalid input type');
             return {};
         }
         for (let [key, value] of Object.entries(obj)) {
@@ -15,7 +16,11 @@ const zip = (...objects) => {
         }
 
         Object.assign(temp_obj, obj);
-        Object.assign(temp_obj, JSON.parse(JSON.stringify(obj)));
+        try {
+            Object.assign(temp_obj, JSON.parse(JSON.stringify(obj)));
+        } catch (e) {
+            console.error('Failed to make deep copy, error:' + e);
+        }
     });
 
     return temp_obj;
