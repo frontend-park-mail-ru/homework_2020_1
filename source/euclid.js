@@ -1,15 +1,12 @@
-'use strict'
+'use strict';
 
 function euclid(...nums) {
     if (nums.length == 0) {
         return NaN;
     }
 
-    while (nums.length > 2) {
-        // Итеративно заменяем последние 2 элемента
-        // массива их НОД-ом
-        nums[-2] = nod(nums[-1], nums[-2]);
-        nums.pop();
+    while (nums.length > 1) {
+	nums.push(nod(nums.pop(), nums.pop()));
     }
 
     if (nums[0].toFixed(10) == 0) {
@@ -24,7 +21,7 @@ function euclid(...nums) {
     function nod(lo, hi) {
         // нули делятся на сколь угодно большое число,
         // они нам не интересны
-        if (!(lo * hi)) {
+        if (!(lo * hi).toFixed(10)) {
             return lo ? lo : hi;
         }
 
@@ -32,6 +29,7 @@ function euclid(...nums) {
             if (lo > hi) {
                 [lo, hi] = [hi, lo];
             }
+
             hi %= lo;
         }
 
