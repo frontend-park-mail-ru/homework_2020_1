@@ -23,13 +23,13 @@ QUnit.module('Тестируем функцию rle', function () {
 		assert.strictEqual(rle('QWERTYqwertyQWERTYqwerty'), 'QWERTYqwertyQWERTYqwerty');
 		assert.strictEqual(rle('AAAaaaBBbbCc'), 'A3a3B2b2Cc');
 		assert.strictEqual(rle('BCCDDDAXXXX'), 'BC2D3AX4');
-		assert.strictEqual(rle('AAAAAAAAAAaaaaaaaaaaZZZZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzzzzz'), 'A10a10Z20z20');
+		assert.strictEqual(rle('AAAAAAAAAAaaaaaaaaaaZZZZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzzzzz'), 'A9Aa9aZ9Z9Z2z9z9z2');
 	});
 
 	QUnit.test('rle работает правильно на тестах с разными символами', function (assert) {
 		assert.strictEqual(rle('sS2333356****!&гддджжжж'), 'sS23456*4!&гд3ж4');
 		assert.strictEqual(rle('абвгггг!\"№№№'), 'абвг4!"№3');
-		assert.strictEqual(rle('1111111111'), '110');
+		assert.strictEqual(rle('1111111111'), '191');
 	});
 
 	QUnit.test('rle работает правильно на некорректных входных данных', function (assert) {

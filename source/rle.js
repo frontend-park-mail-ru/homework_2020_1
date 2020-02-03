@@ -15,7 +15,7 @@ const rle = (input) => {
     let currentPos = 0;
 
     while (currentPos < output.length) {
-        const regStr = `([${output[currentPos]}]){2,}`;
+        const regStr = `([${output[currentPos]}]){2,9}`;
         const regExp = new RegExp(regStr, 'g');
         output = output.replace(regExp, (match) => {
             ++currentPos;
