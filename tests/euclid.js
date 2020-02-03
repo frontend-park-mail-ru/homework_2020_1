@@ -28,4 +28,12 @@ QUnit.module('Тестируем функцию euclid', function () {
 		const temp = [ 80325, 55275, 8746650, 3000000, 45672375, 225, 54675 ];
 		assert.strictEqual(euclid(...[ ...temp, ...temp, ...temp, ...temp, ...temp ]), euclid(...temp));
 	});
+
+    QUnit.test('Функция должна выдавать логичные ответы на нестандартные входные данные', function (assert) {
+		assert.strictEqual(euclid(0, 0, 0, 0, 0), Infinity);
+
+		assert.ok(isNaN(euclid()));
+
+        assert.ok(isNaN(euclid(4, 'qwer', 12, 16)));
+    });
 });
