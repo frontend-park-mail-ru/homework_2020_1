@@ -36,5 +36,34 @@ QUnit.module('Тестируем функцию chess', function () {
 		assert.strictEqual(chess(8), expected);
 		assert.strictEqual(chess('8'), expected);
 	});
+	QUnit.test('Тест на отрицательные значения', function (assert) {
+		assert.strictEqual(chess(-1), null);
+		assert.strictEqual(chess('-1'), null);
+	});
 
+	QUnit.test('Шахматная доска 4 на 4', function (assert) {
+		const expected =
+			'* * \n' +
+			' * *\n' +
+			'* * \n' +
+			' * *\n';
+		assert.strictEqual(chess(4), expected);
+		assert.strictEqual(chess('4'), expected);
+	});
+
+	QUnit.test('Шахматная доска 10 на 10', function (assert) {
+		const expected =
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n' +
+			'* * * * * \n' +
+			' * * * * *\n';
+		assert.strictEqual(chess(10), expected);
+		assert.strictEqual(chess('10'), expected);
+	});
 });
