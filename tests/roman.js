@@ -40,10 +40,14 @@ QUnit.module('Тестируем функцию roman', function () {
 
     QUnit.test('Проверка граничных условий 1', function (assert) {
         assert.throws(() => roman("a"),
-          new Error(`Roman digits are I, V, X, L, C, D, M`),
+          new Error(`
+  Roman number's are in range from 0 to 3999.
+  Arabic number's must be whole!`),
           'Обрабатывает некорректный ввод');
         assert.throws(() => roman("iIvVa"),
-          new Error(`Roman digits are I, V, X, L, C, D, M`),
+          new Error(`
+  Roman number's are in range from 0 to 3999.
+  Arabic number's must be whole!`),
           'Обрабатывает некорректный ввод');
         assert.strictEqual(roman('MMMCMXCIX'), 3999);
     });

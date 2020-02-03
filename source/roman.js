@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const NUMBERS = {
   I : 1,
@@ -22,59 +22,69 @@ const ROMAN_NUMBERS = {
 
 const DIGITS = Object.keys(NUMBERS);
 
-const roman = roman => {
-  const isNumeric = Number.isInteger(roman) || /^\d+$/.test(roman);
+const arabicToRoman = arabic => {
   
-  if (!isNumeric) {
-    
-    if ( !/^[iIvVxXlLcCdDmM]+$/.test(roman) ) {
-      throw new Error(`Roman digits are I, V, X, L, C, D, M`);
-    }
-    
-    return roman
-      .toUpperCase()
-      .split('')
-      .reduce( ( prev, el, ind, str ) => (
-        // True in case of IX = -1 + 10, IL = -1 + 50, etc.
-        DIGITS.indexOf(el) < DIGITS.indexOf(str[ ind + 1 ]) ?
-          prev - NUMBERS[el] : prev + NUMBERS[el]
-      ), 0);
-    
-  } else {
-    roman = Number(roman);
-    let res = '';
-    // https://en.wikipedia.org/wiki/Roman_numerals
-    // The largest number that can be represented in this notation is 3,999
-    // (3,000 + 900 + 90 + 9 = MMM + CM + XC + IX = MMMCMXCIX)
-    if (roman < 0 || roman > 3999)
-      throw new Error(`Roman Number's are in range from 0 to 3999`);
-    
-    while (roman > 0) {
-      // Determine Base
-      const base = roman <= 9 ? 1 :
-                   roman <= 99 ? 10 :
-                   roman <= 999 ? 100 :
-                   roman <= 3999 ? 1000 : null; // won't be null.
-      
-      if (roman >= 9 * base) {
-        // IX, LM, etc
-        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 10];
-        roman -= 9 * base;
-      } else if (roman >= 5 * base) {
-        // V, L, D
-        res += ROMAN_NUMBERS[base * 5];
-        roman -= 5 * base;
-      } else if (roman >= 4 * base) {
-        // IV, XL, CD
-        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 5];
-        roman -= 4 * base;
-      }
-      
-      while (roman >= base) {
-        res += ROMAN_NUMBERS[base];
-        roman -= base;
-      }
-    }
-    return res;
+  let res = '';
+  // https://en.wikipedia.org/wiki/Roman_numerals
+  // The largest number that can be represented in this notation is 3,999
+  // (3,000 + 900 + 90 + 9 = MMM + CM + XC + IX = MMMCMXCIX)
+  if (arabic < 0 || arabic > 3999) {
+    throw new Error(`Roman Number's are in range from 0 to 3999`);
   }
+  
+  while (arabic > 0) {
+    // Determine Base
+    const base = arabic <= 9 ? 1 :
+                 arabic <= 99 ? 10 :
+                 arabic <= 999 ? 100 :
+                 arabic <= 3999 ? 1000 : null; // won't be null.
+    
+    if (arabic >= 9 * base) {
+      // IX, LM, etc
+      res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 10];
+      arabic -= 9 * base;
+    } else if (arabic >= 5 * base) {
+      // V, L, D
+      res += ROMAN_NUMBERS[base * 5];
+      arabic -= 5 * base;
+    } else if (arabic >= 4 * base) {
+      // IV, XL, CD
+      res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 5];
+      arabic -= 4 * base;
+    }
+    
+    while (arabic >= base) {
+      res += ROMAN_NUMBERS[base];
+      arabic -= base;
+    }
+  }
+  return res;
+  
+};
+
+const romanToArabic = roman => (
+  roman
+    .toUpperCase()
+    .split('')
+    .reduce( ( prev, el, ind, str ) => (
+      // True in case of IX = -1 + 10, IL = -1 + 50, etc.
+      DIGITS.indexOf(el) < DIGITS.indexOf(str[ ind + 1 ]) ?
+        prev - NUMBERS[el] : prev + NUMBERS[el]
+    ), 0)
+);
+
+const isArabic = num => (
+  ( typeof num === 'number' && Number.isInteger(num) ) ||
+  /^\d+$/.test(num)
+);
+
+const isRoman = num => /^[IVXLCDM]+$/i.test( num );
+const roman = num => {
+  
+  if( isRoman(num) ) return romanToArabic( num );
+  if( isArabic(num) ) return arabicToRoman(  Number(num) );
+  
+  throw new Error(`
+  Roman number's are in range from 0 to 3999.
+  Arabic number's must be whole!`);
 };
