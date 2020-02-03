@@ -45,9 +45,20 @@ QUnit.module('Тестируем функцию minmax', function () {
 		assert.deepEqual(minmax('-Infinity -2e20'), [ -Infinity, -2e20 ], 'Минимальное значение');
 	});
 
+	QUnit.test('Реакция minmax на разные разделители', function (assert) {
+		assert.deepEqual(minmax('1;-5.8:10,хотя 34 73 + -5.3 и'), [ -5.8, 73 ]);
+
+	});
+
 	QUnit.test('Реакция minmax на некорректный тип входного параметра', function (assert) {
-		assert.strictEqual(minmax(30), 'Некорректный тип входных данных');
-		assert.strictEqual(minmax([ 1, 2, 3 ]), 'Некорректный тип входных данных');
-		assert.strictEqual(minmax(new Object()), 'Некорректный тип входных данных');
+	    assert.throws(function () {
+	        minmax(30);
+        }, 'Некорректный тип входных данных');
+		assert.throws(function () {
+		    minmax([ 1, 2, 3 ]);
+        }, 'Некорректный тип входных данных');
+		assert.throws(function () {
+		    minmax(new Object());
+        }, 'Некорректный тип входных данных');
 	});
 });
