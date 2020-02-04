@@ -57,10 +57,12 @@ QUnit.module('Тестируем функцию roman', function () {
           new Error(`Roman Number's are in range from 0 to 3999`),
           'Обрабатывает некорректный ввод');
         assert.throws(() => roman(-1),
-          new Error(`Roman Number's are in range from 0 to 3999`),
+          new Error(`
+  Roman number's are in range from 0 to 3999.
+  Arabic number's must be whole!`),
           'Обрабатывает некорректный ввод');
         assert.strictEqual(roman('3999'), 'MMMCMXCIX');
         assert.strictEqual(roman('0'), '');
     });
-    
+
 });

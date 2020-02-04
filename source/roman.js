@@ -73,12 +73,10 @@ const romanToArabic = roman => (
     ), 0)
 );
 
-const isArabic = num => (
-  ( typeof num === 'number' && Number.isInteger(num) ) ||
-  /^\d+$/.test(num)
-);
-
+const isArabic = num => ( /^\d+$/.test(num) );
+// Pretty rough check.
 const isRoman = num => /^[IVXLCDM]+$/i.test( num );
+
 const roman = num => {
   
   if( isRoman(num) ) return romanToArabic( num );
