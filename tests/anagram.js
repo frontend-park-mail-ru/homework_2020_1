@@ -41,18 +41,31 @@ QUnit.module('Тестируем функцию anagram', function () {
 		];
 
 		const output = [
-			[ 'кот', 'кот', 'кот']
+			['кот', 'кот', 'кот']
 		];
 
 		assert.deepEqual(anagram(input), output);
 	});
 
-	QUnit.test('Проверка спика без анаграмм', function (assert) {
+	QUnit.test('Проверка списка без анаграмм', function (assert) {
 		const input = [
 			'привет', 'вечер', 'ночь', 'глава'
 		];
 
 		const output = [];
+
+		assert.deepEqual(anagram(input), output);
+	});
+
+	QUnit.test('Проверка списка с различными значениями', function (assert) {
+		const input = [
+			123, 321, 11, 'ночь', 'кот', 'ток'
+		];
+
+		const output = [
+			[123, 321],
+			['кот', 'ток']
+		];
 
 		assert.deepEqual(anagram(input), output);
 	});
