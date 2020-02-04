@@ -26,16 +26,20 @@ const zip = function uniqueElementsFromAllObjects(...args) {
 
     args.forEach((object) => {
 
+        if(typeof(object) == "object")
+        {
+            for (let key in object) {
 
-        for (let key in object) {
+                if (!retObject.has(key) && object.hasOwnProperty(key)) {
+                    retObject.set(key, object[key]);
+                }
 
-            if (!retObject.has(key) && object.hasOwnProperty(key)) {
-                retObject.set(key, object[key]);
             }
-
         }
 
     });
+
+    console.log(Object.fromEntries(retObject));
 
 
     return Object.fromEntries(retObject);

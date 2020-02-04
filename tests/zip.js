@@ -211,6 +211,17 @@ QUnit.module('Тестируем функцию zip', function () {
 
     });
 
+    QUnit.test('Функция работает только с типами object', function (assert) {
+        assert.deepEqual(zip("a iam idiot"), {},);
+
+        assert.deepEqual(zip(12345), {},);
+
+
+        assert.deepEqual(zip(true), {},);
+
+        assert.deepEqual(zip(undefined), {},);
+    });
+
 
 });
 
