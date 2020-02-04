@@ -2,8 +2,8 @@
 
 QUnit.module('Тестируем функцию chess', function () {
 	QUnit.test('Шахматной доски 1 на 1 не бывает', function (assert) {
-		assert.strictEqual(chess(1), null);
-		assert.strictEqual(chess('1'), null);
+		assert.strictEqual(chess(1), undefined);
+		assert.strictEqual(chess('1'), undefined);
 	});
 
 	QUnit.test('Шахматная доска 2 на 2', function (assert) {
@@ -50,7 +50,7 @@ QUnit.module('Тестируем функцию chess', function () {
 	});
 
 	QUnit.test('Шахматная доска размером меньше 2', function (assert) {
-		const expected = null;
+		const expected = undefined;
 		assert.strictEqual(chess(-1), expected);
 		assert.strictEqual(chess('-1'), expected);
 		assert.strictEqual(chess(0), expected);
@@ -77,7 +77,7 @@ QUnit.module('Тестируем функцию chess', function () {
 	});
 
 	QUnit.test('Шахматная доска не может быть создана строкой', function (assert) {
-		const expected = null;
+		const expected = undefined;
 		assert.strictEqual(chess('Hello, world!'), expected);
 	});
 
