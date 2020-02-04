@@ -1,6 +1,11 @@
 'use strict';
 
 QUnit.module('Тестируем функцию euclid', function () {
+	QUnit.test('Нестандартные ситуации', function (assert) {
+		assert.strictEqual(euclid(0, 0, 0, 0), 0, 'euclid(0, 0,...) === 0');
+		assert.strictEqual(euclid(1, 1, 1, 1, 1), 1, 'euclid(1, 1,...) === 1');
+	});
+
 	QUnit.test('На входе всего одно число', function (assert) {
 		assert.strictEqual(euclid(1), 1, 'euclid(1) === 1');
 		assert.strictEqual(euclid(2), 2, 'euclid(2) === 2');
