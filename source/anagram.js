@@ -10,16 +10,14 @@ const anagram = words => {
     let anagrams = {};
 
     words.forEach(item => {
-        let sortedWord = item.toString().toLowerCase().split("").sort().join("");
+        let sortedWord = item.toString().toLowerCase().split('').sort().join('');
 
-        if (anagrams[sortedWord] === undefined) {
-            anagrams[sortedWord] = [item]
-        } else {
-            anagrams[sortedWord].push(item);
-        }
+        anagrams[sortedWord] ? anagrams[sortedWord].push(item) : anagrams[sortedWord] = [item];
     });
 
     return Object.values(anagrams).filter(item => {
-        return item.length > 1 ? item.sort() : false;
+        if (item.length > 1) {
+            return item.sort();
+        }
     }).sort();
 };
