@@ -1,12 +1,14 @@
 'use strict';
 
-function plain(numbers, result_arr = []) {
-    for (const num of numbers) {
-        if (typeof num == "object" && num != null) {
-            plain(num, result_arr);
+const plain = (arr, resultArr = []) => {
+    if (!Array.isArray(arr)) return arr;
+    arr.forEach((el) => {
+        if (Array.isArray(el)) {
+            plain(el, resultArr);
         } else {
-            result_arr.push(num);
+            resultArr.push(el);
         }
-    }
-    return result_arr
-}
+    });
+    return resultArr
+};
+
