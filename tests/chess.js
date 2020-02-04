@@ -66,4 +66,18 @@ QUnit.module('Тестируем функцию chess', function () {
 		assert.strictEqual(chess(10), expected);
 		assert.strictEqual(chess('10'), expected);
 	});
+
+	QUnit.test('Проверка на невалидные данные', function (assert) {
+		assert.strictEqual(chess(-5), null);
+		assert.strictEqual(chess('СТРОКА, А НЕ ЧИСЛО'), null);
+		assert.strictEqual(chess('6.5'), null);
+	});
+
+	QUnit.test('Проверка на десятичные числа данные', function (assert) {
+		const expected =
+			'* \n' +
+			' *\n';
+		assert.strictEqual(chess(2.0), expected);
+		assert.strictEqual(chess('2.0'), expected);
+	});
 });

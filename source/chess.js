@@ -1,15 +1,32 @@
-"use strict";
+'use strict';
 
-function chess(n) {
-    if(n <= 1) {
+/**
+ * Возвращает шахматное поле.
+ *
+ * @param {string, number} size - Размер доски.
+ * @return {string, null} строка с шахматным полем или null в
+ * случае некоректных данных
+ */
+let chess = (size) => {
+    const MIN_SIZE = 1;
+    let isFloat = parseInt(size) !== parseFloat(size);
+    if (size <= MIN_SIZE || isFloat || Array.isArray(size)) {
         return null;
     }
-    let result = "";
-    for(let i=1; i<=n; i++) {
-        for(let j=0; j<n; j++) {
-            result += (( (i+j)%2 ) ? "*": " ");
-        }
-        result += "\n";
+
+    let odd_line = '';
+    let even_line = '';
+    for (let j=0; j<size; j++) {
+        let isOddLine = j%2;
+        odd_line += isOddLine ? ' ': '*';
+        even_line += !isOddLine ? ' ': '*';
     }
-    return result;
-}
+    odd_line += '\n';
+    even_line += '\n';
+
+    let result = odd_line + even_line;
+
+    odd_line = size%2 ? odd_line : '';
+
+    return result.repeat(size/2) + odd_line;
+};
