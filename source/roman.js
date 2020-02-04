@@ -39,18 +39,19 @@ const arabicToRoman = arabic => {
                  arabic <= 999 ? 100 :
                  arabic <= 3999 ? 1000 : null; // won't be null.
     
-    if (arabic >= 9 * base) {
-      // IX, LM, etc
-      res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 10];
-      arabic -= 9 * base;
-    } else if (arabic >= 5 * base) {
-      // V, L, D
-      res += ROMAN_NUMBERS[base * 5];
-      arabic -= 5 * base;
-    } else if (arabic >= 4 * base) {
-      // IV, XL, CD
-      res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 5];
-      arabic -= 4 * base;
+    switch ( true ) {
+      case arabic >= 9 * base:
+        // IX, LM, etc
+        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 10];
+        arabic -= 9 * base; break;
+      case arabic >=5 * base:
+        // V, L, D
+        res += ROMAN_NUMBERS[base * 5];
+        arabic -= 5 * base; break;
+      case arabic >= 4 * base:
+        // IV, XL, CD
+        res += ROMAN_NUMBERS[base] + ROMAN_NUMBERS[base * 5];
+        arabic -= 4 * base; break;
     }
     
     while (arabic >= base) {
