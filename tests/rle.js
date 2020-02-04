@@ -33,9 +33,9 @@ QUnit.module('Тестируем функцию rle', function () {
 	});
 
 	QUnit.test('rle работает правильно на некорректных входных данных', function (assert) {
-		assert.strictEqual(rle(), null);
-		assert.strictEqual(rle(123), null);
-		assert.strictEqual(rle(true), null);
-		assert.strictEqual(rle(NaN), null);
+		assert.strictEqual(rle(), undefined);
+		assert.strictEqual(rle(123), undefined);
+		assert.strictEqual(rle(true), undefined);
+		assert.strictEqual(rle(NaN), undefined);
 	});
 });
