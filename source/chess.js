@@ -13,18 +13,20 @@ const MIN_BOARD_SIZE = 2;
  * @description Создание шахматной доски
  * @param {number} inputData - размер стороны доски
  * @returns {string} возвращает шахматную доску при вводе корректных данных (числа)
- * @returns {null} если на вход принимается число, меньше минимального размера доски или строка
+ * @returns {undefined} если на вход принимается число, меньше минимального размера доски или строка
  */
 const chess = (inputData) => {
     const number = typeof inputData === "number" ? inputData : Number(inputData);
     let output = '';
 
     if (number < MIN_BOARD_SIZE || isNaN(number)) {
-        return null;
+        return undefined;
     }
 
+    const repeatSize = Math.floor(number / 2) + 1;
+    const positionForSlice = number % 2 - 2;
     for (let i = 0; i < number; i++) {
-        output += (i % 2 ? ' *' : '* ').repeat(Math.floor(number / 2) + 1).slice(0, number % 2 - 2) + '\n';
+        output += (i % 2 ? ' *' : '* ').repeat(repeatSize).slice(0, positionForSlice) + '\n';
     }
 
     return output;
