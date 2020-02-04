@@ -146,7 +146,10 @@ QUnit.module('Тестируем функцию zip', function () {
         assert.deepEqual(zip({answer: -100}, {answer: 42}), {answer: -100});
         assert.deepEqual(zip({answer: 0}, {answer: 0}), {answer: 0});
         assert.deepEqual(zip({answer: 2}, {answer: 42}), {answer: 2});
-        assert.deepEqual(zip({},{name: 'yeeet'},{answer: 42}, {answer: 43}, {name: 'Georg'}), {answer: 42,name: 'yeeet'});
+        assert.deepEqual(zip({}, {name: 'yeeet'}, {answer: 42}, {answer: 43}, {name: 'Georg'}), {
+            answer: 42,
+            name: 'yeeet'
+        });
     });
 
     QUnit.test('Функция работает с объектами со свойствами с разными именами', function (assert) {
@@ -195,6 +198,17 @@ QUnit.module('Тестируем функцию zip', function () {
             value: 42
         };
         assert.deepEqual(zip({name: 'age'}, {value: 42}, {name: 'cost'}, {value: -6}), obj);
+    });
+
+    QUnit.test('Функция правильно работает c  массивами', function (assert) {
+        assert.deepEqual(zip([0, 5, 7, 8]), {
+            "0": 0,
+            "1": 5,
+            "2": 7,
+            "3": 8
+        }, 'Значение должно браться из первого встретившегося поля');
+        assert.deepEqual(zip({age: 5}, {}, {age: 4}, {age: 72}, [2]), {age: 5, "0": 2});
+
     });
 
 
