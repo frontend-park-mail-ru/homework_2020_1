@@ -95,4 +95,20 @@ QUnit.module('Тестируем функцию set', function () {
 
 		assert.deepEqual(set({}, '.deep.nested.field', null), object);
 	});
+
+	//--------------------------------Добавленные тесты-------------------------------//
+	QUnit.test('set возвращает undefined при передаче параметра "не объекта" или null', function (assert) {
+		const result = undefined;
+
+		assert.strictEqual(set("asd", '.value.for.fields', 'seted value'), result);
+		assert.strictEqual(set(123, '.value.for.fields', 'seted value'), result);
+		assert.strictEqual(set(null, '.value.for.fields', 'seted value'), result);
+	});
+
+	QUnit.test('set возвращает undefined при передаче некорректной строки полей', function (assert) {
+		const result = undefined;
+
+		assert.strictEqual(set({}, '..string.with.empty.field', 'seted value'), result);
+		assert.strictEqual(set({}, '.string.with.-1.negative.number', 'seted value'), result);
+	});
 });
