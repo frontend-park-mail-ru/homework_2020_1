@@ -37,4 +37,18 @@ QUnit.module('Тестируем функцию anagram', () => {
 
     assert.deepEqual(anagram(input), output);
   });
+  QUnit.test('Функция возвращает группы анаграмм размером от 2-х слов', (assert) => {
+    const input = [
+      'кот', 'cлон', 'барокко',
+      'стоп', 'ток', 'кошка',
+      'липа', 'коробка', 'постъ',
+    ];
+
+    const output = [
+      ['барокко', 'коробка'],
+      ['кот', 'ток'],
+    ];
+
+    assert.deepEqual(anagram(input), output);
+  });
 });
