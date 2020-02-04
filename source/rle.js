@@ -7,7 +7,9 @@
  */
 const getRepeatedAmount = (input, pos) => {
     let shift = 1;
-    for (let symbol = input[pos]; input[shift + pos] === symbol && shift < 9; shift++) {}
+    while (input[shift + pos] === input[pos] && shift < 9){
+        shift++;
+    }
     return shift;
 };
 /**
