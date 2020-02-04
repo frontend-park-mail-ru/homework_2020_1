@@ -1,25 +1,25 @@
 'use strict';
 
+/**
+ * @description Возвращает список из групп слов-анаграмм
+ * @param {Array} words - список слов
+ * @returns {Array}
+ */
+
 const anagram = words => {
     let anagrams = {};
 
-    for (let word of words) {
-        let sortedWord = word.toLowerCase().split("").sort().join("");
+    words.forEach(item => {
+        let sortedWord = item.toString().toLowerCase().split("").sort().join("");
 
-        if (anagrams[sortedWord] != null) {
-            anagrams[sortedWord].push(word);
+        if (anagrams[sortedWord] === undefined) {
+            anagrams[sortedWord] = [item]
         } else {
-            anagrams[sortedWord] = [word]
+            anagrams[sortedWord].push(item);
         }
-    }
+    });
 
-    let answer = [];
-
-    for (let key in anagrams) {
-        if (anagrams[key].length > 1) {
-            answer.push(anagrams[key].sort());
-        }
-    }
-
-    return answer.sort();
+    return Object.values(anagrams).filter(item => {
+        return item.length > 1 ? item.sort() : false;
+    }).sort();
 };
