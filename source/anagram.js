@@ -11,7 +11,6 @@ const anagram = (input) => {
   if (!Array.isArray(input) || input.length < 2) return [];
 
   const anagramObj = input.sort().reduce((obj, item) => {
-  // Пропускаем элемент неподходящего типа
     if (typeof item !== 'string') return obj;
     const sortedLetters = item.split('').sort().join('');
 
