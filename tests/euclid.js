@@ -1,6 +1,10 @@
 'use strict';
 
 QUnit.module('Тестируем функцию euclid', function () {
+	QUnit.test('Bakaev Test', function (assert) {
+		assert.strictEqual(euclid(45, 60), 15, 'euclid(45, 60) === 15');
+	});
+
 	QUnit.test('На входе всего одно число', function (assert) {
 		assert.strictEqual(euclid(1), 1, 'euclid(1) === 1');
 		assert.strictEqual(euclid(2), 2, 'euclid(2) === 2');
