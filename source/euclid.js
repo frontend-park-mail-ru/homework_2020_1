@@ -1,15 +1,15 @@
 'use strict';
 
 function euclid(...nums) {
-    if (nums.length == 0) {
-        return NaN;
+    if (nums.length === 0) {
+        return null;
     }
 
     while (nums.length > 1) {
-	nums.push(nod(nums.pop(), nums.pop()));
+        nums.push(nod(nums.pop(), nums.pop()));
     }
 
-    if (nums[0].toFixed(10) == 0) {
+    if (nums[0] === 0) {
         // Здесь мы окажемся, если только на вход был подан 
         // массив, заполненный нулями, которые делятся
         // на сколь угодно большое число
@@ -19,14 +19,14 @@ function euclid(...nums) {
     return nums[0];
 
     function nod(lo, hi) {
-        if (!Number.isFinite(lo) 
-         || !Number.isFinite(hi)) {
-             return NaN;
-         }
+        if (!Number.isFinite(lo)
+            || !Number.isFinite(hi)) {
+            return null;
+        }
 
         // нули делятся на сколь угодно большое число,
         // они нам не интересны
-        if (!(lo * hi).toFixed(10)) {
+        if (!(lo * hi)) {
             return lo ? lo : hi;
         }
 

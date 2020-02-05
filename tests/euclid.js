@@ -32,8 +32,8 @@ QUnit.module('Тестируем функцию euclid', function () {
     QUnit.test('Функция должна выдавать логичные ответы на нестандартные входные данные', function (assert) {
 		assert.strictEqual(euclid(0, 0, 0, 0, 0), Infinity);
 
-		assert.ok(isNaN(euclid()));
+		assert.strictEqual(euclid(), null);
 
-        assert.ok(isNaN(euclid(4, 'qwer', 12, 16)));
+        assert.strictEqual(euclid(4, 'qwer', 12, 16), null);
     });
 });
