@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @description нахождение подстроки одинаковых символов
  * @param {string} input исходная строка
@@ -7,11 +8,12 @@
  */
 const getRepeatedAmount = (input, pos) => {
     let shift = 1;
-    while (input[shift + pos] === input[pos] && shift < 9){
+    while (input[shift + pos] === input[pos] && shift < 9) {
         shift++;
     }
     return shift;
 };
+
 /**
  * @description реализация rle-сжатия
  * @param {string} input исходная строка
@@ -20,17 +22,13 @@ const getRepeatedAmount = (input, pos) => {
  */
 const rle = (input) => {
     if (typeof input !== 'string') {
-        return undefined;
+        return void 0;
     }
 
-    let new_string = "";
-    for (let pos = 0; pos < input.length;) {
-        let shift = getRepeatedAmount(input, pos);
-        new_string += (shift === 1) ? input[pos] : input[pos] + shift;
-        pos += shift;
+    let output = '';
+    for (let pos = 0, shift = 1; pos < input.length;pos += shift) {
+        shift = getRepeatedAmount(input, pos);
+        output += (shift === 1) ? input[pos] : input[pos] + shift;
     }
-    return new_string;
+    return output;
 };
-
-
-
