@@ -4,29 +4,26 @@
  * Возвращает шахматное поле.
  *
  * @param {string, number} size - Размер доски.
- * @return {string, null} строка с шахматным полем или null в
+ * @return {string, undefined} строка с шахматным полем или undefined в
  * случае некоректных данных
  */
-let chess = (size) => {
-    const MIN_SIZE = 1;
-    let isFloat = parseInt(size) !== parseFloat(size);
-    if (size <= MIN_SIZE || isFloat || Array.isArray(size)) {
-        return null;
-    }
+const chess = (size) => {
+  const MIN_SIZE = 1;
+  const isFloat = parseInt(size) !== parseFloat(size);
+  if (size <= MIN_SIZE || isFloat || Array.isArray(size) || isNaN(size)) {
+      return undefined;
+  }
 
-    let odd_line = '';
-    let even_line = '';
-    for (let j=0; j<size; j++) {
-        let isOddLine = j%2;
-        odd_line += isOddLine ? ' ': '*';
-        even_line += !isOddLine ? ' ': '*';
-    }
-    odd_line += '\n';
-    even_line += '\n';
+  const isOddSize = size % 2;
 
-    let result = odd_line + even_line;
+  let oddLine = '* ';
+  let evenLine = ' *';
+  oddLine = oddLine.repeat(size/2).concat(isOddSize ? '*': '') + '\n';
+  evenLine = evenLine.repeat(size/2).concat(isOddSize ? ' ': '') + '\n';
 
-    odd_line = size%2 ? odd_line : '';
+  const result = oddLine + evenLine;
 
-    return result.repeat(size/2) + odd_line;
+  oddLine = isOddSize ? oddLine : '';
+
+  return result.repeat(size/2) + oddLine;
 };
