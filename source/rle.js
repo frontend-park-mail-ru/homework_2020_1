@@ -7,7 +7,7 @@
  *   If a number is present, function returns a null
  * @return {string}
  */
-function rle(str) {
+let rle =  (str) => {
     if (typeof str != 'string')
         return null
     let res = '';
