@@ -8,9 +8,9 @@
  * случае некоректных данных
  */
 const chess = (size) => {
-  const MIN_SIZE = 1;
+  const minSize = 1;
   const isFloat = parseInt(size) !== parseFloat(size);
-  if (size <= MIN_SIZE || isFloat || isNaN(size)) {
+  if (size <= minSize || isFloat || isNaN(size)) {
     return undefined;
   }
 
@@ -20,7 +20,5 @@ const chess = (size) => {
   const oddLine =  '* '.repeat(sizeHalf).concat(isOddSize ? '*': '') + '\n';
   const evenLine = ' *'.repeat(sizeHalf).concat(isOddSize ? ' ': '') + '\n';
 
-  let result = (oddLine + evenLine).repeat(sizeHalf);
-
-  return result.concat(isOddSize ? oddLine : '');
+  return (oddLine + evenLine).repeat(sizeHalf).concat(isOddSize ? oddLine : '');
 };
