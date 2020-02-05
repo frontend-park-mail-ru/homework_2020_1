@@ -11,10 +11,10 @@
 
 const format = (data, columnsCount) => {
 
-    if (Array.isArray(data) && (('number' !== typeof columnsCount || data.some(i => !Number.isInteger(parseInt(i))))
-        || (data.some(i => Number(parseFloat(i)) % 1 !== 0)))) {
+    if (Array.isArray(data) && ((isNaN(Number(columnsCount)) || columnsCount < 1
+        || data.some(elem => (!Number.isInteger(parseInt(elem)) || (Number(parseFloat(elem)) % 1)))))) {
         return undefined;
-    } else if ('number' === typeof data) {
+    } else if (!isNaN(Number(data))) {
         return data.toString();
     }
 
@@ -28,9 +28,8 @@ const format = (data, columnsCount) => {
 
     for (let i = 0; i < data.length; i++) {
         const columnNumber = i % columnsCount;
-        result = result.concat(((columnNumber === 0 && i !== 0) ? '\n' : ' '),
+        result = result.concat(((!columnNumber && i) ? '\n' : ' '),
             data[i].toString().padStart(columnSize[columnNumber]));
-
     }
 
     return result.slice(1);
