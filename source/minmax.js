@@ -8,7 +8,9 @@
 
 const minmax = (str) => {
     let result = [undefined, undefined];
-    if (typeof str !== "string") return result;
+    if (typeof str !== "string") {
+        return result;
+    }
 
     const elements = str.split(/[ ,]+/)
         .map(el => parseFloat(el))
