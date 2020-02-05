@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Возвращает объект, созданный из полей других объектов
  * возвращаемый объект содержит уникальные поля всех объектов,
@@ -12,7 +11,7 @@
  *
  * Если не передано никаких объект-аргументов в функцию - возвращается "пустой" объект
  *
- * @param {args} - остаточные параметры, в которые и передаются объекты
+ * @param args - остаточные параметры, в которые и передаются объекты
  * @return {object} - возвращаемый "уникальный объект".
  */
 
@@ -22,18 +21,17 @@ let zip = (...args) => {
         return {};
     }
 
-    let retObject = new Map();
-
-    args.forEach((object) => {
-        if (typeof (object) == "object") {
-            for (let key in object) {
-                if (!retObject.has(key) && object.hasOwnProperty(key)) {
-                    retObject.set(key, object[key]);
+    return Object.fromEntries(
+        args.reduce((accumulator, object) => {
+            if (typeof object == "object") {
+                for (const [key, value] of Object.entries(object)) {
+                    if (!accumulator.has(key)) {
+                        accumulator.set(key, value);
+                    }
                 }
             }
-        }
-    });
-
-    return Object.fromEntries(retObject);
+            return accumulator;
+        }, new Map())
+    );
 
 };

@@ -223,6 +223,3 @@ QUnit.module('Тестируем функцию zip', function () {
 
 
 });
-
-
-
