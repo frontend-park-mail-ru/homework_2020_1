@@ -7,8 +7,8 @@
  * @param parentProp {String} - имя свойства родителя (если текущий объект вложенный)
  */
 const internalPlainify = (complexObject, plainObject, parentProp = '') => {
-    for (let prop in complexObject) {
-        let plainProp = parentProp !== '' ? parentProp + '.' + prop : prop;
+    for (const prop in complexObject) {
+        const plainProp = parentProp !== '' ? parentProp + '.' + prop : prop;
 
         if (complexObject[prop] instanceof Object) {
             internalPlainify(complexObject[prop], plainObject, plainProp);
@@ -25,7 +25,9 @@ const internalPlainify = (complexObject, plainObject, parentProp = '') => {
  * @returns {Object}
  */
 const plainify = complexObject => {
-    let plainObject = {};
+    const plainObject = {};
+
     internalPlainify(complexObject, plainObject);
+
     return plainObject;
 };
