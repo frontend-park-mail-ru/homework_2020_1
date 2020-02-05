@@ -11,8 +11,12 @@
 
 const format = (data, columnsCount) => {
 
-    if (Array.isArray(data) && ((isNaN(Number(columnsCount)) || columnsCount < 1
-        || data.some(elem => (!Number.isInteger(parseInt(elem)) || (Number(parseFloat(elem)) % 1)))))) {
+    if(!Array.isArray(data)){
+        data = [data];
+    }
+    if ((isNaN(Number(columnsCount)) || columnsCount < 1
+        || data.some(elem => (!Number.isInteger(parseInt(elem))
+            || (Number(parseFloat(elem)) % 1) ||isNaN(Number(elem)))))) {
         return undefined;
     } else if (!isNaN(Number(data))) {
         return data.toString();

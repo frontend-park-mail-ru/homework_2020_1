@@ -117,6 +117,10 @@ QUnit.module('Тестируем функцию format', function () {
 		const expected = '0';
 		assert.strictEqual(format(input, 1), expected);
 		assert.strictEqual(format(input, 5), expected);
+
+		assert.strictEqual(format(1.1, 5), undefined);
+		assert.strictEqual(format([1.1], 5), undefined);
+		assert.strictEqual(format('11dd', 5), undefined);
 	});
 
 	QUnit.test('format работает правильно, когда количество чисел равно количеству строк (>1)', function (assert) {
