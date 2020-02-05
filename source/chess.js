@@ -10,20 +10,17 @@
 const chess = (size) => {
   const MIN_SIZE = 1;
   const isFloat = parseInt(size) !== parseFloat(size);
-  if (size <= MIN_SIZE || isFloat || Array.isArray(size) || isNaN(size)) {
-      return undefined;
+  if (size <= MIN_SIZE || isFloat || isNaN(size)) {
+    return undefined;
   }
 
   const isOddSize = size % 2;
+  const sizeHalf = size / 2;
 
-  let oddLine = '* ';
-  let evenLine = ' *';
-  oddLine = oddLine.repeat(size/2).concat(isOddSize ? '*': '') + '\n';
-  evenLine = evenLine.repeat(size/2).concat(isOddSize ? ' ': '') + '\n';
+  const oddLine =  '* '.repeat(sizeHalf).concat(isOddSize ? '*': '') + '\n';
+  const evenLine = ' *'.repeat(sizeHalf).concat(isOddSize ? ' ': '') + '\n';
 
-  const result = oddLine + evenLine;
+  let result = (oddLine + evenLine).repeat(sizeHalf);
 
-  oddLine = isOddSize ? oddLine : '';
-
-  return result.repeat(size/2) + oddLine;
+  return result.concat(isOddSize ? oddLine : '');
 };
