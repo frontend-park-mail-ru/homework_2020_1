@@ -9,5 +9,6 @@ QUnit.module('Тестируем функцию rle', function () {
 		assert.strictEqual(rle(''), '');
 		assert.strictEqual(rle(null), null);
 		assert.strictEqual(rle(undefined), undefined);
+		assert.strictEqual(rle('abc123def'), null);
 	});
 });
