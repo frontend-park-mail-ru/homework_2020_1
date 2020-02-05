@@ -93,22 +93,26 @@ QUnit.module('Тестируем функцию set', function () {
 			}
 		};
 
+		const object2 = {
+			deep: [
+				{ field: null }
+			]
+		}
+
 		assert.deepEqual(set({}, '.deep.nested.field', null), object);
+		assert.deepEqual(set({}, '.deep.0.field', null), object2);
+
 	});
 
 	//--------------------------------Добавленные тесты-------------------------------//
-	QUnit.test('set возвращает undefined при передаче параметра "не объекта" или null', function (assert) {
-		const result = undefined;
-
-		assert.strictEqual(set("asd", '.value.for.fields', 'seted value'), result);
-		assert.strictEqual(set(123, '.value.for.fields', 'seted value'), result);
-		assert.strictEqual(set(null, '.value.for.fields', 'seted value'), result);
+	QUnit.test('set кидает исключение TypeError при передаче параметра "не объекта" или null', function (assert) {
+		assert.throws(func => {set("asd", '.value.for.fields', 'seted value')}, TypeError);
+		assert.throws(func => {set(123, '.value.for.fields', 'seted value')}, TypeError);
+		assert.throws(func => {set(null, '.value.for.fields', 'seted value')}, TypeError);
 	});
 
-	QUnit.test('set возвращает undefined при передаче некорректной строки полей', function (assert) {
-		const result = undefined;
-
-		assert.strictEqual(set({}, '..string.with.empty.field', 'seted value'), result);
-		assert.strictEqual(set({}, '.string.with.-1.negative.number', 'seted value'), result);
+	QUnit.test('set кидает исключение TypeError при передаче некорректной строки полей', function (assert) {
+		assert.throws(func => {set({}, '..string.with.empty.field', 'seted value')}, TypeError);
+		assert.throws(func => {set({}, '.', 'seted value')}, TypeError);
 	});
 });
