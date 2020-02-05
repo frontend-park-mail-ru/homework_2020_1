@@ -8,24 +8,21 @@ const dangerous = {
     "'": '&#39;'
 };
 
-const replaceDangerousSymbols = tag => {
+const replaceDangerousSymbols = str => {
     let result = '';
-    for (let j of tag) {
-        if (j in dangerous) {
-            result += dangerous[j];
+    for (let i of str) {
+        if (i in dangerous) {
+            result += dangerous[i];
         } else {
-            result += j;
+            result += i;
         }
     }
     return result;
 }
 
-const tagFinished = (tag, closingTag, allowed) => {
-    if (allowed.indexOf(tag) != -1) {
-        return '<' + (closingTag ? '/' : '') + tag + '>';
-    } else {
-        return replaceDangerousSymbols('<' + (closingTag ? '/' : '') + tag + '>');
-    }
+const findTagEnd = (text, i) => {
+    for (; i < text.length && text[i] !== '>'; i++);
+    return i;
 }
 
 /**
@@ -38,30 +35,18 @@ const tagFinished = (tag, closingTag, allowed) => {
  */
 const filter = (text, allowed) => {
     let result = '';
-    let tagMet = false;
-    let closingTag = false;
-    let tag = '';
     for (let i = 0; i < text.length; i++) {
-        if (tagMet) {
-            if (text[i] === '>') {
-                tagMet = false;
-                result += tagFinished(tag, closingTag, allowed);
-                tag = '';
-            } else if (text[i] !== '/') {
-                tag += text[i];
-            }
-        } else {
-            if (text[i] === '<') {
-                tagMet = true;
-                tag = '';
-                closingTag = (i + 1 < text.length) && (text[i + 1] === '/');
+        if (text[i] === '<') {
+            let tag = text.slice(i + '<'.length, findTagEnd(text, i));
+            if (allowed.indexOf(tag) !== -1 || (tag[0] === '/' && allowed.indexOf(tag.slice(1, tag.length)) !== -1)) {
+                result += '<' + tag + (tag.length + '>'.length < text.length - i ? '>' : '');
             } else {
-                result += replaceDangerousSymbols(text[i]);
+                result += replaceDangerousSymbols('<' + tag + (tag.length + '>'.length < text.length - i ? '>' : ''));
             }
+            i += tag.length + '>'.length;
+        } else {
+            result += replaceDangerousSymbols(text[i]);
         }
-    }
-    if (tag !== '') {
-        result += dangerous['<'] + replaceDangerousSymbols(tag);
     }
     return result;
 }
