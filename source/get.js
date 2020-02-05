@@ -11,7 +11,7 @@
  */
 const get = (object, propertyString) => {
     if (typeof (object) !== 'object' || typeof (propertyString) !== 'string') {
-        return undefined;
+        return void 0;
     }
 
     const properties = propertyString.split('.');
@@ -19,8 +19,8 @@ const get = (object, propertyString) => {
     let result = object;
     for (let property of properties) {
         // in case there can not be any property
-        if (result === undefined || result === null) {
-            return undefined;
+        if (typeof(result) === "undefined" || result === null) {
+            return void 0;
         }
 
         // ignore empty properties
