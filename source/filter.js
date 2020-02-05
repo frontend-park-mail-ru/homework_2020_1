@@ -8,57 +8,60 @@ const dangerous = {
     "'": '&#39;'
 };
 
-const analyseTag = tag => {
-    let res = '';
+const replaceDangerousSymbols = tag => {
+    let result = '';
     for (let j of tag) {
         if (j in dangerous) {
-            res += dangerous[j];
+            result += dangerous[j];
         } else {
-            res += j;
+            result += j;
         }
     }
-    return res;
+    return result;
 }
 
+const tagFinished = (tag, closingTag, allowed) => {
+    if (allowed.indexOf(tag) != -1) {
+        return '<' + (closingTag ? '/' : '') + tag + '>';
+    } else {
+        return replaceDangerousSymbols('<' + (closingTag ? '/' : '') + tag + '>');
+    }
+}
+
+/**
+ * Заменяет "опасные" символы в исходном тексте
+ * знаки '<' и '>' обрамляющие разрешённые теги не заменяются
+ *
+ * @param {string} text - Исходный текст
+ * @param {array of strings} allowed - Массив разрешённых тегов
+ * @returns  {string}
+ */
 const filter = (text, allowed) => {
-    let res = '';
-    let lt = false;
-    let c = false;
+    let result = '';
+    let tagMet = false;
+    let closingTag = false;
     let tag = '';
     for (let i = 0; i < text.length; i++) {
-        if (lt) {
-            if (text[i] == '>') {
-                lt = false;
-                if (allowed.indexOf(tag) != -1 ) {
-                    res += '<' + (c ? '/' : '') + tag + '>';
-                } else {
-                    res += dangerous['<'] + (c ? '/' : '') + analyseTag(tag) + dangerous['>'];
-                }
+        if (tagMet) {
+            if (text[i] === '>') {
+                tagMet = false;
+                result += tagFinished(tag, closingTag, allowed);
                 tag = '';
-            } else {
+            } else if (text[i] !== '/') {
                 tag += text[i];
             }
         } else {
-            if (text[i] == '<') {
-                lt = true;
+            if (text[i] === '<') {
+                tagMet = true;
                 tag = '';
-                if (i + 1 < text.length) {
-                    if (text[i + 1] == '/') {
-                        i++;
-                        c = true;
-                    } else {
-                        c = false;
-                    }
-                }
-            } else if (text[i] in dangerous) {
-                res += dangerous[text[i]];
+                closingTag = (i + 1 < text.length) && (text[i + 1] === '/');
             } else {
-                res += text[i];
+                result += replaceDangerousSymbols(text[i]);
             }
         }
     }
-    if (tag != '') {
-        res += dangerous['<'] + analyseTag(tag);
+    if (tag !== '') {
+        result += dangerous['<'] + replaceDangerousSymbols(tag);
     }
-    return res;
-};
+    return result;
+}
