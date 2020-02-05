@@ -56,8 +56,19 @@ QUnit.module('Тестируем функцию get', function () {
 			bar: undefined
 		};
 
-		assert.strictEqual(get(object, ".foo.kek"), undefined);
-		assert.strictEqual(get(object, ".bar.kek"), undefined);
+		assert.strictEqual(get(object, '.foo.kek'), undefined);
+		assert.strictEqual(get(object, '.bar.kek'), undefined);
+	});
+
+	QUnit.test('get работает правильно при некорректных входных типах данных', function (assert) {
+		const object = {
+			foo: 'bar'
+		};
+
+		assert.strictEqual(get(2, '.foo'), undefined);
+		assert.strictEqual(get(object, object), undefined);
+		assert.strictEqual(get(object, 23), undefined);
+		assert.strictEqual(get('28', 94), undefined);
 	});
 
 });

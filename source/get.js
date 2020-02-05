@@ -5,12 +5,16 @@
  * This function is used to safely get object property.
  *
  * @param object - object you need to get property from
- * @param property_string - same as what you would write after regular object ( e.g.".foo.bar"), but it ignores
- * empty properties (e.g. "...foo..kek" == ".foo.kek")
+ * @param propertyString - same as what you would write after regular object ( e.g.'.foo.bar'), but it ignores
+ * empty properties (e.g. '...foo..kek' == '.foo.kek')
  * @returns {undefined|*} - will return property on success, will return undefined in case property can not be found
  */
-function get(object, property_string) {
-    let properties = property_string.split('.');
+const get = (object, propertyString) => {
+    if (typeof (object) !== 'object' || typeof (propertyString) !== 'string') {
+        return undefined;
+    }
+
+    const properties = propertyString.split('.');
 
     let result = object;
     for (let property of properties) {
@@ -20,7 +24,7 @@ function get(object, property_string) {
         }
 
         // ignore empty properties
-        if (property === "") {
+        if (property === '') {
             continue;
         }
 
@@ -28,4 +32,4 @@ function get(object, property_string) {
     }
 
     return result;
-}
+};
