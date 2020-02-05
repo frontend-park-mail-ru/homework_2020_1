@@ -11,6 +11,7 @@ QUnit.module('Тестируем функцию minmax', function () {
 		assert.deepEqual(minmax(null), [ undefined, undefined ], 'Вызов с null');
 		assert.deepEqual(minmax(new Number(0)), [ undefined, undefined ], 'Вызов с объектом');
 		assert.deepEqual(minmax([]), [ undefined, undefined ], 'Вызов c массивом');
+		assert.deepEqual(minmax(Math.min), [ undefined, undefined ], 'Вызов c функцией');
 	});
 
 	QUnit.test('minmax работает правильно на строках без чисел', function (assert) {

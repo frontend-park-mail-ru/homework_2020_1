@@ -1,6 +1,6 @@
 'use strict';
 
-const minmax = function (str) {
+const minmax = (str) => {
     let result = [undefined, undefined];
 
     if (typeof str === "string") {
@@ -12,6 +12,6 @@ const minmax = function (str) {
                 result[1] = el;
         });
     }
-    
+
     return result;
 };
