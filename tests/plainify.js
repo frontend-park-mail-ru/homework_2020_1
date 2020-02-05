@@ -42,4 +42,12 @@ QUnit.module('Тестируем функцию plainify', function () {
 
 		assert.deepEqual(plainify(nested2), plain2);
 	});
+
+	QUnit.test('Нестандартные значения для plainify', function (assert) {
+		assert.deepEqual(plainify({int: 1, incorrect: null}), {'int' : 1, 'incorrect' : null});
+		assert.deepEqual(plainify({int: 1, incorrect: undefined}), {'int' : 1, 'incorrect' : undefined});
+		assert.deepEqual(plainify({}), {});
+		assert.deepEqual(plainify(null), {});
+		assert.deepEqual(plainify(undefined), {});
+	});
 });
