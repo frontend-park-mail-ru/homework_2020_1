@@ -15,8 +15,9 @@ function pathSet(object, path, value) {
     }
 
     let root = path[0];
-    object[root] = pathSet(object[root] ? object[root] : {},
-                                path.slice(1, path.length), value);
+    let nestedObject = object[root] ? object[root] : {};
+    let pathWithoutRoot = path.slice(1, path.length);
+    object[root] = pathSet(nestedObject, pathWithoutRoot, value);
     return object;
 }
 
@@ -30,6 +31,9 @@ function pathSet(object, path, value) {
  */
 
 function set (object, field, value) {
-    return (field === '') ? object : pathSet(object,
-            field.split('.').slice(1, field.length), value);
+    if (typeof object !== Object || typeof field !== String) {
+        throw new Error('Не верный тип данных');
+    }
+    let path = field.split('.').slice(1, field.length);
+    return (field === '') ? object : pathSet(object, path, value);
 }
