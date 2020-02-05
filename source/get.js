@@ -5,7 +5,7 @@ function get(object, properties_string) {
 
     let result = object;
     for (let property of properties) {
-        if (result === undefined) {
+        if (result === undefined || result === null) {
             return undefined;
         }
 
