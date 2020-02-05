@@ -4,6 +4,7 @@
     <list default="true" id="5cefae92-c349-4db0-b449-700edb5f5448" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/zip.js" beforeDir="false" afterPath="$PROJECT_DIR$/source/zip.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/zip.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/zip.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,8 @@
       <option name="presentableId" value="Default" />
       <updated>1580838519253</updated>
       <workItem from="1580838520675" duration="1397000" />
-      <workItem from="1580924128780" duration="38000" />
+      <workItem from="1580924128780" duration="97000" />
+      <workItem from="1580927668376" duration="668000" />
     </task>
     <servers />
   </component>
