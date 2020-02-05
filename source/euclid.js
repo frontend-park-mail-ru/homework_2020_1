@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * Вычисляет НОД целочисленного массива
+ * @param nums {number}
+ * @returns {null|number|Infinity}
+ * @author Артур Потапчук
+ */
 function euclid(...nums) {
     if (nums.length === 0) {
         return null;
