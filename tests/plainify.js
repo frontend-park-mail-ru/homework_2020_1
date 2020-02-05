@@ -1,7 +1,7 @@
 'use strict';
 
 QUnit.module('Тестируем функцию plainify', function () {
-	QUnit.test('plainify работает правильно', function (assert) {
+	QUnit.test('plainify работает правильно c хорошими входными данными', function (assert) {
 		assert.deepEqual(plainify({foo: 'bar', baz: 42}), {'foo': 'bar', 'baz': 42});
 
 		const nested1 = {
@@ -41,5 +41,10 @@ QUnit.module('Тестируем функцию plainify', function () {
 		};
 
 		assert.deepEqual(plainify(nested2), plain2);
+	});
+    
+    QUnit.test('plainify работает правильно c плохими входными данными', function (assert) {
+		assert.deepEqual(plainify(undefined), {});
+        assert.deepEqual(plainify(4), {});
 	});
 });
