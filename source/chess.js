@@ -16,16 +16,15 @@ const MIN_BOARD_SIZE = 2;
  * @returns {undefined} если на вход принимается число, меньше минимального размера доски или строка
  */
 const chess = (inputData) => {
-    let number = 0;
     let output = '';
 
-    if ( isNaN(number = Number(inputData)) || number < MIN_BOARD_SIZE) {
+    if ( isNaN(Number(inputData) ) || Number(inputData) < MIN_BOARD_SIZE) {
         return undefined;
     }
 
-    const repeatSize = Math.floor(number / 2) + 1;
-    const positionForSlice = number % 2 - 2;
-    for (let i = 0; i < number; i++) {
+    const repeatSize = Math.floor(Number(inputData) / 2) + 1;
+    const positionForSlice = Number(inputData) % 2 - 2;
+    for (let i = 0; i < Number(inputData); i++) {
         output += (i % 2 ? ' *' : '* ').repeat(repeatSize).slice(0, positionForSlice) + '\n';
     }
 
