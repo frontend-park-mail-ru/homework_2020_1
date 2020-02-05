@@ -22,6 +22,11 @@ const ROMAN_NUMBERS = {
 
 const DIGITS = Object.keys(NUMBERS);
 
+/**
+ * @description Converts arabic numbers to roman
+ * @param {number} arabic arabic number
+ * @returns {string} roman number
+ */
 const arabicToRoman = arabic => {
   
   let res = '';
@@ -63,6 +68,11 @@ const arabicToRoman = arabic => {
   
 };
 
+/**
+ * @description Converts roman numbers to arabic
+ * @param {string} roman roman number
+ * @returns {number} arabic or roman number
+ */
 const romanToArabic = roman => (
   roman
     .toUpperCase()
@@ -78,6 +88,11 @@ const isArabic = num => ( /^\d+$/.test(num) );
 // Pretty rough check.
 const isRoman = num => /^[IVXLCDM]+$/i.test( num );
 
+/**
+ * @description Converts arabic numbers to roman and vise versa
+ * @param {string/number} num roman or arabic number
+ * @returns {number/string} arabic or roman number
+ */
 const roman = num => {
   
   if( isRoman(num) ) return romanToArabic( num );
