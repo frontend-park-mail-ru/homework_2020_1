@@ -8,9 +8,8 @@
  * @return {string}
  */
 function rle(str) {
-    if (typeof str == 'undefined' || str == null)
-        return str
-
+    if (typeof str != 'string')
+        return null
     let res = '';
     for (let tmp='', cnt=1, i = 0; i < str.length; ++i, cnt=1) {
         res = res + (tmp = str[i])
