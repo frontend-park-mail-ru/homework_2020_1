@@ -3,7 +3,7 @@
 /**
  * @description Поиск минимального и максимального числа в строке
  * @param inputString исходная строка
- * @returns {*} массив : первый элемент - минимум, второй элемент - максимум.
+ * @returns {Array} первый элемент - минимум, второй элемент - максимум.
  */
 const minmax = inputString => {
   if (typeof inputString !== 'string') {
