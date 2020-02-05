@@ -97,7 +97,6 @@ QUnit.module('Тестируем функцию set', function () {
 
 	});
 
-	//--------------------------------Добавленные тесты-------------------------------//
 	QUnit.test('set кидает исключение TypeError при передаче параметра "не объекта" или null', function (assert) {
 		assert.throws(func => {set("asd", '.value.for.fields', 'seted value')}, TypeError);
 		assert.throws(func => {set(123, '.value.for.fields', 'seted value')}, TypeError);
