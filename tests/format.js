@@ -143,6 +143,12 @@ QUnit.module('Тестируем функцию format', function () {
 		assert.strictEqual(format(input, 5), expected);
 	});
 
+	QUnit.test('format возвращает null, если подается массив с элементами из чисел и строк', function (assert) {
+		const input = [ 0, '11.1ssssaaa', 2, '11', 4, 1.2, '10' ];
+		const expected = null;
+		assert.strictEqual(format(input, 2), expected);
+	});
+
 	QUnit.test('format возвращает null, если подается некорректный массив с константами', function (assert) {
 		const input = [ 0, -Infinity, 2, Infinity, 4];
 		const expected = null;
@@ -154,4 +160,5 @@ QUnit.module('Тестируем функцию format', function () {
 		const expected = null;
 		assert.strictEqual(format(input, 'Hello, World!'), expected);
 	});
+
 });
