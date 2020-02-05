@@ -51,14 +51,17 @@ QUnit.module('Тестируем функцию minmax', function () {
 	});
 
 	QUnit.test('Реакция minmax на некорректный тип входного параметра', function (assert) {
-	    assert.throws(function () {
-	        minmax(30);
-        }, 'Некорректный тип входных данных');
-		assert.throws(function () {
-		    minmax([ 1, 2, 3 ]);
-        }, 'Некорректный тип входных данных');
-		assert.throws(function () {
-		    minmax(new Object());
-        }, 'Некорректный тип входных данных');
+	    assert.throws(
+			function () {
+				minmax(30);
+			}, new Error('Некорректный тип входных данных'));
+		assert.throws(
+			function () {
+				minmax([ 1, 2, 3 ]);
+			}, new Error('Некорректный тип входных данных'));
+		assert.throws(
+			function () {
+				minmax(new Object());
+			}, new Error('Некорректный тип входных данных'));
 	});
 });

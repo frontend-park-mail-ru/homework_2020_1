@@ -6,8 +6,8 @@
  * @returns {*} массив : первый элемент - минимум, второй элемент - максимум.
  */
 const minmax = inputString => {
-  if (typeof(inputString) !== 'string') {
-      throw 'Некорректный тип входных данных';
+  if (typeof inputString !== 'string') {
+      throw new Error('Некорректный тип входных данных');
   }
 
   const numbers = inputString.split(/[\s,;:]+/)
