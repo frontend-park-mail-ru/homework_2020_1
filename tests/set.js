@@ -93,14 +93,7 @@ QUnit.module('Тестируем функцию set', function () {
 			}
 		};
 
-		const object2 = {
-			deep: [
-				{ field: null }
-			]
-		}
-
 		assert.deepEqual(set({}, '.deep.nested.field', null), object);
-		assert.deepEqual(set({}, '.deep.0.field', null), object2);
 
 	});
 

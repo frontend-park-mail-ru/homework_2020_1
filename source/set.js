@@ -28,21 +28,15 @@ function set(object, request, value) {
         throw new TypeError('Переданная строка полей некорретна');
     }
 
-    const fields = fieldList.slice(1);
+    const valueField = fieldList.pop();
     
-    let prevField = object;
-    let field = fields.reduce((field, f) => {
-        if (!prevField[field] || !(f in prevField[field])) {
-            if (Number(f) || f == "0") {
-                prevField[field] = [];
-            } else {
-                prevField[field] = {};
-            }
+    let field = fieldList.reduce((prevField, field) => {
+        if (!(field in prevField)) {
+            prevField[field] = {};
         } 
-        prevField = prevField[field];
-        return f;
-    }, fieldList[0])
+        return prevField[field];
+    }, object);
 
-    prevField[field] = value;
+    field[valueField] = value;
     return object;
 }
