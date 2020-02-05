@@ -7,6 +7,10 @@
  */
 
 const anagram = words => {
+    if (!Array.isArray(words)) {
+        throw new Error('Wrong input');
+    }
+
     let anagrams = {};
 
     words.forEach(item => {
