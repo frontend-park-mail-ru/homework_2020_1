@@ -7,26 +7,25 @@
  */
 const rle = (str) => {
     if (typeof str !== 'string') {
-        return null;
+        throw new Error('argument is not a string!');
     }
 
     if (/[0-9]/.test(str)) {
-        return null;
+        throw new Error('numbers are not allowed!');
     }
 
-    let res = '';
-    let cnt = 1;
-
-    str.split('').forEach( (item, ind, arr) => {
+    const reducer = (prev, item, ind, arr) => {
         if (item === arr[ind + 1]) {
-            cnt++;
-        } else {
-            res += item;
-            if (cnt > 1)
-                res += cnt;
-            cnt = 1;
+            prev.cnt++;
+            return prev;
         }
-    });
 
-    return res;
+        prev.res += item;
+        if (prev.cnt > 1)
+            prev.res += prev.cnt;
+        prev.cnt = 1;
+        return prev;
+    }
+
+    return str.split('').reduce(reducer, {'cnt': 1, 'res': ''}).res;
 }
