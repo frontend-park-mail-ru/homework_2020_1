@@ -32,6 +32,13 @@ QUnit.module('Тестируем функцию euclid', function () {
     QUnit.test('Функция должна выдавать логичные ответы на нестандартные входные данные', function (assert) {
 		assert.strictEqual(euclid(0, 0, 0, 0, 0), Infinity);
 
+		assert.throws(() => euclid(), LogicalError);
+
+		assert.throws(() => euclid(4, 'qwer', 12, 16), TypeError);
+
+		assert.throws(() => euclid('qwer'), TypeError);
+
+		/* костылик
 		assert.ok(exceptionNameTest('LogicalError', euclid));
 
 		assert.ok(exceptionNameTest('TypeError', euclid, 4, 'qwer', 12, 16));
@@ -45,6 +52,6 @@ QUnit.module('Тестируем функцию euclid', function () {
 			} catch (e) {
 				return (e.name === errName);
 			}
-		}
+		}*/
     });
 });
