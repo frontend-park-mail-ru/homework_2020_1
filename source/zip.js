@@ -65,7 +65,5 @@ const deepCopy = (src) => {
 const zip = (...src) => {
     let zipObj = {};
     Object.assign(zipObj, ...(src.reverse()));
-
-    console.log(zipObj);
     return deepCopy(zipObj);
-};    
+};

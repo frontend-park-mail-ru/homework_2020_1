@@ -79,25 +79,34 @@ QUnit.module('Тестируем функцию zip', function () {
 
 		let obj1 = {
 			name: 'Jhon',
-			surname: 'Cena'
+			surname: 'Cena',
+			field: {
+				a:'b'
+			}
 		};
 
 		let obj2 = {
 			number: 11,
-			name: 'eleven'
+			name: 'eleven',
+			field: {
+				g:'c',
+			}
 		};
 
 		const obj3 = {
 			name: 'Jhon',
 			surname: 'Cena',
-			number: 11
+			number: 11,
+			field: {
+				a:'b',
+			}
 		};
 
 		let zipObj = zip(obj1, obj2);
 		assert.deepEqual(zipObj, obj3);
 
-		obj1.name = 'Michael';
-		obj2.number = 123;
+		obj1.field.a = 123;
+		obj1.field.g = null;
 
 		assert.deepEqual(zipObj, obj3);
 	});
@@ -105,31 +114,37 @@ QUnit.module('Тестируем функцию zip', function () {
 	QUnit.test('Функция правильно обрабатывает циклические объекты', function (assert) {
 
 		let obj1 = {
-			number: null
+			number: {
+				obj2: null,
+			}
 		};
 
 		let obj2 = {
-			field: undefined
+			field: {
+				obj1: undefined,
+			}
 		};
 
-		obj1.obj2 = obj2;
-		obj2.obj1 = obj1;
+		obj1.number.obj2 = obj2;
+		obj2.field.obj1 = obj1;
 
 		const obj3 = {
-			number: null,
-			field: undefined,
-			obj2: obj2,
-			obj1: obj1
+			number: {
+				obj2: obj2,
+			},
+			field: {
+				obj1: obj1,
+			}
 		};
 
 		let zipObj = zip(obj1, obj2);
 		assert.deepEqual(zipObj, obj3);
 
-		zipObj.number = 11;
-		zipObj.field = 'name';
+		zipObj.number.obj2 = 11;
+		zipObj.field.obj1 = 'name';
 
-		assert.deepEqual(obj1.number, null);
-		assert.deepEqual(obj2.field, undefined);
+		assert.deepEqual(obj1.number.obj2, obj2);
+		assert.deepEqual(obj2.field.obj1, obj1);
 	});
 
 	
@@ -148,13 +163,13 @@ QUnit.module('Тестируем функцию zip', function () {
 					}
 				}
 			},
-			l: {},
+			l: {l: 'l'},
 			k: {},
 			f: {}
 		};
 
 		let obj2 = {
-			l: {l:'l'},
+			l: {l: 'l'},
 			k: {k: 'k'},
 			f: {f: 'f'},
 			g: {
@@ -201,11 +216,11 @@ QUnit.module('Тестируем функцию zip', function () {
 		let zipObj = zip(obj2, obj1);
 		assert.deepEqual(zipObj, obj3);
 
-		obj3.b.c.c1.a = 'name';
-		obj3.g.p.q = 'anme';
+		zipObj.g.p.obj1.l.l = 'not l';
+		zipObj.b.c.obj2.l.l = 'not l';
 
-		assert.deepEqual(obj1.b.c.c1.a, 123);
-		assert.deepEqual(obj2.g.p.q, 'q');
+		assert.deepEqual(obj1.l.l, 'l');
+		assert.deepEqual(obj2.l.l, 'l');
 	});
 
 
