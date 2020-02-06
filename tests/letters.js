@@ -53,4 +53,11 @@ QUnit.module('Тестируем функцию letters', function () {
 		assert.strictEqual(letters('от топота копыт', false), 'а копыт');
 		assert.strictEqual(letters('hello world', false), 'he world');
 	});
+	QUnit.test('Удаляет повторяющиеся буквы в одном слове', function (assert) {
+		assert.strictEqual(letters('апрывафывячс'), 'прфячс');
+		assert.strictEqual(letters('zxcdfgxcvnmlas'), 'zdfgvnmlas');
+		assert.strictEqual(letters('\n\n\n\n\n\n'), '');
+		assert.strictEqual(letters('\nf\nb\n\n\n\n'), 'fb');
+		assert.strictEqual(letters(''), '');
+	});
 });
