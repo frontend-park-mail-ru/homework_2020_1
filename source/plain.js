@@ -1,3 +1,6 @@
-function plain(input_mass) {
-    return input_mass.flat(Infinity)
+function plain(inputMass) {
+	if (!Array.isArray(inputMass)) {
+		return []
+	}
+    return inputMass.flat(Infinity)
 }

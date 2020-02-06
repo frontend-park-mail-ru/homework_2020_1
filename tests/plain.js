@@ -50,4 +50,13 @@ QUnit.module('Тестируем функцию plain', function () {
 		assert.deepEqual(plain([{name: "John", age:30 }]), [{name: "John", age: 30}], "Работает с одним объектом");
 		assert.deepEqual(plain([{name: "John"}, {name: "Harry"}]), [{name: "John"}, {name: "Harry"}], "Работает с несколькими объектами");
 	});
+	
+	QUnit.test('Проверка на некоррекнтый ввод', function (assert) {
+		assert.deepEqual(plain("string"), [], "string");
+		assert.deepEqual(plain(1),[], "number");
+		assert.deepEqual(plain(true), [], "boolean");
+		assert.deepEqual(plain(null), [], "null");
+		assert.deepEqual(plain(undefined), [], "undefined");
+		assert.deepEqual(plain(Symbol("id")), [], "symbol");
+	})
 });
