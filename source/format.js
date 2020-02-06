@@ -12,12 +12,14 @@
 const format = (data, columnsCount) => {
 
     if (!Array.isArray(data)) {
-        data = [data]
+        data = [data];
     }
+
     if ((isNaN(Number(columnsCount)) || columnsCount < 1
         || data.some(elem => Number(parseFloat(elem)) % 1 !== 0 || isNaN(elem)))) {
         return undefined;
     }
+
     let result = '';
     let columnSize = Array(columnsCount).fill(0);
 
