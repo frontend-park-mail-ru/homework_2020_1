@@ -150,16 +150,26 @@ QUnit.module('Тестируем функцию sorting', function () {
 	
 	QUnit.test('sorting получает вместо массива строку', function(assert) {
 		const initial = "abc";
-		const actual = sorting(initial, [ 'id' ]);
-		const expected = undefined;
-		assert.deepEqual(actual, expected);
+		assert.throws(
+		  function () {
+		    sorting(initial, [ 'id' ]);
+		  },
+		  function (err) {
+		    return err.toString() !== 'Arr and keys should be arrays';
+		  }
+		);
 	});
 	
 	QUnit.test('sorting получает вместо массива число', function(assert) {
 		const initial = 12;
-		const actual = sorting(initial, [ 'id' ]);
-		const expected = undefined;
-		assert.deepEqual(actual, expected);
+		assert.throws(
+		  function () {
+		    sorting(initial, [ 'id' ]);
+		  },
+		  function (err) {
+		    return err.toString() !== 'Arr and keys should be arrays';
+		  }
+		);
 	});
 	
 	QUnit.test('sorting получает вместо массива полей строку', function(assert) {
@@ -168,9 +178,15 @@ QUnit.module('Тестируем функцию sorting', function () {
 			{prop1: 3, id: '2'},
 			{prop1: 1, id: '1'}
 		];
-		const actual = sorting(initial, "abc");
-		const expected = undefined;
-		assert.deepEqual(actual, expected);
+
+		assert.throws(
+		  function () {
+		    sorting(initial, "abc");
+		  },
+		  function (err) {
+		    return err.toString() !== 'Arr and keys should be arrays';
+		  }
+		);
 	});
 	
 	QUnit.test('sorting получает вместо массива полей число', function(assert) {
@@ -179,9 +195,15 @@ QUnit.module('Тестируем функцию sorting', function () {
 			{prop1: 3, id: '2'},
 			{prop1: 1, id: '1'}
 		];
-		const actual = sorting(initial, 12);
-		const expected = undefined;
-		assert.deepEqual(actual, expected);
+		
+		assert.throws(
+		  function () {
+		    sorting(initial, 12);
+		  },
+		  function (err) {
+		    return err.toString() !== 'Arr and keys should be arrays';
+		  }
+		);
 	});
 	
 	
