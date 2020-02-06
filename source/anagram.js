@@ -11,13 +11,12 @@ const anagram = words => {
         throw new Error('Wrong input');
     }
 
-    let anagrams = {};
+    let anagrams = words.reduce(function (prev, cur) {
+        let sortedWord = cur.toString().toLowerCase().split('').sort().join('');
 
-    words.forEach(item => {
-        let sortedWord = item.toString().toLowerCase().split('').sort().join('');
-
-        anagrams[sortedWord] ? anagrams[sortedWord].push(item) : anagrams[sortedWord] = [item];
-    });
+        prev[sortedWord] ? prev[sortedWord].push(cur) : prev[sortedWord] = [cur];
+        return prev;
+    }, {});
 
     return Object.values(anagrams).filter(item => {
         if (item.length > 1) {
