@@ -3,9 +3,9 @@
 /**
  * Encodes the input string with RLE-algorithm
  * @param {string} str - the string to be encoded (with no digits in it)
- * @return {string} when correct input, or a {null} otherwise
+ * @return {string | null} encoded string when correct input, null otherwise
  */
-let rle =  (str) => {
+const rle = (str) => {
     if (typeof str !== 'string') {
         return null;
     }
