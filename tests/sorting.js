@@ -120,4 +120,69 @@ QUnit.module('Тестируем функцию sorting', function () {
 
 		assert.deepEqual(actual, expected);
 	});
+	
+	QUnit.test('sorting сортирует по несуществующим полям', function (assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'}
+		];
+		const actual = sorting(initial, [ 'id2', 'prop3' ]);
+
+		const expected = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'}
+		];
+
+		assert.deepEqual(actual, expected);
+	});
+	
+	QUnit.test('sorting получает вместо массива строку', function(assert) {
+		const initial = "abc";
+		const actual = sorting(initial, [ 'id' ]);
+		const expected = undefined;
+		assert.deepEqual(actual, expected);
+	});
+	
+	QUnit.test('sorting получает вместо массива число', function(assert) {
+		const initial = 12;
+		const actual = sorting(initial, [ 'id' ]);
+		const expected = undefined;
+		assert.deepEqual(actual, expected);
+	});
+	
+	QUnit.test('sorting получает вместо массива полей строку', function(assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'}
+		];
+		const actual = sorting(initial, "abc");
+		const expected = undefined;
+		assert.deepEqual(actual, expected);
+	});
+	
+	QUnit.test('sorting получает вместо массива полей число', function(assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'}
+		];
+		const actual = sorting(initial, 12);
+		const expected = undefined;
+		assert.deepEqual(actual, expected);
+	});
+	
+	
 });
