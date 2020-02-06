@@ -1,9 +1,10 @@
 'use strict';
 
+
 class LogicalError extends Error {
     constructor(message) {
         super(message);
-        this.name = "LogicalError";
+        this.name = 'LogicalError';
     }
 }
 

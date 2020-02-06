@@ -32,10 +32,19 @@ QUnit.module('Тестируем функцию euclid', function () {
     QUnit.test('Функция должна выдавать логичные ответы на нестандартные входные данные', function (assert) {
 		assert.strictEqual(euclid(0, 0, 0, 0, 0), Infinity);
 
-		assert.strictEqual(euclid(), undefined);
+		assert.ok(exceptionNameTest('LogicalError', euclid));
 
-        assert.strictEqual(euclid(4, 'qwer', 12, 16), undefined);
+		assert.ok(exceptionNameTest('TypeError', euclid, 4, 'qwer', 12, 16));
 
-        assert.strictEqual(euclid('qwer'), undefined);
+		assert.ok(exceptionNameTest('TypeError', euclid, 'qwer'));
+
+		function exceptionNameTest(errName, func, ...args) {
+			try	{
+				func(...args);
+				return false;
+			} catch (e) {
+				return (e.name === errName);
+			}
+		}
     });
 });
