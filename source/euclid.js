@@ -1,5 +1,12 @@
 'use strict';
 
+class LogicalError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "LogicalError";
+    }
+}
+
 /**
  * Вычисляет НОД целочисленного массива
  * @param nums {number}
@@ -7,9 +14,15 @@
  * @author Артур Потапчук
  */
 const euclid = (...nums) => {
-    if (nums.length === 0
-     || nums.length === 1 && typeof nums[0] !== 'number') {
-        return;
+    const TYPE_ERROR_MESS = 'number[] expected';
+    const LOGICAL_ERROR_MESS = 'empty array given';
+
+    if (nums.length === 0) {
+        throw new LogicalError(LOGICAL_ERROR_MESS);
+    }
+
+    if (nums.length === 1 && typeof nums[0] !== 'number') {
+        throw new TypeError(TYPE_ERROR_MESS);
     }
 
     while (nums.length > 1) {
@@ -22,7 +35,7 @@ const euclid = (...nums) => {
     function nod(lo, hi) {
         if (typeof lo !== 'number'
          || typeof hi !== 'number') {
-            return;
+            throw new TypeError(TYPE_ERROR_MESS);
         }
 
         // нули делятся на сколь угодно большое число,
