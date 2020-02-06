@@ -5,13 +5,17 @@
  * @param {string} str - the string to be encoded (with no digits in it)
  * @return {string | null} encoded string when correct input, null otherwise
  */
+
+const RLE_ERROR_TYPE = 'argument is not a string!';
+const RLE_ERROR_NUMBERS = 'numbers are not allowed!';
+
 const rle = (str) => {
     if (typeof str !== 'string') {
-        throw new Error('argument is not a string!');
+        throw new Error(RLE_ERROR_TYPE);
     }
 
     if (/[0-9]/.test(str)) {
-        throw new Error('numbers are not allowed!');
+        throw new Error(RLE_ERROR_NUMBERS);
     }
 
     const reducer = (prev, item, ind, arr) => {

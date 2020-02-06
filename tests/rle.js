@@ -1,6 +1,16 @@
 'use strict';
 
+const check = (func, params, exn_message) => {
+	try {
+		func(params);
+	}
+	catch (err) {
+		return err.message === exn_message;
+	}
+}
+
 QUnit.module('rle-function testing', function () {
+
 	QUnit.test('rle: positive tests', function (assert) {
 		assert.strictEqual(rle('AAAB'), 'A3B');
 		assert.strictEqual(rle('BCCDDDAXXXX'), 'BC2D3AX4');
@@ -12,9 +22,9 @@ QUnit.module('rle-function testing', function () {
 	});
 
 	QUnit.test('rle: invalid input', function (assert) {
-		assert.strictEqual(rle(null), null);
-		assert.strictEqual(rle(undefined), null);
-		assert.strictEqual(rle('abc123def'), null);
-		assert.strictEqual(rle(1234), null);
+		assert.strictEqual( check(rle, null, RLE_ERROR_TYPE) , true);
+		assert.strictEqual( check(rle, undefined, RLE_ERROR_TYPE) , true);
+		assert.strictEqual( check(rle, 1234, RLE_ERROR_TYPE) , true);
+		assert.strictEqual( check(rle, 'abc123def', RLE_ERROR_NUMBERS) , true);
 	});
 });
