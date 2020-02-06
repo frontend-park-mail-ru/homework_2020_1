@@ -37,7 +37,5 @@ QUnit.module('Тестируем функцию euclid', function () {
         assert.strictEqual(euclid(4, 'qwer', 12, 16), undefined);
 
         assert.strictEqual(euclid('qwer'), undefined);
-
-        assert.strictEqual(euclid('13', '13', '26'), 13);
     });
 });
