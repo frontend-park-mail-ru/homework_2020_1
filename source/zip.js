@@ -3,7 +3,7 @@
 /**
  * Функция проверяет, является ли тип элемента объектом.
  * @param checkValue - проверяемый элемент
- * @return {Boolean} - true , если checkValue - объект, false  в противоположном случае.
+ * @return {boolean} - true , если checkValue - объект, false  в противоположном случае.
  */
 
 const isObject = (checkValue) => {
