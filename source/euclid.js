@@ -3,12 +3,12 @@
 /**
  * Вычисляет НОД целочисленного массива
  * @param nums {number}
- * @returns {null|number|Infinity}
+ * @returns {undefined|number}
  * @author Артур Потапчук
  */
-function euclid(...nums) {
+let euclid = (...nums) => {
     if (nums.length === 0) {
-        return null;
+        return undefined;
     }
 
     while (nums.length > 1) {
@@ -25,9 +25,8 @@ function euclid(...nums) {
     return nums[0];
 
     function nod(lo, hi) {
-        if (!Number.isFinite(lo)
-            || !Number.isFinite(hi)) {
-            return null;
+        if (typeof lo === typeof hi === 'number') {
+            return undefined;
         }
 
         // нули делятся на сколь угодно большое число,
@@ -46,7 +45,7 @@ function euclid(...nums) {
 
         return lo;
     }
-}
+};
 
 
     
