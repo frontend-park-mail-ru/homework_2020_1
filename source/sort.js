@@ -34,7 +34,7 @@ const sortWord = str => str.split('').sort(localeCompare).join('');
 const toUpCaseFirst = str => str.charAt(0).toLocaleUpperCase() + str.slice(1);
 
 /**
- * Cортирует все символы в строке и делает первый символ в стоке заглавным, если это буква
+ * Cортирует все символы в строке и делает первый символ в стоке заглавным, если это буква.
  * Возвращает новую строку.
  * @example
  * // returnts 'Абклорь'
@@ -45,22 +45,6 @@ const toUpCaseFirst = str => str.charAt(0).toLocaleUpperCase() + str.slice(1);
 const makeWord = str => toUpCaseFirst(sortWord(str));
 
 /**
- * Проверяет, является ли входной аргумент строкой.
- * @example
- * // returnts true
- * isString('корабль')
- * @example
- * // returns true
- * isString(new String('корабль'));
- * @example
- * // returns false
- * isString([1, 2, 'lolol']);
- * @param {String} str - Входная строка.
- * @returns {Boolean}
-*/
-const isString = val => typeof val === 'string' || val instanceof String;
-
-/**
  * Сортирует все буква в словах по алфавиту, а потом получившиеся слова в предложении — тоже.
  * Первую букву каждого слова делает прописной, остальные — строчными.
  * Возвращает новую строку.
@@ -68,8 +52,8 @@ const isString = val => typeof val === 'string' || val instanceof String;
  * // returnts 'Абклорь Амрс Ан Еиийккмоссч Еилтт'
  * sort('космический корабль летит на марс');
  * @param {String} str - Входная строка.
- * @returns {String} Возвращает результат в случае, если входной аргумент это строка, иначе null.
+ * @returns {String} Возвращает результат в случае, если входной аргумент это строка, иначе undefined.
 */
-const sort = str => isString(str)
+const sort = str => typeof str === 'string' || str instanceof String
                         ? str.toLocaleLowerCase().split(' ').map(makeWord).sort(localeCompare).join(' ')
-                        : null;
+                        : undefined;

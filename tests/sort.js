@@ -58,12 +58,12 @@ QUnit.module('Мои тесты функции sort', function () {
 	});
 
 	QUnit.test('Функция обрабатывает невалидные данные', function (assert) {
-		assert.strictEqual(sort([1, 2, 3, 'ADSFSD']), null, 'Обрабатывает массив');
-		assert.strictEqual(sort(1232), null, 'Обрабатывает число');
-		assert.strictEqual(sort({}), null, 'Обрабатывает object');
-		assert.strictEqual(sort(null), null, 'Обрабатывает null');
-		assert.strictEqual(sort(undefined), null, 'Обрабатывает undefined');
-		assert.strictEqual(sort(true), null, 'Обрабатывает true');
-		assert.strictEqual(sort(false), null, 'Обрабатывает false');
+		assert.strictEqual(sort([1, 2, 3, 'ADSFSD']), undefined, 'Обрабатывает массив');
+		assert.strictEqual(sort(1232), undefined, 'Обрабатывает число');
+		assert.strictEqual(sort({}), undefined, 'Обрабатывает object');
+		assert.strictEqual(sort(null), undefined, 'Обрабатывает null');
+		assert.strictEqual(sort(undefined), undefined, 'Обрабатывает undefined');
+		assert.strictEqual(sort(true), undefined, 'Обрабатывает true');
+		assert.strictEqual(sort(false), undefined, 'Обрабатывает false');
 	});
 });
