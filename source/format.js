@@ -6,7 +6,8 @@
  *
  * @param {number|...number} data - целое число или массив целых чисел
  * @param {number} columnsCount - количество колонок для отформатированного вывода
- * @returns {string|undefined}
+ * @returns {string|undefined} - undefinded возвращается, если в качестве параметров поступают невалидные данные
+ * (Строки без чисел , отрицательное количество колонок, специальные константы или нецелые числа
  */
 
 const format = (data, columnsCount) => {
