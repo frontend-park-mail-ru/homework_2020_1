@@ -7,7 +7,7 @@
  * @return {Array} Array with results of join
  */
 const plain = (arr, resultArr = []) => {
-    if (!Array.isArray(arr)) return arr;
+    if (!Array.isArray(arr)) return [];
     arr.forEach((el) => {
         if (Array.isArray(el)) {
             plain(el, resultArr);
