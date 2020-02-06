@@ -9,7 +9,7 @@
 let euclid = (...nums) => {
     if (nums.length === 0
      || nums.length === 1 && typeof(nums[0]) !== 'number') {
-        return undefined;
+        return;
     }
 
     while (nums.length > 1) {
@@ -22,7 +22,7 @@ let euclid = (...nums) => {
     function nod(lo, hi) {
         if (typeof lo !== 'number'
          || typeof hi !== 'number') {
-            return undefined;
+            return;
         }
 
         // нули делятся на сколь угодно большое число,
