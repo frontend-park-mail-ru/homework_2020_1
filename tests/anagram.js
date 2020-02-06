@@ -87,4 +87,18 @@ QUnit.module('Тестируем функцию anagram', function () {
 
 		assert.deepEqual(result, true);
 	});
+
+	QUnit.test('Проверка неправильных входных данных', function (assert) {
+		const input = [];
+		let result;
+
+		try {
+			anagram(input)
+			result = false;
+		} catch (e) {
+			result = true;
+		}
+
+		assert.deepEqual(result, true);
+	});
 });

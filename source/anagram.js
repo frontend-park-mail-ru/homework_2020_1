@@ -7,7 +7,7 @@
  */
 
 const anagram = words => {
-    if (!Array.isArray(words)) {
+    if (!Array.isArray(words) || words.length === 0) {
         throw new Error('Wrong input');
     }
 
@@ -16,7 +16,7 @@ const anagram = words => {
     }
 
     let anagrams = words.reduce((prev, cur) => {
-        let sortedWord = cur.toString().toLowerCase().split('').sort().join('');
+        let sortedWord = cur.toLowerCase().split('').sort().join('');
 
         prev[sortedWord] ? prev[sortedWord].push(cur) : prev[sortedWord] = [cur];
         return prev;
