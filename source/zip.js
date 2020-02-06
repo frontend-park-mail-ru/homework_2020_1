@@ -1,6 +1,18 @@
 'use strict';
 
 /**
+ * Функция проверяет, является ли тип элемента объектом.
+ * @param checkValue - проверяемый элемент
+ * @return {Boolean} - true , если checkValue - объект, false  в противоположном случае.
+ */
+
+const isObject = (checkValue) => {
+    return String(checkValue) === '[object Object]';
+};
+
+
+
+/**
  * Возвращает объект, созданный из полей других объектов
  * возвращаемый объект содержит уникальные поля всех объектов,
  * которые мы передаём в качестве
@@ -15,23 +27,15 @@
  * @return {object} - возвращаемый "уникальный объект".
  */
 
-let zip = (...args) => {
-
-    if (!args.length) {
-        return {};
-    }
-
-    return Object.fromEntries(
-        args.reduce((accumulator, object) => {
-            if (typeof object == "object") {
+const zip = (...args) => {
+    return args.reduce((accumulator, object) => {
+            if (isObject(object)) {
                 for (const [key, value] of Object.entries(object)) {
-                    if (!accumulator.has(key)) {
-                        accumulator.set(key, value);
+                    if (!accumulator.hasOwnProperty(key)) {
+                        accumulator[key] = value;
                     }
                 }
             }
             return accumulator;
-        }, new Map())
-    );
-
+        }, {});
 };

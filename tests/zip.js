@@ -202,12 +202,9 @@ QUnit.module('Тестируем функцию zip', function () {
 
     QUnit.test('Функция правильно работает c  массивами', function (assert) {
         assert.deepEqual(zip([0, 5, 7, 8]), {
-            "0": 0,
-            "1": 5,
-            "2": 7,
-            "3": 8
+
         }, 'Значение должно браться из первого встретившегося поля');
-        assert.deepEqual(zip({age: 5}, {}, {age: 4}, {age: 72}, [2]), {age: 5, "0": 2});
+        assert.deepEqual(zip({age: 5}, {}, {age: 4}, {age: 72}, [2]), {age: 5});
 
     });
 
@@ -218,6 +215,36 @@ QUnit.module('Тестируем функцию zip', function () {
 
 
         assert.deepEqual(zip(true), {});
+
+    });
+
+
+    QUnit.test('Some tests for isObject fucntion', function (assert) {
+        const obj = {
+            count: 0,
+            cost: '120$'
+        };
+
+        assert.deepEqual(isObject(obj), true);
+
+
+        const number = 1;
+
+        assert.deepEqual(isObject(number), false);
+
+        const str = "playing now : joji - Run ";
+
+        assert.deepEqual(isObject(str), false);
+
+        const bool = true;
+
+        assert.deepEqual(isObject(bool), false);
+
+        assert.deepEqual(isObject({}), true);
+
+        assert.deepEqual(isObject([]), false);
+
+        assert.deepEqual( false, isObject(null));
 
     });
 
