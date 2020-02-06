@@ -57,20 +57,24 @@ QUnit.module('Тестируем функцию anagram', function () {
 		assert.deepEqual(anagram(input), output);
 	});
 
-	QUnit.test('Проверка списка с различными значениями', function (assert) {
+	QUnit.test('Проверка неправильных входных данных', function (assert) {
 		const input = [
-			123, 321, 11, 'ночь', 'кот', 'ток'
+			'ночь', 'кот', 'ток', 123, 321, 11
 		];
 
-		const output = [
-			[123, 321],
-			['кот', 'ток']
-		];
+		let result;
 
-		assert.deepEqual(anagram(input), output);
+		try {
+			anagram(input)
+			result = false;
+		} catch (e) {
+			result = true;
+		}
+
+		assert.deepEqual(result, true);
 	});
 
-	QUnit.test('Проверка неправильных входный данных', function (assert) {
+	QUnit.test('Проверка неправильных входных данных', function (assert) {
 		const input = 124;
 		let result;
 
