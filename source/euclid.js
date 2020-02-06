@@ -7,7 +7,8 @@
  * @author Артур Потапчук
  */
 let euclid = (...nums) => {
-    if (nums.length === 0) {
+    if (nums.length === 0
+     || nums.length === 1 && typeof(nums[0]) !== 'number') {
         return undefined;
     }
 
@@ -15,17 +16,12 @@ let euclid = (...nums) => {
         nums.push(nod(nums.pop(), nums.pop()));
     }
 
-    if (nums[0] === 0) {
-        // Здесь мы окажемся, если только на вход был подан 
-        // массив, заполненный нулями, которые делятся
-        // на сколь угодно большое число
-        return Infinity;
-    }
+    return (nums[0] === 0) ? Infinity : nums[0];
 
-    return nums[0];
 
     function nod(lo, hi) {
-        if (typeof lo === typeof hi === 'number') {
+        if (typeof lo !== 'number'
+         || typeof hi !== 'number') {
             return undefined;
         }
 
