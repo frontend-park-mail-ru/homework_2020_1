@@ -1,6 +1,6 @@
 'use strict';
 
-QUnit.module('Тестируем функцию rle', function () {
+QUnit.module('rle-function testing', function () {
 	QUnit.test('rle: positive tests', function (assert) {
 		assert.strictEqual(rle('AAAB'), 'A3B');
 		assert.strictEqual(rle('BCCDDDAXXXX'), 'BC2D3AX4');
@@ -11,7 +11,7 @@ QUnit.module('Тестируем функцию rle', function () {
 		assert.strictEqual(rle('XXXXX'), 'X5');
 	});
 
-	QUnit.test('rle: negative tests', function (assert) {
+	QUnit.test('rle: invalid input', function (assert) {
 		assert.strictEqual(rle(null), null);
 		assert.strictEqual(rle(undefined), null);
 		assert.strictEqual(rle('abc123def'), null);
