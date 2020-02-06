@@ -14,12 +14,20 @@ const sorting = (arr, keys) => {
     throw new SyntaxError('arr and keys should be arrays');
   }
 
-  var sortArr = arr;
-  keys.reverse().forEach(value =>
-    sortArr.sort((a, b) => {
-	  return (a[value] < b[value]) ? -1 : 0;
-    })
-  );
+  const sortArr = [...arr];
+	
+  sortArr.sort((a, b) => {
+    var swap = false;
+    for (let value of keys) {
+      if (a[value] < b[value]) {
+        swap = true;
+        break;
+      } else if (a[value] > b[value]) {
+        break;
+      }
+    }
+    return (swap) ? -1 : 0;
+  });
 
   return sortArr;
 };
