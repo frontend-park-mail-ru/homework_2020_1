@@ -1,6 +1,7 @@
 'use strict';
 
 QUnit.module('Тестируем функцию sorting', function () {
+
 	QUnit.test('sorting не меняет пустой массив', function (assert) {
 		const initial = [];
 		const actual = sorting(initial, []);
@@ -120,4 +121,65 @@ QUnit.module('Тестируем функцию sorting', function () {
 
 		assert.deepEqual(actual, expected);
 	});
+});
+
+QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', function () {
+
+	QUnit.test('sorting сортирует по нескольким полям, добавлен  bool, undefined', function (assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 0, id: undefined},
+			{prop1: true, id: '1'},
+			{prop1: true, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: false, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'},
+		];
+		const actual = sorting(initial, [ 'id', 'prop1' ]);
+
+		const expected = [
+			{prop1: true, id: '1'},
+			{prop1: 2, id: '1'},
+			{prop1: 3, id: '1'},
+			{prop1: 4, id: '1'},
+			{prop1: false, id: '2'},
+			{prop1: true, id: '2'},
+			{prop1: 2, id: '2'},
+			{prop1: 3, id: '2'},
+			{prop1: 0, id: undefined},
+		];
+
+		assert.deepEqual(actual, expected);
+	});
+
+	QUnit.test('sorting сортирует по нескольким полям, больше полей, отриц значения', function (assert) {
+		const initial = [
+			{prop1: 3, prop2: 54, id: 'G'},
+			{prop1: 3, prop2: 54, id: 'L'},
+			{prop1: 1, prop2: 42, id: 'A'},
+			{prop1: 1, prop2: 45, id: 'D'},
+			{prop1: 4, prop2: 14, id: 'v'},
+			{prop1: 4, prop2: 4, id: 'A'},
+			{prop1: -54, prop2: 13, id: 'l'},
+			{prop1: 2, prop2: -123, id: 'A'},
+		];
+		const actual = sorting(initial, [ 'prop1', 'prop2', 'id' ]);
+
+		const expected = [
+			{prop1: -54, prop2: 13, id: 'l'},
+			{prop1: 1, prop2: 42, id: 'A'},
+			{prop1: 1, prop2: 45, id: 'D'},
+			{prop1: 2, prop2: -123, id: 'A'},
+			{prop1: 3, prop2: 54, id: 'G'},
+			{prop1: 3, prop2: 54, id: 'L'},
+			{prop1: 4, prop2: 4, id: 'A'},
+			{prop1: 4, prop2: 14, id: 'v'},
+		];
+
+		assert.deepEqual(actual, expected);
+	});
+
+
 });
