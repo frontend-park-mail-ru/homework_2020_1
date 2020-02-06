@@ -42,5 +42,12 @@ QUnit.module('Тестируем функцию roman', function () {
 		assert.strictEqual(roman(''), 0);
 		assert.strictEqual(roman('=*='), 0);
 		assert.strictEqual(roman('NO'), 0);
+		assert.strictEqual(roman(0), '');
+		assert.strictEqual(roman(-122), '');
+		assert.strictEqual(roman(null), '');
+		assert.strictEqual(roman([1, 2, 7]), '');
+
+		let undef;
+		assert.strictEqual(roman(undef), '');
 	});
 });
