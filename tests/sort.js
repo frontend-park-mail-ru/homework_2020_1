@@ -5,7 +5,7 @@ QUnit.module('Тестируем функцию sort', function () {
 		assert.strictEqual(sort('яяя'), 'Яяя', 'Работает с русским алфавитом');
 		assert.strictEqual(sort('Бббббб'), 'Бббббб');
 		assert.strictEqual(sort('zzzzzz'), 'Zzzzzz', 'Работает с английским алфавитом');
-		assert.strictEqual(sort('Rrrrrrrr'), 'rrrrrrrr');
+		assert.strictEqual(sort('Rrrrrrrr'), 'Rrrrrrrr');
 	});
 
 	QUnit.test('Функция делает все буквы, кроме первой, строчными', function (assert) {
@@ -34,8 +34,36 @@ QUnit.module('Тестируем функцию sort', function () {
 
 	QUnit.test('Функция работает правильно', function (assert) {
 		assert.strictEqual(sort('мама мыла раму'), 'Аамм Алмы Амру');
-		assert.strictEqual(sort('космический корабль летит на марс'), 'Абклорь Амрс Aн Еиийккмоссч Еилтт');
+		assert.strictEqual(sort('космический корабль летит на марс'), 'Абклорь Амрс Ан Еиийккмоссч Еилтт');
 		assert.strictEqual(sort('i love frontend'), 'Defnnort Elov I');
 		assert.strictEqual(sort('hello world'), 'Dlorw Ehllo');
+	});
+});
+
+QUnit.module('Мои тесты функции sort', function () {
+	QUnit.test('Функция нормально работает с цифрами', function (assert) {
+		assert.strictEqual(sort('42'), '24', 'Работает с одним числом');
+		assert.strictEqual(sort('129543432'), '122334459');
+		assert.strictEqual(sort('283 321 548'), '123 238 458', 'Работает с несколькими числами');
+		assert.strictEqual(sort('4122 457434 45345 54646'), '1224 344457 34455 44566');
+	});
+
+	QUnit.test('Функция нормально работает со строковым представлением данных', function (assert) {
+		assert.strictEqual(sort('ба 63 двёег 4122 196'), '1224 169 36 Аб Вгдеё'
+			, 'Работает со словами и числами');
+		assert.strictEqual(sort('баавы авы 21312315'), '11122335 Аабвы Авы');
+		assert.strictEqual(sort('баавы12104 авы21312315 fdsf4'), '01124аабвы 11122335авы 4dffs'
+			, 'Работает со смешанными цифрами и буквами и локалями');
+		assert.strictEqual(sort('10dfd4 ваыфв 56 авы21312315'), '014ddf 11122335авы 56 Аввфы');
+	});
+
+	QUnit.test('Функция обрабатывает невалидные данные', function (assert) {
+		assert.strictEqual(sort([1, 2, 3, 'ADSFSD']), null, 'Обрабатывает массив');
+		assert.strictEqual(sort(1232), null, 'Обрабатывает число');
+		assert.strictEqual(sort({}), null, 'Обрабатывает object');
+		assert.strictEqual(sort(null), null, 'Обрабатывает null');
+		assert.strictEqual(sort(undefined), null, 'Обрабатывает undefined');
+		assert.strictEqual(sort(true), null, 'Обрабатывает true');
+		assert.strictEqual(sort(false), null, 'Обрабатывает false');
 	});
 });
