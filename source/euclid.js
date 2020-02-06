@@ -8,7 +8,7 @@
  */
 const euclid = (...nums) => {
     if (nums.length === 0
-     || nums.length === 1 && typeof(nums[0]) !== 'number') {
+     || nums.length === 1 && typeof nums[0] !== 'number') {
         return;
     }
 
