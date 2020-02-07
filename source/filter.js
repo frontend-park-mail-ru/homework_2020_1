@@ -54,11 +54,11 @@ const filter = (text, allowed) => {
             (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
             (allowed.indexOf(meaningPartOfClosingTag) !== -1))
         )
-        const newAwesomeMayBeEditedAndMayBeNotPartOfResultingText = leftAngleBracket + tag + tagClosing;
+        const newPartOfResultingText = leftAngleBracket + tag + tagClosing;
         if (everythingIsGood) {
-            result += newAwesomeMayBeEditedAndMayBeNotPartOfResultingText;
+            result += newPartOfResultingText;
         } else {
-            result += replaceDangerousSymbols(newAwesomeMayBeEditedAndMayBeNotPartOfResultingText);
+            result += replaceDangerousSymbols(newPartOfResultingText);
         }
         i += tag.length + angleBracketLength;
     }
