@@ -48,4 +48,64 @@ QUnit.module('Тестируем функцию get', function () {
 		assert.strictEqual(get(object, '.baz.length'), undefined);
 		assert.strictEqual(get(object, '.0.1.2'), undefined);
 	});
+
+	QUnit.test('get работает правильно c пустым объектом', function (assert) {
+		const object = {};
+
+		assert.strictEqual(get(object, '.foobar'), undefined);
+		assert.strictEqual(get(object, '.foo.baz'), undefined);
+		assert.strictEqual(get(object, '.baz.0'), undefined);
+		assert.strictEqual(get(object, '.baz.length'), undefined);
+		assert.strictEqual(get(object, '.0.1.2'), undefined);
+		assert.deepEqual(get(object, '.'), object);
+	});
+
+	QUnit.test('get работает правильно c объектом с большим количеством вложений', function (assert) {
+		const object = {
+			foo: {
+				foo: {
+					foo: {
+						foo: {
+							foo: {
+								foo: {
+									foo: {
+										foo: {
+											foo: {
+												bar: 1488
+											},
+											bar: 42
+										},
+										bar: 42
+									},
+									bar: 42
+								},
+								bar: 42
+							},
+							bar: 228
+						},
+						bar: 42
+					},
+					bar: 42
+				},
+				bar: 42
+			}
+		};
+
+		assert.strictEqual(get(object, '.foo.foo.foo.foo.bar'), 228);
+		assert.strictEqual(get(object, '.foo.foo.foo.foo.foo.foo.foo.foo.foo.bar'), 1488);
+		assert.strictEqual(get(object, '.foo.bar'), 42);
+	});
+
+	QUnit.test('get работает правильно c пустыми массивами', function (assert) {
+		const object = {
+			foo: null,
+			baz: [ 1, 2, 3 ],
+			deep: [
+				{foobar: '42'}
+			]
+		};
+
+		assert.strictEqual(get(object, '.foo.0'), undefined);
+		assert.strictEqual(get(object, '.foo.length'), undefined);
+	});
 });
