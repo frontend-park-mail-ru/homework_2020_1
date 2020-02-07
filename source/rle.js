@@ -18,7 +18,7 @@ const rle = (str) => {
         throw new Error(RLE_ERROR_NUMBERS);
     }
 
-    const reducer = (prev, item, ind, arr) => {
+    return str.split('').reduce( (prev, item, ind, arr) => {
         if (item === arr[ind + 1]) {
             prev.cnt++;
             return prev;
@@ -29,7 +29,5 @@ const rle = (str) => {
             prev.res += prev.cnt;
         prev.cnt = 1;
         return prev;
-    }
-
-    return str.split('').reduce(reducer, {'cnt': 1, 'res': ''}).res;
+    }, {'cnt': 1, 'res': ''}).res;
 }
