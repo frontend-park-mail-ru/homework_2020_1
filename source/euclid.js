@@ -2,11 +2,11 @@
 
 /**
  * counts the greatest common divisor of two numbers
- * @param first
- * @param second
- * @returns {*} GCD
+ * @param first {number}
+ * @param second {number}
+ * @returns {number} greatest common divisor
  */
-const euclid_for_two = (first, second) => {
+const euclidForTwo = (first, second) => {
     let temp;
     while (second > 0) {
         temp = second;
@@ -18,33 +18,29 @@ const euclid_for_two = (first, second) => {
 
 /**
  * validates data for using it in euclid func
- * @param num
- * @returns {boolean}
+ * @param num {number}
+ * @returns {boolean} true if valid, false if invalid
  */
 const validator = (num) => {
-    if (typeof num == "number") {
-        if (num >= 0) {
-            if (Number.isInteger(num)) {
-                return true;
-            }
-        }
-    }
-    return false;
+    const validating = (num) =>
+        (typeof num !== "number") ? false : (num < 0) ? false : (!Number.isInteger(num)) ? false : true;
+    return validating(num);
 }
 
+
 /**
- * counts GCD for n numbers
- * by calling 'euclid_for_two' in cycle for all input params
+ * counts greatest common divisor for n numbers
+ * by calling 'euclidForTwo' in cycle for all input params
+ * @param ...args {array} contains numbers to check
+ * @returns {boolean} solution or '-1' in case of invalid data
  */
-const euclid = function () {
-    for (let k = 0; k < arguments.length; k++) {
-        if (!validator(arguments[k])) {
-            return -1;
-        }
+const euclid = function (...args) {
+    if (!args.every(validator)) {
+        return -1;
     }
-    let result = arguments[0];
-    for (let i = 1; i < arguments.length; i++) {
-         result = euclid_for_two(result, arguments[i]);
+    let result = args[0];
+    for (let i = 1; i < args.length; i++) {
+         result = euclidForTwo(result, args[i]);
     }
     return result;
 }
