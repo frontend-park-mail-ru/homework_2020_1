@@ -14,15 +14,9 @@ const rightAngleBracket = '>';
 const angleBracketLength = 1;
 
 const replaceDangerousSymbols = str => {
-    let result = '';
-    for (let i of str) {
-        if (i in dangerous) {
-            result += dangerous[i];
-        } else {
-            result += i;
-        }
-    }
-    return result;
+    return str.split('').map(char => {
+        return (char in dangerous ? dangerous[char] : char);
+    }).join('');
 };
 
 /**
@@ -34,6 +28,15 @@ const replaceDangerousSymbols = str => {
  * @returns  {string}
  */
 const filter = (text, allowed) => {
+    if (
+        (typeof(text) !== 'string') ||
+        ((!Array.isArray(allowed)) ||
+        (allowed.filter(elem => {
+            return typeof(elem) !== 'string';
+        }).length !== 0))
+    ) {
+        return undefined;
+    }
     let result = '';
     for (let i = 0; i < text.length; i++) {
         if (text[i] !== leftAngleBracket) {
@@ -41,14 +44,8 @@ const filter = (text, allowed) => {
             continue;
         }
         let indexOfNextGt = text.slice(i, text.length).indexOf(rightAngleBracket);
-        let tagClosing;
-        if (indexOfNextGt === -1) {
-            indexOfNextGt = text.length;
-            tagClosing = '';
-        } else {
-            indexOfNextGt += i;
-            tagClosing = rightAngleBracket;
-        }
+        const tagClosing = (indexOfNextGt === -1 ? '' : rightAngleBracket);
+        indexOfNextGt = (indexOfNextGt === -1 ? text.length : indexOfNextGt + i);
         const tag = text.slice(i + angleBracketLength, indexOfNextGt);
         const meaningPartOfClosingTag = tag.slice(1, tag.length);
         const tagIsAllowed = (
@@ -56,11 +53,7 @@ const filter = (text, allowed) => {
             (allowed.indexOf(meaningPartOfClosingTag) !== -1))
         )
         const newPartOfResultingText = leftAngleBracket + tag + tagClosing;
-        if (everythingIsGood) {
-            result += newPartOfResultingText;
-        } else {
-            result += replaceDangerousSymbols(newPartOfResultingText);
-        }
+        result += (tagIsAllowed ? newPartOfResultingText : replaceDangerousSymbols(newPartOfResultingText));
         i += tag.length + angleBracketLength;
     }
     return result;
