@@ -24,8 +24,7 @@ const partialCopy = (obj) => {
     for (let prop in obj) {
         if (isObject(obj[prop])) {
             partialObjCopy[needToUpdate].push(Array(prop, obj[prop]));
-        }
-        else {
+        } else {
             partialObjCopy[prop] = obj[prop];
         }
     }
@@ -89,15 +88,11 @@ const deepCopy = (src) => {
  * @returns {object} полученный объект.
  */
 const zip = (...src) => {
-    src.forEach(
-        (obj) => {
-            if (!isObject(obj)) {
-                throw(
-                    new Error('Invalid input type')
-                );
-            }
+    src.forEach((obj) => {
+        if (!isObject(obj)) {
+            throw(new Error('Invalid input type'));
         }
-    );
+    });
 
     let zipObj = {};
     Object.assign(zipObj, ...(src.reverse()));
