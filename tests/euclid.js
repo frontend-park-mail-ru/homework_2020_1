@@ -8,7 +8,7 @@ QUnit.module('Тестируем функцию euclid', function () {
 
 	QUnit.test('Невалидные данные', function (assert) {
 		assert.strictEqual(euclid(-421, 0.9923501, 3.1401525235324, -228.148832269),-1, 'euclid(invalid nums) === -1');
-		assert.strictEqual(euclid("text", "another text"), -1, 'euclid(some text,...) === -1');
+		assert.strictEqual(euclid('text', 'another text'), -1, 'euclid(some text,...) === -1');
 	});
 
 	QUnit.test('На входе всего одно число', function (assert) {
