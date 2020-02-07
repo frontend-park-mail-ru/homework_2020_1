@@ -21,6 +21,16 @@ QUnit.module('Проверка работы функции filter', function () 
 		assert.strictEqual(output, expected);
 	});
 
+	QUnit.test('filter экранирует несколько последовательных скобок', function (assert) {
+		const input = '<nav> 0 / 1 << 1 / 0 </nav>';
+
+		const output = filter(input, ['nav']);
+
+		const expected = '<nav> 0 / 1 &lt;&lt; 1 / 0 </nav>';
+
+		assert.strictEqual(output, expected);
+	});
+
 	QUnit.test('filter экранирует XSS', function (assert) {
 		assert.strictEqual(filter(`<script>alert('1');</script>`, [ 'strong', 'em' ]), '&lt;script&gt;alert(&#39;1&#39;);&lt;/script&gt;');
 		assert.strictEqual(filter(`<img src="bad" onerror="alert('1');">`, [ 'strong', 'em' ]), '&lt;img src=&quot;bad&quot; onerror=&quot;alert(&#39;1&#39;);&quot;&gt;');
