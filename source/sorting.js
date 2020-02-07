@@ -17,11 +17,11 @@ let sorting = (initial, properties) => {
 
     if (properties.length === 0) return initial;
 
-    properties.reverse().forEach(function(property)  {
+    properties.reverse().forEach((property) => {
         initial.sort( (first, second) => {
             return (first[property] <= second[property]) ? -1: 1;
         });
-    }, [initial]);
+    });
 
     return initial;
 };
