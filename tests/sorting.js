@@ -120,6 +120,60 @@ QUnit.module('Тестируем функцию sorting', function () {
 
 		assert.deepEqual(actual, expected);
 	});
+
+	QUnit.test('sorting сортирует по одному несуществующему и одному реальному полю', function (assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'}
+		];
+		const actual = sorting(initial, [ 'id2', 'prop1' ]);
+
+		const expected = [
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'},
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'}
+		];
+
+		assert.deepEqual(actual, expected);
+	});
+
+	QUnit.test('sorting сортирует по одному реальному и одному несуществующему полю', function (assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'}
+		];
+		const actual = sorting(initial, [ 'prop1', 'id2' ]);
+
+		const expected = [
+			{prop1: 1, id: '1'},
+			{prop1: 1, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'},
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: 4, id: '2'}
+		];
+
+		assert.deepEqual(actual, expected);
+	});
 	
 	QUnit.test('sorting сортирует по несуществующим полям', function (assert) {
 		const initial = [

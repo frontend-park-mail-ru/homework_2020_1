@@ -10,16 +10,17 @@ const isString = (element) => typeof element === 'string';
  * @returns {number}
  * @author Вячеслав Романов
  */
+
 const cmp = (a, b, keys) => {
   let diff = 0;
   keys.every((value) => {
-    diff = a[value] - b[value];
-
     if (isString(a[value]) || isString(b[value])) {
-	  diff = a[value].localeCompare(b[value]);
-	}
+      diff = a[value].localeCompare(b[value]);
+    } else {
+      diff = a[value] - b[value];
+    }
 
-    return diff === 0;
+    return !diff;
   });
 
   return diff;
