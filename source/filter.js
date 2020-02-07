@@ -1,5 +1,34 @@
 'use strict';
 
+const htmlEscapes = {
+    '&': '&amp;',
+    '"': '&quot;',
+    '\'': '&#39;',
+    '<': '&lt;',
+    '>': '&gt;'
+};
+
+/**
+ * Escape right brackets in string
+ * @param {string} string - html string
+ * @returns {string} - parsed string
+ */
+const removeExtraBrackets = (string) => {
+    let counter = 0;
+    let output = '';
+    for (let symbol of string) {
+        if (symbol === '<') {
+            ++counter;
+        } else if (symbol === '>' && counter === 0) {
+            symbol = symbol.replace('>', htmlEscapes['>'])
+        } else if (symbol === '>') {
+            --counter;
+        }
+        output += symbol;
+    }
+    return output;
+};
+
 /**
  * Function returns parsed string by tags that user set in brackets
  * @param {string} htmlString - html string that you wanna change
@@ -7,14 +36,7 @@
  * @returns {string} - parsed string
  */
 const filter = (htmlString, ...tags) => {
-    const htmlEscapes = {
-        '&': '&amp;',
-        '"': '&quot;',
-        '\'': '&#39;',
-        '<': '&lt;',
-        '>': '&gt;'
-    };
-    return htmlString.replace(/[&"']/g, (match, position) => {
+    htmlString = htmlString.replace(/[&"']/g, (match, position) => {
         return htmlEscapes[match];
     }).replace(/<[^<>]+>/g, (match, position) => {
         const copy = match.replace(/[<>/]/g, '');
@@ -24,4 +46,5 @@ const filter = (htmlString, ...tags) => {
         }
         return match;
     }).replace(/<(?![^<]*>)/g, '&lt;');
+    return removeExtraBrackets(htmlString);
 };
