@@ -8,8 +8,8 @@ const dangerous = {
     "'": '&#39;'
 };
 
-const LtLength = 1; // '<'.length
-const GtLength = 1; // '>'.length
+const LtLength = '<'.length;
+const GtLength = '>'.length;
 
 const replaceDangerousSymbols = str => {
     let result = '';
@@ -44,11 +44,11 @@ const filter = (text, allowed) => {
         } else {
             indexOfNextGt += i;
         }
-        let tag = text.slice(i + LtLength, indexOfNextGt);
-        let symbolsLeft = text.length - i;
-        let tagIsClosed = tag.length + GtLength < symbolsLeft;
-        let tagClosing = (tagIsClosed ? '>' : '');
-        let meaningPartOfClosingTag = tag.slice(1, tag.length);
+        const tag = text.slice(i + LtLength, indexOfNextGt);
+        const symbolsLeft = text.length - i;
+        const tagIsClosed = tag.length + GtLength < symbolsLeft;
+        const tagClosing = (tagIsClosed ? '>' : '');
+        const meaningPartOfClosingTag = tag.slice(1, tag.length);
         if (
             (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
             (allowed.indexOf(meaningPartOfClosingTag) !== -1))
