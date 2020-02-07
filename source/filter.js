@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * Function returns parsed string by tags that user set in brackets
+ * @param {string} htmlString - html string that you wanna change
+ * @param {array} tags - array of allowed tags
+ * @returns {string} - parsed string
+ */
 const filter = (htmlString, ...tags) => {
     const htmlEscapes = {
         '&': '&amp;',
