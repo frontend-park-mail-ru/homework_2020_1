@@ -7,6 +7,9 @@
  * @returns {string} - Полученная строка
  */
 function letters(str, format) {
+    if (typeof str !== 'string') {
+        return '';
+    }
     if (format === true) {
         return str.split('').filter((letter, i, array) => {
             return array.indexOf(letter) === i;
@@ -15,7 +18,7 @@ function letters(str, format) {
     if (format === false) {
         return str.split('').filter((letter, i, array) => {
             return array.lastIndexOf(letter) === i;
-        }).join('')
+        }).join('');
     }
     return str.split('').filter((letter, i, array) => {
         return array.indexOf(letter) === array.lastIndexOf(letter);
