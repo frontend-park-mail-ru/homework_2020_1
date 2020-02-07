@@ -2,8 +2,18 @@
 
 QUnit.module('Тестируем функцию chess', function () {
 	QUnit.test('Шахматной доски 1 на 1 не бывает', function (assert) {
-		assert.strictEqual(chess(1), undefined);
-		assert.strictEqual(chess('1'), undefined);
+		assert.throws(
+			function() {
+				chess(1)
+			},
+			RangeError
+		);
+		assert.throws(
+			function() {
+				chess('1')
+			},
+			RangeError
+		);
 	});
 
 	QUnit.test('Шахматная доска 2 на 2', function (assert) {
@@ -37,8 +47,18 @@ QUnit.module('Тестируем функцию chess', function () {
 		assert.strictEqual(chess('8'), expected);
 	});
 	QUnit.test('Тест на отрицательные значения', function (assert) {
-		assert.strictEqual(chess(-1), undefined);
-		assert.strictEqual(chess('-1'), undefined);
+		assert.throws(
+			function() {
+				chess(-1)
+			},
+			RangeError
+		);
+		assert.throws(
+			function() {
+				chess('-1')
+			},
+			RangeError
+		);
 	});
 
 	QUnit.test('Шахматная доска 4 на 4', function (assert) {
@@ -68,11 +88,30 @@ QUnit.module('Тестируем функцию chess', function () {
 	});
 
 	QUnit.test('Проверка на невалидные данные', function (assert) {
-		assert.strictEqual(chess(-5), undefined);
-		assert.strictEqual(chess('СТРОКА, А НЕ ЧИСЛО'), undefined);
-		assert.strictEqual(chess('6.5'), undefined);
-		assert.strictEqual(chess('111ssssssdddd1111111'), undefined);
-		assert.strictEqual(chess([1, 2, 3]), undefined);
+		assert.throws(
+			function() {
+				chess('СТРОКА, А НЕ ЧИСЛО')
+			},
+			TypeError
+		);
+		assert.throws(
+			function() {
+				chess('6.5')
+			},
+			TypeError
+		);
+		assert.throws(
+			function() {
+				chess('111ssssssdddd1111111')
+			},
+			TypeError
+		);
+		assert.throws(
+			function() {
+				chess([1, 2, 3])
+			},
+			TypeError
+		);
 	});
 
 	QUnit.test('Проверка на десятичные числа данные', function (assert) {

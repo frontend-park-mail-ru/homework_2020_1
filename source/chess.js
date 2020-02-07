@@ -9,9 +9,13 @@
  */
 const chess = (size) => {
   const minSize = 1;
-  const isFloat = parseInt(size) !== parseFloat(size);
-  if (size <= minSize || isFloat || isNaN(size)) {
-    return undefined;
+  if (size <= minSize) {
+    throw RangeError("Значение должно быть больше одного");
+  }
+
+  const isFloat = parseInt(size, 10) !== parseFloat(size);
+  if (isFloat || isNaN(size)) {
+    throw new TypeError("Значение должно быть целым числом");
   }
 
   const isOddSize = size % 2;
