@@ -1,234 +1,251 @@
 'use strict';
 
 QUnit.module('Тестируем функцию zip', function () {
-	QUnit.test('Функция работает с единственным объектом', function (assert) {
-		assert.deepEqual(zip({}), {});
-		assert.deepEqual(zip({answer: 42}), {answer: 42});
-		assert.deepEqual(zip({name: 'Georg'}), {name: 'Georg'});
-		const obj = {
-			count: 0,
-			cost: '120$'
-		};
-		assert.deepEqual(zip(obj), obj);
-	});
+    QUnit.test('Функция работает с единственным объектом', function (assert) {
+        assert.deepEqual(zip({}), {});
+        assert.deepEqual(zip({answer: 42}), {answer: 42});
+        assert.deepEqual(zip({name: 'Georg'}), {name: 'Georg'});
+        const obj = {
+            count: 0,
+            cost: '120$'
+        };
+        assert.deepEqual(zip(obj), obj);
+    });
 
-	QUnit.test('Функция работает с объектами среди которых есть объекты без свойств', function (assert) {
-		assert.deepEqual(zip({}, {}), {});
-		assert.deepEqual(zip({answer: 42}, {}), {answer: 42});
-		assert.deepEqual(zip({}, {answer: 42}), {answer: 42});
-		assert.deepEqual(zip({}, {answer: 42}), {answer: 42});
-		assert.deepEqual(zip({}, {}, {}, {name: 'Georg'}), {name: 'Georg'});
+    QUnit.test('Функция работает с объектами среди которых есть объекты без свойств', function (assert) {
+        assert.deepEqual(zip({}, {}), {});
+        assert.deepEqual(zip({answer: 42}, {}), {answer: 42});
+        assert.deepEqual(zip({}, {answer: 42}), {answer: 42});
+        assert.deepEqual(zip({}, {answer: 42}), {answer: 42});
+        assert.deepEqual(zip({}, {}, {}, {name: 'Georg'}), {name: 'Georg'});
 
-		const obj = {
-			count: 0,
-			cost: '120$'
-		};
+        const obj = {
+            count: 0,
+            cost: '120$'
+        };
 
-		assert.deepEqual(zip({}, {}, {}, obj, {}, {}), obj);
-	});
+        assert.deepEqual(zip({}, {}, {}, obj, {}, {}), obj);
+    });
 
-	QUnit.test('Функция работает с объектами со свойствами с разными именами', function (assert) {
-		const obj = {
-			count: 0,
-			cost: '120$'
-		};
+    QUnit.test('Функция работает с объектами со свойствами с разными именами', function (assert) {
+        const obj = {
+            count: 0,
+            cost: '120$'
+        };
 
-		assert.deepEqual(zip({count: 0}, {cost: '120$'}), obj);
+        assert.deepEqual(zip({count: 0}, {cost: '120$'}), obj);
 
-		const obj2 = {
-			a: 1,
-			b: 2,
-			c: null,
-			d: 4,
-			e: 5
-		};
-		assert.deepEqual(zip({a: 1}, {b: 2}, {c: null}, {d: 4}, {e: 5}), obj2);
+        const obj2 = {
+            a: 1,
+            b: 2,
+            c: null,
+            d: 4,
+            e: 5
+        };
+        assert.deepEqual(zip({a: 1}, {b: 2}, {c: null}, {d: 4}, {e: 5}), obj2);
 
-		const obj3 = {
-			name: 'age',
-			value: 42
-		};
+        const obj3 = {
+            name: 'age',
+            value: 42
+        };
 
-		const obj4 = {
-			prop: false,
-			attr: null
-		};
+        const obj4 = {
+            prop: false,
+            attr: null
+        };
 
-		const obj5 = {
-			name: 'age',
-			value: 42,
-			prop: false,
-			attr: null
-		};
+        const obj5 = {
+            name: 'age',
+            value: 42,
+            prop: false,
+            attr: null
+        };
 
-		assert.deepEqual(zip(obj3, obj4), obj5);
-	});
+        assert.deepEqual(zip(obj3, obj4), obj5);
+    });
 
-	QUnit.test('Функция правильно работает со свойствами, которые встречаются в нескольких объектах', function (assert) {
-		assert.deepEqual(zip({answer: 42}, {answer: false}), {answer: 42}, 'Значение должно браться из первого встретившегося поля');
-		assert.deepEqual(zip({age: 5}, {}, {age: 4}, {age: 72}), {age: 5});
+    QUnit.test('Функция правильно работает со свойствами, которые встречаются в нескольких объектах', function (assert) {
+        assert.deepEqual(zip({answer: 42}, {answer: false}), {answer: 42}, 'Значение должно браться из первого встретившегося поля');
+        assert.deepEqual(zip({age: 5}, {}, {age: 4}, {age: 72}), {age: 5});
 
-		const obj = {
-			name: 'age',
-			value: 42
-		};
-		assert.deepEqual(zip({name: 'age'}, {value: 42}, {name: 'cost'}, {value: -6}), obj);
-	});
+        const obj = {
+            name: 'age',
+            value: 42
+        };
+        assert.deepEqual(zip({name: 'age'}, {value: 42}, {name: 'cost'}, {value: -6}), obj);
+    });
 
-	QUnit.test('Функция правильно обрабатывает невалидные данные', function (assert) {
-		assert.deepEqual(zip("aaaaaaa"), {});
-		assert.deepEqual(zip(1, "asdas", {a: 'a'}, {b: 'b'}), {a: 'a', b: 'b'});
-		assert.deepEqual(zip("asdas", {g: 'g'}, null, undefined), {g: 'g'});
-		assert.deepEqual(zip({a: 'a'}, false, true, {p: 'p'}), {a: 'a', p: 'p'});
-	});
+    QUnit.test('Функция правильно обрабатывает невалидные данные', function (assert) {
 
-	QUnit.test('Функция правильно возвращает копии', function (assert) {
+        assert.throws(
+            function () {
+                zip('string test');
+            }, new Error('Invalid input type'));
 
-		let obj1 = {
-			name: 'Jhon',
-			surname: 'Cena',
-			field: {
-				a:'b'
-			}
-		};
+        assert.throws(
+            function () {
+                zip(123, 'asd', {'a': 123});
+            }, new Error('Invalid input type'));
 
-		let obj2 = {
-			number: 11,
-			name: 'eleven',
-			field: {
-				g:'c',
-			}
-		};
+        assert.throws(
+            function () {
+                zip({'asd': 123}, null);
+            }, new Error('Invalid input type'));
 
-		const obj3 = {
-			name: 'Jhon',
-			surname: 'Cena',
-			number: 11,
-			field: {
-				a:'b',
-			}
-		};
+        assert.throws(
+            function () {
+                zip(undefined, new Map());
+            }, new Error('Invalid input type'));
 
-		let zipObj = zip(obj1, obj2);
-		assert.deepEqual(zipObj, obj3);
+    });
 
-		obj1.field.a = 123;
-		obj1.field.g = null;
+    QUnit.test('Функция правильно возвращает копии', function (assert) {
 
-		assert.deepEqual(zipObj, obj3);
-	});
+        let obj1 = {
+            name: 'Jhon',
+            surname: 'Cena',
+            field: {
+                a: 'b'
+            }
+        };
 
-	QUnit.test('Функция правильно обрабатывает циклические объекты', function (assert) {
+        let obj2 = {
+            number: 11,
+            name: 'eleven',
+            field: {
+                g: 'c',
+            }
+        };
 
-		let obj1 = {
-			number: {
-				obj2: null,
-			}
-		};
+        const obj3 = {
+            name: 'Jhon',
+            surname: 'Cena',
+            number: 11,
+            field: {
+                a: 'b',
+            }
+        };
 
-		let obj2 = {
-			field: {
-				obj1: undefined,
-			}
-		};
+        let zipObj = zip(obj1, obj2);
+        assert.deepEqual(zipObj, obj3);
 
-		obj1.number.obj2 = obj2;
-		obj2.field.obj1 = obj1;
+        obj1.field.a = 123;
+        obj1.field.g = null;
 
-		const obj3 = {
-			number: {
-				obj2: obj2,
-			},
-			field: {
-				obj1: obj1,
-			}
-		};
+        assert.deepEqual(zipObj, obj3);
+    });
 
-		let zipObj = zip(obj1, obj2);
-		assert.deepEqual(zipObj, obj3);
+    QUnit.test('Функция правильно обрабатывает циклические объекты', function (assert) {
 
-		zipObj.number.obj2 = 11;
-		zipObj.field.obj1 = 'name';
+        let obj1 = {
+            number: {
+                obj2: null,
+            }
+        };
 
-		assert.deepEqual(obj1.number.obj2, obj2);
-		assert.deepEqual(obj2.field.obj1, obj1);
-	});
+        let obj2 = {
+            field: {
+                obj1: undefined,
+            }
+        };
 
-	
-	QUnit.test('Нагрузочный тест', function (assert) {
+        obj1.number.obj2 = obj2;
+        obj2.field.obj1 = obj1;
 
-		let obj1 = {
-			b:{
-				c:{
-					c1: {a: 123},
-					c2: {b: 321},
-					c3: {c: 213},
-				},
-				d:{
-					e: {
-						f: {hi:'hi'}
-					}
-				}
-			},
-			l: {l: 'l'},
-			k: {},
-			f: {}
-		};
+        const obj3 = {
+            number: {
+                obj2: obj2,
+            },
+            field: {
+                obj1: obj1,
+            }
+        };
 
-		let obj2 = {
-			l: {l: 'l'},
-			k: {k: 'k'},
-			f: {f: 'f'},
-			g: {
-				p:{
-					q: 'q',
-					r: 'r',
-					s: 's',
-				},
-				h: {h: 'h'}
-			}
-		};
+        let zipObj = zip(obj1, obj2);
+        assert.deepEqual(zipObj, obj3);
 
-		obj1.b.c.obj2 = obj2;
-		obj2.g.p.obj1 = obj1;
+        zipObj.number.obj2 = 11;
+        zipObj.field.obj1 = 'name';
 
-		const obj3 = {
-			l: {l:'l'},
-			k: {k: 'k'},
-			f: {f: 'f'},
-			b:{
-				c:{
-					c1: {a: 123},
-					c2: {b: 321},
-					c3: {c: 213},
-					obj2: obj2,
-				},
-				d:{
-					e: {
-						f: {hi:'hi'}
-					}
-				}
-			},
-			g: {
-				p:{
-					q: 'q',
-					r: 'r',
-					s: 's',
-					obj1: obj1,
-				},
-				h: {h: 'h'}
-			}
-		};
+        assert.deepEqual(obj1.number.obj2, obj2);
+        assert.deepEqual(obj2.field.obj1, obj1);
+    });
 
-		let zipObj = zip(obj2, obj1);
-		assert.deepEqual(zipObj, obj3);
 
-		zipObj.g.p.obj1.l.l = 'not l';
-		zipObj.b.c.obj2.l.l = 'not l';
+    QUnit.test('Нагрузочный тест', function (assert) {
 
-		assert.deepEqual(obj1.l.l, 'l');
-		assert.deepEqual(obj2.l.l, 'l');
-	});
+        let obj1 = {
+            b: {
+                c: {
+                    c1: {a: 123},
+                    c2: {b: 321},
+                    c3: {c: 213},
+                },
+                d: {
+                    e: {
+                        f: {hi: 'hi'}
+                    }
+                }
+            },
+            l: {l: 'l'},
+            k: {},
+            f: {}
+        };
+
+        let obj2 = {
+            l: {l: 'l'},
+            k: {k: 'k'},
+            f: {f: 'f'},
+            g: {
+                p: {
+                    q: 'q',
+                    r: 'r',
+                    s: 's',
+                },
+                h: {h: 'h'}
+            }
+        };
+
+        obj1.b.c.obj2 = obj2;
+        obj2.g.p.obj1 = obj1;
+
+        const obj3 = {
+            l: {l: 'l'},
+            k: {k: 'k'},
+            f: {f: 'f'},
+            b: {
+                c: {
+                    c1: {a: 123},
+                    c2: {b: 321},
+                    c3: {c: 213},
+                    obj2: obj2,
+                },
+                d: {
+                    e: {
+                        f: {hi: 'hi'}
+                    }
+                }
+            },
+            g: {
+                p: {
+                    q: 'q',
+                    r: 'r',
+                    s: 's',
+                    obj1: obj1,
+                },
+                h: {h: 'h'}
+            }
+        };
+
+        let zipObj = zip(obj2, obj1);
+        assert.deepEqual(zipObj, obj3);
+
+        zipObj.g.p.obj1.l.l = 'not l';
+        zipObj.b.c.obj2.l.l = 'not l';
+
+        assert.deepEqual(obj1.l.l, 'l');
+        assert.deepEqual(obj2.l.l, 'l');
+    });
 
 
 });
