@@ -1,13 +1,22 @@
 'use strict';
 
 const filter = (htmlString, ...tags) => {
-    // htmlString.replace(/<[^>]*>?/gm, '');
-    htmlString = htmlString//.replace(/<[^>]*>/g, '')
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;')
-        .replace(/<(?!.*>)/g, '&lt;')
-        .replace(/(?![^<].*>)>/g, '&gt;');
-    return htmlString;
+    const htmlEscapes = {
+        '&': '&amp;',
+        '"': '&quot;',
+        '\'': '&#39;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return htmlString.replace(/[&"']/g, (match, position) => {
+        return htmlEscapes[match];
+    }).replace(/<[^>]+>/g, (match, position) => {
+        const copy = match.replace(/[<>/]/g, '');
+        console.log(match, position);
+        if (tags[0].indexOf(copy) === -1) {
+            match = match.replace('<', htmlEscapes['<']);
+            match = match.replace('>', htmlEscapes['>']);
+        }
+        return match;
+    }).replace(/<(?!.*>)/g, '&lt;');
 };
-
