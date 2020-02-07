@@ -39,15 +39,15 @@ const filter = (text, allowed) => {
             continue;
         }
         let indexOfNextGt = text.slice(i, text.length).indexOf('>');
+        let tagClosing;
         if (indexOfNextGt === -1) {
             indexOfNextGt = text.length;
+            tagClosing = '';
         } else {
             indexOfNextGt += i;
+            tagClosing = '>';
         }
         const tag = text.slice(i + LtLength, indexOfNextGt);
-        const symbolsLeft = text.length - i;
-        const tagIsClosed = tag.length + GtLength < symbolsLeft;
-        const tagClosing = (tagIsClosed ? '>' : '');
         const meaningPartOfClosingTag = tag.slice(1, tag.length);
         if (
             (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
