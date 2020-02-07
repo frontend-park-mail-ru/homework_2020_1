@@ -3,6 +3,22 @@
 const isString = (element) => typeof element === 'string';
 
 /**
+ * @description Вычисляет разницу между двумя значениями
+ * @param a - первое значение
+ * @param b - второе значение
+ * @returns {number}
+ * @author Вячеслав Романов
+ */
+
+const getDiff = (a, b) => {
+    if (isString(a) || isString(b)) {
+      return a.localeCompare(b);
+    } else {
+      return a - b;
+    }
+};
+
+/**
  * @description Сравнивает два объекта по полям
  * @param a - первый объект для сравнения
  * @param b - второй объект для сравнения
@@ -13,13 +29,9 @@ const isString = (element) => typeof element === 'string';
 
 const cmp = (a, b, keys) => {
   let diff = 0;
-  keys.every((value) => {
-    if (isString(a[value]) || isString(b[value])) {
-      diff = a[value].localeCompare(b[value]);
-    } else {
-      diff = a[value] - b[value];
-    }
 
+  keys.every((value) => {
+    diff = getDiff(a[value], b[value]);
     return !diff;
   });
 
