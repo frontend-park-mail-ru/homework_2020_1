@@ -28,9 +28,14 @@ const getDiff = (a, b) => {
  */
 
 const cmp = (a, b, keys) => {
-  let diff = 0;
+  let diff; // Разница между двумя значениями объектов по одному полю
 
   keys.every((value) => {
+	/*
+	Вычисляем разницу до тех пор,
+	пока значения сходятся,
+	либо пока не закончатся поля сравнения
+	*/
     diff = getDiff(a[value], b[value]);
     return !diff;
   });
