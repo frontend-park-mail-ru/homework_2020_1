@@ -1,3 +1,3 @@
 'use strict';
 
-const max = elementbers => Math.max(...elementbers);
+const max = numbers => Math.max(...numbers);
