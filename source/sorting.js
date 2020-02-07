@@ -3,9 +3,9 @@
 const isString = (element) => typeof element === 'string';
 
 /**
- * @description Сравнивает два элемента по полям
- * @param a - первый элемент для сравнения
- * @param b - второй элемент для сравнения
+ * @description Сравнивает два объекта по полям
+ * @param a - первый объект для сравнения
+ * @param b - второй объект для сравнения
  * @param keys - поля сортировки
  * @returns {number}
  * @author Вячеслав Романов
