@@ -181,5 +181,26 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 		assert.deepEqual(actual, expected);
 	});
 
+	QUnit.test('sorting неправильынй вызов: initial', function (assert) {
+		const initial = 3.14;
+		const actual = sorting(initial, [ 'prop1', 'id' ]);
+
+		const expected = [];
+
+		assert.deepEqual(actual, expected);
+	});
+
+	QUnit.test('sorting неправильынй вызов: properties', function (assert) {
+		const initial = [
+			{prop1: 3, prop2: 54, id: 'G'},
+			{prop1: 3, prop2: 54, id: 'L'},
+		];
+		const actual = sorting(initial, "hello");
+
+		const expected = [];
+
+		assert.deepEqual(actual, expected);
+	});
+
 
 });
