@@ -16,7 +16,7 @@ const solve = (expr, value) => {
     }
 
     try {
-        const calculateExpr = new Function('x', 'return ' + expr);
+        let calculateExpr = new Function('x', 'return ' + expr);
         return calculateExpr(value);
     } catch {}
 };
