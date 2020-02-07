@@ -18,7 +18,7 @@ const format = (data, columnsCount) => {
 
     if ((isNaN(Number(columnsCount)) || columnsCount < 1
         || data.some(elem => Number(parseFloat(elem)) % 1 !== 0 || isNaN(elem)))) {
-        return undefined;
+        throw new TypeError()
     }
 
     let result = '';

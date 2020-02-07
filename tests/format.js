@@ -117,10 +117,6 @@ QUnit.module('Тестируем функцию format', function () {
 		const expected = '0';
 		assert.strictEqual(format(input, 1), expected);
 		assert.strictEqual(format(input, 5), expected);
-
-		assert.strictEqual(format(1.1, 5), undefined);
-		assert.strictEqual(format([1.1], 5), undefined);
-		assert.strictEqual(format('11dd', 5), undefined);
 	});
 
 	QUnit.test('format работает правильно, когда количество чисел равно количеству строк (>1)', function (assert) {
@@ -129,45 +125,44 @@ QUnit.module('Тестируем функцию format', function () {
 		assert.strictEqual(format(input, 5), expected);
 	});
 
-	QUnit.test('format возвращает undefined, если количество колонок не является числом', function (assert) {
-		const input = [ 0, 1, 2, 3, 4];
-		const expected = undefined;
-		assert.strictEqual(format(input, 'Hello, World!'), expected);
-	});
+});
 
-	QUnit.test('format возвращает undefined, если подаем числа с плавующей точкой', function (assert) {
-		const input = [ 0, 1.1, 2, 3, 4];
-		const expected = undefined;
-		assert.strictEqual(format(input, 3), expected);
-	});
+QUnit.test( "Тесты на невалидные данные", function( assert ) {
+	assert.throws(
+		function() {
+			format(input, 'Hello, World!');
+		}, "Невалидные данные: количество колонок"
+	);
 
-	QUnit.test('format возвращает undefined, если подается некорректный массив со строками', function (assert) {
-		const input = [ 0, 'hello', 2, 'world', 4];
-		const expected = undefined;
-		assert.strictEqual(format(input, 5), expected);
-	});
+	assert.throws(
+		function() {
+			format([1,1.2,3,4], 3);
+		}, "Невалидные данные: число с плавующей точкой"
+	);
+	assert.throws(
+		function() {
+			format([ 0, 'hello', 2, 'world', 4], 3);
+		}, "Невалидные данные: массив со строками"
+	);
+	assert.throws(
+		function() {
+			format([ 0, '11.1ssssaaa', 2, '11', 4, 1.2, '10' ], 3);
+		}, "Невалидные данные: массив со строками из чисел и символов"
+	);
 
-	QUnit.test('format возвращает undefined, если подается массив с элементами из чисел и строк', function (assert) {
-		const input = [ 0, '11.1ssssaaa', 2, '11', 4, 1.2, '10' ];
-		const expected = undefined;
-		assert.strictEqual(format(input, 2), expected);
-	});
-	QUnit.test('format возвращает undefined, если кол-во колонок - строка из числа и символов', function (assert) {
-		const input = [ 0, 1, 3, 4, 5];
-		const expected = undefined;
-		assert.strictEqual(format(input, '11sssaaa'), expected);
-	});
+	assert.throws(
+		function() {
+			format([ 0, 2, 3, 4 ], '11sssaaa');
+		}, "Невалидные данные: кол-во колонок - строка из чисел и символов"
+	);
 
-	QUnit.test('format возвращает undefined, если подается некорректный массив с константами', function (assert) {
-		const input = [ 0, -Infinity, 2, Infinity, 4];
-		const expected = undefined;
-		assert.strictEqual(format(input, 5), expected);
-	});
+	assert.throws(
+		function() {
+			format([ 0, 'hello', 2, '1.1', 4, 1.2, Infinity, -Infinity], '11sssaaa');
+		}, "Невалидные данные: все данные невалидны"
+	);
 
-	QUnit.test('format возвращает undefined, если все данные некорректны', function (assert) {
-		const input = [ 0, 'hello', 2, '1.1', 4, 1.2, Infinity, -Infinity];
-		const expected = undefined;
-		assert.strictEqual(format(input, 'Hello, World!'), expected);
-	});
 
 });
+
+
