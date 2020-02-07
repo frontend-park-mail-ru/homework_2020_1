@@ -125,11 +125,11 @@ QUnit.module('Тестируем функцию sorting', function () {
 
 QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', function () {
 
-	QUnit.test('sorting сортирует по нескольким полям, добавлен  bool, undefined', function (assert) {
+	QUnit.test('sorting сортирует по нескольким полям, добавлен  bool', function (assert) {
 		const initial = [
 			{prop1: 3, id: '1'},
 			{prop1: 3, id: '2'},
-			{prop1: 0, id: undefined},
+			{prop1: 0, id: 3},
 			{prop1: true, id: '1'},
 			{prop1: true, id: '2'},
 			{prop1: 4, id: '1'},
@@ -148,10 +148,30 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 			{prop1: true, id: '2'},
 			{prop1: 2, id: '2'},
 			{prop1: 3, id: '2'},
-			{prop1: 0, id: undefined},
+			{prop1: 0, id: 3},
 		];
 
 		assert.deepEqual(actual, expected);
+	});
+
+	QUnit.test('sorting сортирует по нескольким полям, undefined error', function (assert) {
+		const initial = [
+			{prop1: 3, id: '1'},
+			{prop1: 3, id: '2'},
+			{prop1: 0, id: undefined},
+			{prop1: true, id: '1'},
+			{prop1: true, id: '2'},
+			{prop1: 4, id: '1'},
+			{prop1: false, id: '2'},
+			{prop1: 2, id: '1'},
+			{prop1: 2, id: '2'},
+		];
+
+		assert.throws(
+			function () {
+				sorting(initial, ["prop1", "id"]);
+			}, new Error("Сравнение с неопределенным занчением"));
+
 	});
 
 	QUnit.test('sorting сортирует по нескольким полям, больше полей, отриц значения', function (assert) {
