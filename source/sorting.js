@@ -12,15 +12,14 @@
 let sorting = (initial, properties) => {
 
     if (initial.constructor !== Array || properties.constructor !== Array) {
-        console.assert(false, "sorting(): arguments must be arrays");
-        return [];
+        throw Error("Некорректный тип входных данных");
     }
 
     if (properties.length === 0) return initial;
 
-    properties.reduceRight(  (prevVal, item) => {
+    properties.reverse().forEach(function(property)  {
         initial.sort( (first, second) => {
-            return (first[item] <= second[item]) ? -1: 1;
+            return (first[property] <= second[property]) ? -1: 1;
         });
     }, [initial]);
 

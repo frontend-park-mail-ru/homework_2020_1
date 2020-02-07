@@ -183,11 +183,11 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 
 	QUnit.test('sorting неправильынй вызов: initial', function (assert) {
 		const initial = 3.14;
-		const actual = sorting(initial, [ 'prop1', 'id' ]);
 
-		const expected = [];
-
-		assert.deepEqual(actual, expected);
+		assert.throws(
+			function () {
+				sorting(initial, "hello");
+			}, new Error("Некорректный тип входных данных"));
 	});
 
 	QUnit.test('sorting неправильынй вызов: properties', function (assert) {
@@ -195,11 +195,11 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 			{prop1: 3, prop2: 54, id: 'G'},
 			{prop1: 3, prop2: 54, id: 'L'},
 		];
-		const actual = sorting(initial, "hello");
 
-		const expected = [];
-
-		assert.deepEqual(actual, expected);
+		assert.throws(
+			function () {
+				sorting(initial, "hello");
+			}, new Error("Некорректный тип входных данных"));
 	});
 
 });
