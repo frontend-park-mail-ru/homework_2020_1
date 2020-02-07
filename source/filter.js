@@ -8,8 +8,9 @@ const dangerous = {
     "'": '&#39;'
 };
 
-const LtLength = '<'.length;
-const GtLength = '>'.length;
+const leftAngleBracket = '<';
+const rightAngleBracket = '>';
+const angleBracketLength = 1;
 
 const replaceDangerousSymbols = str => {
     let result = '';
@@ -34,7 +35,7 @@ const replaceDangerousSymbols = str => {
 const filter = (text, allowed) => {
     let result = '';
     for (let i = 0; i < text.length; i++) {
-        if (text[i] !== '<') {
+        if (text[i] !== leftAngleBracket) {
             result += replaceDangerousSymbols(text[i]);
             continue;
         }
@@ -45,19 +46,21 @@ const filter = (text, allowed) => {
             tagClosing = '';
         } else {
             indexOfNextGt += i;
-            tagClosing = '>';
+            tagClosing = rightAngleBracket;
         }
-        const tag = text.slice(i + LtLength, indexOfNextGt);
+        const tag = text.slice(i + angleBracketLength, indexOfNextGt);
         const meaningPartOfClosingTag = tag.slice(1, tag.length);
-        if (
+        const everythingIsGood = (
             (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
             (allowed.indexOf(meaningPartOfClosingTag) !== -1))
-        ) {
-            result += '<' + tag + tagClosing;
+        )
+        const newAwesomeMayBeEditedAndMayBeNotPartOfResultingText = leftAngleBracket + tag + tagClosing;
+        if (everythingIsGood) {
+            result += newAwesomeMayBeEditedAndMayBeNotPartOfResultingText;
         } else {
-            result += replaceDangerousSymbols('<' + tag + tagClosing);
+            result += replaceDangerousSymbols(newAwesomeMayBeEditedAndMayBeNotPartOfResultingText);
         }
-        i += tag.length + GtLength;
+        i += tag.length + angleBracketLength;
     }
     return result;
 };
