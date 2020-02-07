@@ -1,17 +1,17 @@
 /**
  *
  * @param {Array} inputArray
+ * @param {Array} outputArray
  * @returns {Array}
  */
 
-const plain = (inputArray) =>  {
+const plain = (inputArray, outputArray = []) =>  {
 	if (!Array.isArray(inputArray)) {
 		return [];
 	}
-	let outputArray = [];
-	inputArray.forEach(element => {
+	inputArray.forEach((element) => {
 		if (Array.isArray(element)) {
-			innerPlain(element, outputArray);
+			plain(element,outputArray);
 		} else {
 			outputArray.push(element);
 		}
@@ -19,19 +19,4 @@ const plain = (inputArray) =>  {
 	return outputArray;
 };
 
-/**
- *
- * @param inputArray
- * @param outputArray
- */
-
-const innerPlain = (inputArray, outputArray) => {
-	inputArray.forEach(element => {
-		if (Array.isArray(element)) {
-			innerPlain(element, outputArray);
-		} else {
-			outputArray.push(element);
-		}
-	})
-};
 
