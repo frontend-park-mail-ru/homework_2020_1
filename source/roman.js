@@ -14,27 +14,36 @@ const UNKNOWN_SYMBOLS = 'Unknown input symbols';
  * @returns {string}
  */
 const roman = (number) => {
-    let result;
+
     let reg_nums = /^-?\d+$/;
     let reg_romans = /^[IVXLCDM]+$/i;
 
-    if (typeof number == 'string' || typeof number == 'number') {
-        if (reg_nums.test(number)) {
-            if (number >= 0 && number < 4000) {
-                result = romanize(number);
-            } else {
+    switch (typeof number) {
+        case 'string':
+            if (reg_nums.test(number)) {
+                return romanize(number);
+            }
+
+            if (reg_romans.test(number)) {
+                return deromanize(number);
+            }
+
+            throw new Error(UNKNOWN_SYMBOLS);
+
+        case 'number':
+            if (number < 0 || number > 3999) {
                 throw new Error(RANGE_ERROR);
             }
-        } else if (reg_romans.test(number)) {
-            result = deromanize(number);
-        } else {
-            throw new Error(UNKNOWN_SYMBOLS);
-        }
-    } else {
-        throw new Error(TYPE_ERROR);
-    }
 
-    return result;
+            if (reg_nums.test(number)) {
+                return romanize(number);
+            }
+
+            throw new Error(UNKNOWN_SYMBOLS);
+
+        default:
+            throw new Error(TYPE_ERROR);
+    }
 };
 
 /**
