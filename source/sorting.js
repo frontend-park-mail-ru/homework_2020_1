@@ -2,14 +2,12 @@
 
 /**
  * Устойчивая сортировка по свойствам.
- * Принимает на вход массив plain-объектов и массив имён свойств,
- * по которым необходимо отсортировать массив объектов
  *
- * @returns {Array}
  * @param {Array} initial - массив plain-объектов
  * @param {Array} properties - массив имён свойств
+ * @returns {Array}
  */
-let sorting = (initial, properties) => {
+const sorting = (initial, properties) => {
 
     if (initial.constructor !== Array || properties.constructor !== Array) {
         throw Error("Некорректный тип входных данных");
