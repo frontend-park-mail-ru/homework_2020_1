@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * функция реализует проверку на объект.
+ * Функция реализует проверку на объект.
  *
  * @param {object} obj - объект для проверки.
  * @returns {boolean|boolean} результат проверки.
@@ -12,7 +12,7 @@ const isObject = (obj) => {
 };
 
 /**
- * функция реализует глубокое копирование объекта.
+ * Функция реализует глубокое копирование объекта.
  *
  * @param {object} src - объект для копирования.
  * @returns {object} скопированный объект.
@@ -58,12 +58,18 @@ const deepCopy = (src) => {
  * и возвращает единственный объект, содержащий все поля из всех объектов.
  * Если одно и то же поле было в нескольких объектах, останется значение,
  * которое встретилось раньше.
+ * невалидные данные игнорируются
  *
  * @param {...object} src - набор объектов.
  * @returns {object} полученный объект.
  */
 const zip = (...src) => {
+	const objArray = src.reduce(
+  		(out, obj, index, array) => isObject(obj) ? out.concat(array[index]) : out, 
+  		[]
+	)
+
     let zipObj = {};
-    Object.assign(zipObj, ...(src.reverse()));
+    Object.assign(zipObj, ...(objArray.reverse()));
     return deepCopy(zipObj);
 };
