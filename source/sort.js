@@ -56,4 +56,4 @@ const makeWord = str => toUpCaseFirst(sortWord(str));
 */
 const sort = str => typeof str === 'string' || str instanceof String
                         ? str.toLocaleLowerCase().split(' ').map(makeWord).sort(localeCompare).join(' ')
-                        : undefined;
+                        : void 0;
