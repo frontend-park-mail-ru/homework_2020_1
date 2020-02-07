@@ -19,10 +19,10 @@ const euclidForTwo = (first, second) => {
 /**
  * validates data for using it in euclid func
  * @param {number} num
- * @returns {boolean} true if valid, false if invalid
+ * @returns {boolean} false if valid, true if invalid
  */
-const validator = (num) =>
-    (typeof num === 'number' && num >= 0 && Number.isInteger(num)) ? true : false;
+const reverseValidator = (num) =>
+    (typeof num === 'number' && num >= 0 && Number.isInteger(num)) ? false : true;
 
 /**
  * counts greatest common divisor for n numbers
@@ -31,7 +31,7 @@ const validator = (num) =>
  * @returns {number} solution or '-1' in case of invalid data
  */
 const euclid = (...args) => {
-    if (!args.every(validator)) {
+    if (args.some(reverseValidator)) {
         return -1;
     }
     let result = args[0];
