@@ -22,7 +22,7 @@ const euclidForTwo = (first, second) => {
  * @returns {boolean} true if valid, false if invalid
  */
 const validator = (num) =>
-    (typeof num !== 'number') ? false : (num < 0) ? false : (!Number.isInteger(num)) ? false : true;
+    (typeof num === 'number' && num >= 0 && Number.isInteger(num)) ? true : false;
 
 /**
  * counts greatest common divisor for n numbers
@@ -30,7 +30,7 @@ const validator = (num) =>
  * @param {array} ...args contains numbers to check
  * @returns {number} solution or '-1' in case of invalid data
  */
-const euclid = function (...args) {
+const euclid = (...args) => {
     if (!args.every(validator)) {
         return -1;
     }
