@@ -8,6 +8,9 @@ const dangerous = {
     "'": '&#39;'
 };
 
+const LtLength = 1; // '<'.length
+const GtLength = 1; // '>'.length
+
 const replaceDangerousSymbols = str => {
     let result = '';
     for (let i of str) {
@@ -18,35 +21,43 @@ const replaceDangerousSymbols = str => {
         }
     }
     return result;
-}
-
-const findTagEnd = (text, i) => {
-    for (; i < text.length && text[i] !== '>'; i++);
-    return i;
-}
+};
 
 /**
  * Заменяет "опасные" символы в исходном тексте
  * знаки '<' и '>' обрамляющие разрешённые теги не заменяются
  *
  * @param {string} text - Исходный текст
- * @param {array of strings} allowed - Массив разрешённых тегов
+ * @param {string[]} allowed - Массив разрешённых тегов
  * @returns  {string}
  */
 const filter = (text, allowed) => {
     let result = '';
     for (let i = 0; i < text.length; i++) {
-        if (text[i] === '<') {
-            let tag = text.slice(i + '<'.length, findTagEnd(text, i));
-            if (allowed.indexOf(tag) !== -1 || (tag[0] === '/' && allowed.indexOf(tag.slice(1, tag.length)) !== -1)) {
-                result += '<' + tag + (tag.length + '>'.length < text.length - i ? '>' : '');
-            } else {
-                result += replaceDangerousSymbols('<' + tag + (tag.length + '>'.length < text.length - i ? '>' : ''));
-            }
-            i += tag.length + '>'.length;
-        } else {
+        if (text[i] !== '<') {
             result += replaceDangerousSymbols(text[i]);
+            continue;
         }
+        let indexOfNextGt = text.slice(i, text.length).indexOf('>');
+        if (indexOfNextGt === -1) {
+            indexOfNextGt = text.length;
+        } else {
+            indexOfNextGt += i;
+        }
+        let tag = text.slice(i + LtLength, indexOfNextGt);
+        let symbolsLeft = text.length - i;
+        let tagIsClosed = tag.length + GtLength < symbolsLeft;
+        let tagClosing = (tagIsClosed ? '>' : '');
+        let meaningPartOfClosingTag = tag.slice(1, tag.length);
+        if (
+            (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
+            (allowed.indexOf(meaningPartOfClosingTag) !== -1))
+        ) {
+            result += '<' + tag + tagClosing;
+        } else {
+            result += replaceDangerousSymbols('<' + tag + tagClosing);
+        }
+        i += tag.length + GtLength;
     }
     return result;
-}
+};
