@@ -39,15 +39,15 @@ QUnit.module('Тестируем функцию roman', function () {
 	});
 
 	QUnit.test('roman правильно реагирует на некорректные значения', function (assert) {
-		assert.strictEqual(roman(''), 0);
-		assert.strictEqual(roman('=*='), 0);
-		assert.strictEqual(roman('NO'), 0);
-		assert.strictEqual(roman(0), '');
-		assert.strictEqual(roman(-122), '');
-		assert.strictEqual(roman(null), '');
-		assert.strictEqual(roman([1, 2, 7]), '');
+		assert.strictEqual(roman(''), undefined);
+		assert.strictEqual(roman('=*='), undefined);
+		assert.strictEqual(roman('NO'), undefined);
+		assert.strictEqual(roman(0), undefined);
+		assert.strictEqual(roman(-122), undefined);
+		assert.strictEqual(roman(null), undefined);
+		assert.strictEqual(roman([1, 2, 7]), undefined);
 
 		let undef;
-		assert.strictEqual(roman(undef), '');
+		assert.strictEqual(roman(undef), undefined);
 	});
 });
