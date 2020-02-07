@@ -21,12 +21,8 @@ const euclidForTwo = (first, second) => {
  * @param num {number}
  * @returns {boolean} true if valid, false if invalid
  */
-const validator = (num) => {
-    const validating = (num) =>
-        (typeof num !== "number") ? false : (num < 0) ? false : (!Number.isInteger(num)) ? false : true;
-    return validating(num);
-}
-
+const validator = (num) =>
+    (typeof num !== "number") ? false : (num < 0) ? false : (!Number.isInteger(num)) ? false : true;
 
 /**
  * counts greatest common divisor for n numbers
