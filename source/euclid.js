@@ -21,8 +21,8 @@ const euclidForTwo = (first, second) => {
  * @param {number} num
  * @returns {boolean} false if valid, true if invalid
  */
-const reverseValidator = (num) =>
-    (typeof num === 'number' && num >= 0 && Number.isInteger(num)) ? false : true;
+const isInvalid = (num) =>
+    !(typeof num === 'number' && num >= 0 && Number.isInteger(num));
 
 /**
  * counts greatest common divisor for n numbers
@@ -31,7 +31,7 @@ const reverseValidator = (num) =>
  * @returns {number} solution or '-1' in case of invalid data
  */
 const euclid = (...args) => {
-    if (args.some(reverseValidator)) {
+    if (args.some(isInvalid)) {
         return -1;
     }
     let result = args[0];
