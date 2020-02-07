@@ -8,6 +8,7 @@ const dangerous = {
     "'": '&#39;'
 };
 
+const slash = '/';
 const leftAngleBracket = '<';
 const rightAngleBracket = '>';
 const angleBracketLength = 1;
@@ -39,7 +40,7 @@ const filter = (text, allowed) => {
             result += replaceDangerousSymbols(text[i]);
             continue;
         }
-        let indexOfNextGt = text.slice(i, text.length).indexOf('>');
+        let indexOfNextGt = text.slice(i, text.length).indexOf(rightAngleBracket);
         let tagClosing;
         if (indexOfNextGt === -1) {
             indexOfNextGt = text.length;
@@ -50,8 +51,8 @@ const filter = (text, allowed) => {
         }
         const tag = text.slice(i + angleBracketLength, indexOfNextGt);
         const meaningPartOfClosingTag = tag.slice(1, tag.length);
-        const everythingIsGood = (
-            (allowed.indexOf(tag) !== -1) || ((tag[0] === '/') &&
+        const tagIsAllowed = (
+            (allowed.indexOf(tag) !== -1) || ((tag[0] === slash) &&
             (allowed.indexOf(meaningPartOfClosingTag) !== -1))
         )
         const newPartOfResultingText = leftAngleBracket + tag + tagClosing;
