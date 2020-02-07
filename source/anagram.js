@@ -8,7 +8,9 @@
  * @returns {Array} Сгруппированные массивы слов анаграмм
  */
 const anagram = (input) => {
-  if (!Array.isArray(input) || input.length < 2) return [];
+  if (!Array.isArray(input) || input.length < 2) {
+    return [];
+  }
 
   const anagramObj = input.sort().reduce((obj, item) => {
     if (typeof item !== 'string') {
