@@ -202,5 +202,4 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 		assert.deepEqual(actual, expected);
 	});
 
-
 });

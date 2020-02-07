@@ -26,4 +26,3 @@ let sorting = (initial, properties) => {
 
     return initial;
 };
-
