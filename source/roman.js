@@ -20,21 +20,17 @@ const roman = (number) => {
 
     if (typeof number == 'string' || typeof number == 'number') {
         if (reg_nums.test(number)) {
-
             if (number >= 0 && number < 4000) {
                 result = romanize(number);
 
             } else {
                 throw new Error(RANGE_ERROR);
             }
-
         } else if (reg_romans.test(number)) {
-            result = better_deromanize(number);
-
+            result = deromanize(number);
         } else {
             throw new Error(UNKNOWN_SYMBOLS);
         }
-
     } else {
         throw new Error(TYPE_ERROR);
     }
@@ -64,12 +60,12 @@ let romanize = (number) => {
             I: 1
         },
         roman = '',
-        i;
+        iterator;
 
-    for (i in lookup) {
-        while (number >= lookup[i]) {
-            roman += i;
-            number -= lookup[i];
+    for (iterator in lookup) {
+        while (number >= lookup[iterator]) {
+            roman += iterator;
+            number -= lookup[iterator];
         }
     }
 
@@ -77,40 +73,11 @@ let romanize = (number) => {
 };
 
 /**
- * @description convert from Roman number to arabic performance
- * @param roman
- * @returns {number}
- */
-let deromanize = (roman) => {
-    let roman_number = roman.toUpperCase(),
-        lookup = {
-            I: 1,
-            V: 5,
-            X: 10,
-            L: 50,
-            C: 100,
-            D: 500,
-            M: 1000
-        },
-        arabic = 0,
-        i = roman_number.length;
-
-    while (i--) {
-        if (lookup[roman_number[i]] < lookup[roman_number[i + 1]])
-            arabic -= lookup[roman_number[i]];
-        else
-            arabic += lookup[roman_number[i]];
-    }
-
-    return arabic;
-};
-
-/**
  * @description better implementation of function deromanize
  * @param roman
  * @returns {*}
  */
-let better_deromanize = (roman) => {
+let deromanize = (roman) => {
     roman = roman.toUpperCase().split('');
     let lookup = {
         I: 1,
