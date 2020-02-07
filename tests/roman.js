@@ -42,9 +42,44 @@ QUnit.module('Тестируем функцию roman', function () {
     });
 
     QUnit.test('roman правильно определяет, что входные данные не соответствуют формату', function (assert) {
-        assert.strictEqual(roman('19a04'), 'error format');
-        assert.strictEqual(roman('MXP'), 'error format');
-        assert.strictEqual(roman('2017.13'), 'error format');
-        assert.strictEqual(roman(4000), 'enter number less than 4000');
+        assert.throws(
+            function () {
+                roman('19a04');
+            }, new Error(UNKNOWN_SYMBOLS));
+
+        assert.throws(
+            function () {
+                roman('MXP');
+            }, new Error(UNKNOWN_SYMBOLS));
+
+        assert.throws(
+            function () {
+                roman('2017.13');
+            }, new Error(UNKNOWN_SYMBOLS));
+
+        assert.throws(
+            function () {
+                roman(NaN);
+            }, new Error(UNKNOWN_SYMBOLS));
+
+        assert.throws(
+            function () {
+                roman(true);
+            }, new Error(TYPE_ERROR));
+
+        assert.throws(
+            function () {
+                roman(null);
+            }, new Error(TYPE_ERROR));
+
+        assert.throws(
+            function () {
+                roman(4000);
+            }, new Error(RANGE_ERROR));
+
+        assert.throws(
+            function () {
+                roman(-1);
+            }, new Error(RANGE_ERROR));
     });
 });
