@@ -9,9 +9,9 @@ const RANGE_ERROR = 'Input value must be [0; 3999]';
 const UNKNOWN_SYMBOLS = 'Unknown input symbols';
 
 /**
- *@description validate input values and determinate needed convert solution
- * @param number
- * @returns {*}
+ * @description validate input values and determinate needed convert solution
+ * @param {string|number} number
+ * @returns {string}
  */
 const roman = (number) => {
     let result;
@@ -22,7 +22,6 @@ const roman = (number) => {
         if (reg_nums.test(number)) {
             if (number >= 0 && number < 4000) {
                 result = romanize(number);
-
             } else {
                 throw new Error(RANGE_ERROR);
             }
@@ -40,11 +39,14 @@ const roman = (number) => {
 
 /**
  * @description convert from number or numerical string (arabic) to Roman performance
- * @param number
+ * @param {string|number} number
  * @returns {string}
  */
-let romanize = (number) => {
-    let lookup = {
+const romanize = (number) => {
+    let roman = '',
+        iterator;
+
+    const lookup = {
             M: 1000,
             CM: 900,
             D: 500,
@@ -58,9 +60,7 @@ let romanize = (number) => {
             V: 5,
             IV: 4,
             I: 1
-        },
-        roman = '',
-        iterator;
+        };
 
     for (iterator in lookup) {
         while (number >= lookup[iterator]) {
@@ -74,12 +74,12 @@ let romanize = (number) => {
 
 /**
  * @description better implementation of function deromanize
- * @param roman
+ * @param {string} roman
  * @returns {*}
  */
-let deromanize = (roman) => {
+const deromanize = (roman) => {
     roman = roman.toUpperCase().split('');
-    let lookup = {
+    const lookup = {
         I: 1,
         V: 5,
         X: 10,
