@@ -13,9 +13,9 @@ const isString = (element) => typeof element === 'string';
 const getDiff = (a, b) => {
     if (isString(a) || isString(b)) {
       return a.localeCompare(b);
-    } else {
-      return a - b;
     }
+
+    return a - b;
 };
 
 /**
