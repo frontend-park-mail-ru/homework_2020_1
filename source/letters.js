@@ -1,14 +1,14 @@
 'use strict';
 
 /**
- * Удаляет из строки символы, которые встречаются больше одного раза
+ * Удадяет из строки символы, которые встречаются больше одного раза
  * @param str - Исходная строка
  * @param format - При true оставляет первую встречающуюся букву, при false - последнюю
- * @returns {string} - Полученная строка
+ * @returns {string|undefined} - Полученная строка или undefined
  */
 const letters = (str, format) => {
     if (typeof str !== 'string') {
-        return undefined;
+        return;
     }
 
     switch (format) {
@@ -28,6 +28,6 @@ const letters = (str, format) => {
             }).join('');
 
         default:
-            return undefined;
+            return;
     }
 };
