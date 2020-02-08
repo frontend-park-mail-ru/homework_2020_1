@@ -5,6 +5,7 @@ const SYMBOL_AR = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
 /** @description Переводит арабские числа в римские и обратно.
  * @param number Число в римской или арабской системе счисления.
+ * @returns {(number|string|undefined)} 
  */
 const roman = (number) => {
 
@@ -27,19 +28,24 @@ const roman = (number) => {
 const fromRomanToArabic = (number) => {
 
     let sym = 0;
-    let res = 0;
     let index = SYMBOL_AR.length - 1;
     number = number.toUpperCase();
 
-    while (sym < number.length &&
-	((index >= 0) || (index >= 0))    
-    ) {
-        if (number.substr(sym, SYMBOL_ROM[index].length) === SYMBOL_ROM[index]) {
-            sym += SYMBOL_ROM[index].length;
-            res += SYMBOL_AR[index];
-        } else { index--; }
-    }
+    let res = SYMBOL_ROM.reduceRight((interimResult, current, index) => {
 
+        let mult = 0;
+        while (number.substr(sym, SYMBOL_ROM[index].length) === current) {
+            mult++;
+            sym += current.length;
+        }
+
+        if (mult>0) {
+            return interimResult + SYMBOL_AR[index] * mult;
+        } else {
+            return interimResult;
+        }
+    }, 0);
+    
     return res;
 }
 
@@ -49,18 +55,19 @@ const fromRomanToArabic = (number) => {
  */
 const fromArabicToRoman = (number) => {
 
-    let res = '';
-    let index = SYMBOL_AR.length - 1;
+    let res = SYMBOL_AR.reduceRight((interimResult, current, index) => {
 
-    while (number > 0) {
-        if (
-            (number > SYMBOL_AR[index]) ||
-            (number == SYMBOL_AR[index])
-        ) {
-            res += SYMBOL_ROM[index];
-            number -= SYMBOL_AR[index];
-        } else { index--; }
-    }
+        if ((number > current) ||
+            (number == current)) {
+
+            let mult = Math.floor(number / current);
+            number -= current * mult;
+
+            return interimResult + SYMBOL_ROM[index].repeat(mult);
+        } else {
+            return interimResult;
+        }
+    }, '');
 
     return res;
 }
