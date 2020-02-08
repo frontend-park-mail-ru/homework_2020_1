@@ -19,8 +19,5 @@ const tree = (lvl) => {
     }
 
     stringTree += '|'.padStart((maxlen - 1) / 2 + 1).padEnd((maxlen - 1) + 1) + '\n';
-    console.log(stringTree);
     return stringTree;
 };
-
-tree("7");
