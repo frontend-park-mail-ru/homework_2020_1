@@ -8,13 +8,12 @@ const SYMBOL_AR = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
  * @returns {(number|string|undefined)} 
  */
 const roman = (number) => {
-
     if (/^[1-9]\d*$/.test(number)) {
-        return (fromArabicToRoman(number));
+        return fromArabicToRoman(number);
     }
 
     if (/^[IVXLCDM]+$/i.test(number)) {
-        return (fromRomanToArabic(number));
+        return fromRomanToArabic(number);
     }
 
     return;
@@ -26,27 +25,19 @@ const roman = (number) => {
  * @return {number} 
  */
 const fromRomanToArabic = (number) => {
-
     let sym = 0;
     let index = SYMBOL_AR.length - 1;
     number = number.toUpperCase();
 
-    let res = SYMBOL_ROM.reduceRight((interimResult, current, index) => {
-
+    return SYMBOL_ROM.reduceRight((interimResult, current, index) => {
         let mult = 0;
         while (number.substr(sym, SYMBOL_ROM[index].length) === current) {
             mult++;
             sym += current.length;
         }
 
-        if (mult>0) {
-            return interimResult + SYMBOL_AR[index] * mult;
-        } else {
-            return interimResult;
-        }
+        return (mult > 0) ? (interimResult + SYMBOL_AR[index] * mult) : interimResult;
     }, 0);
-    
-    return res;
 }
 
 /** @description Переводит арабские числа в римские.
@@ -54,12 +45,8 @@ const fromRomanToArabic = (number) => {
  * @return {string} 
  */
 const fromArabicToRoman = (number) => {
-
-    let res = SYMBOL_AR.reduceRight((interimResult, current, index) => {
-
-        if ((number > current) ||
-            (number == current)) {
-
+    return SYMBOL_AR.reduceRight((interimResult, current, index) => {
+        if (number >= current) {
             let mult = Math.floor(number / current);
             number -= current * mult;
 
@@ -68,6 +55,4 @@ const fromArabicToRoman = (number) => {
             return interimResult;
         }
     }, '');
-
-    return res;
 }
