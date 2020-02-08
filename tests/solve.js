@@ -21,5 +21,5 @@ QUnit.module('Тестируем функцию solve', function () {
 		assert.throws(() => solve('5 56 + x', 0), SyntaxError(INVALID_EXPR));
 		assert.throws(() => solve('x x x', 5), SyntaxError(INVALID_EXPR));
 		assert.throws(() => solve('5 plus 6 plus x', 3), SyntaxError(INVALID_EXPR));
-	})
+	});
 });
