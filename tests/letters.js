@@ -62,20 +62,10 @@ QUnit.module('Тестируем функцию letters', function () {
 	});
 
 	QUnit.test('Невалидные данные', function (assert) {
-		assert.throws(function () {
-			letters(true)
-		},  new Error('Invalid params.'));
-		assert.throws(function () {
-			letters([])
-		},  new Error('Invalid params.'));
-		assert.throws(function () {
-			letters(1)
-		},  new Error('Invalid params.'));
-		assert.throws(function () {
-			letters(1, 'hi')
-		},  new Error('Invalid params.'));
-		assert.throws(function () {
-			letters('hello', 'true')
-		},  new Error('Invalid params.'));
+		assert.throws(() => letters(true), new Error('Invalid params.'));
+		assert.throws(() => letters([]), new Error('Invalid params.'));
+		assert.throws(() => letters(1), new Error('Invalid params.'));
+		assert.throws(() => letters(1, 'hi'), new Error('Invalid params.'));
+		assert.throws(() => letters('hello', 'true'), new Error('Invalid params.'));
 	})
 });

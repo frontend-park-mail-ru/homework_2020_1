@@ -6,23 +6,22 @@
                  Если флаг - false, удаляет все повторяющиеся символы, кроме последнего.
     @param {string} str Строка для обработки.
     @param {boolean} flag Параметры обработки.
-    @returns {string} Обработананя строка.тзь штыефд
+    @returns {string} Обработананя строка.
 */
 
-const letters = (...args) => {
-    if (typeof args[0] !== 'string' || (typeof args[1] !== 'boolean') && typeof args[1] !== 'undefined') {
+const letters = (str, flag) => {
+    if (typeof str !== 'string' || (typeof flag !== 'boolean' && typeof flag !== 'undefined')) {
         throw new Error('Invalid params.');
     }
-    switch (typeof args[1]) {
-        case "undefined": {
-            return args[0].split('').filter((value, index, str) => {
-                return str.lastIndexOf(value) === str.indexOf(value);
-            }).join('')
-        }
-        case "boolean": {
-            return args[0].split('').filter((value, index, str) => {
-                return (args[1] === true) ? (str.indexOf(value) === index) : (str.lastIndexOf(value) === index);
-            }).join('')
-        }
+
+    if (typeof flag === 'undefined') {
+        return str.split('').filter((value, index, str) => {
+            return str.lastIndexOf(value) === str.indexOf(value);
+        }).join('')
+    } else if (typeof flag === 'boolean') {
+        return str.split('').filter((value, index, str) => {
+            return (flag === true) ? (str.indexOf(value) === index) : (str.lastIndexOf(value) === index);
+        }).join('')
     }
 }
+
