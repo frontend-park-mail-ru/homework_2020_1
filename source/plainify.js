@@ -27,6 +27,10 @@ const internalPlainify = (complexObject, plainObject, parentProp = '') => {
 const plainify = complexObject => {
     const plainObject = {};
 
+    if (!(complexObject instanceof Object)) {
+        return plainObject;
+    }
+
     internalPlainify(complexObject, plainObject);
 
     return plainObject;
