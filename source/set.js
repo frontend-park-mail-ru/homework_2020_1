@@ -18,7 +18,7 @@
  *      или строки последовательности полей
  */
 function set(object, request, value) {
-    if (typeof object != 'object' || 
+    if (typeof object !== 'object' || 
         Array.isArray(object) || 
         object === null) {
         throw new TypeError(`Переданный параметр ${object} не является объектом`);
