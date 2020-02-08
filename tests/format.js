@@ -67,4 +67,15 @@ QUnit.module('Тестируем функцию format', function () {
 
 		assert.strictEqual(format(input, -2), expected);
 	});
+
+	QUnit.test('format обрабатывает неправильный ввод', function (assert) {
+		const input = {
+			name: "Nick",
+			age: 20,
+		};
+
+		const expected = '';
+
+		assert.strictEqual(format(input, 1), expected);
+	});
 });
