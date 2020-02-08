@@ -60,11 +60,11 @@ QUnit.module('Тестируем функцию letters', function () {
 		assert.strictEqual(letters(''), '');
 	});
 
-	QUnit.test('Возвращает пустую строку при некорректных данных', function (assert) {
-		assert.strictEqual(letters(123), '');
-		assert.strictEqual(letters([1, 2, 3]), '');
-		assert.strictEqual(letters({'a': 1, 'b': 2}), '');
-		assert.strictEqual(letters(null), '');
-		assert.strictEqual(letters(undefined), '');
+	QUnit.test('Возвращает undefined при некорректных данных', function (assert) {
+		assert.strictEqual(letters(123), undefined);
+		assert.strictEqual(letters([1, 2, 3]), undefined);
+		assert.strictEqual(letters({'a': 1, 'b': 2}), undefined);
+		assert.strictEqual(letters(null), undefined);
+		assert.strictEqual(letters(undefined), undefined);
 	});
 });
