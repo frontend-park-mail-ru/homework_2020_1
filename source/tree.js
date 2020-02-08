@@ -1,13 +1,13 @@
 'use strict';
 
-var tree = (lvl) => {
+let tree = (lvl) => {
 
-    if (!isFinite(lvl)) {
+    if (!(/\d+/.test(lvl))) {
         return null
     }
 
 
-    if ((lvl <= 2)) {
+    if (lvl < 3) {
         return null;
     }
 
@@ -17,12 +17,12 @@ var tree = (lvl) => {
 
     for (let i = 0; i < lvl - 2; i++) {
         star = star + 2;
-        stringTree = stringTree + ' '.repeat((maxlen - star) / 2) + '*'.repeat(parseInt(star))
+        stringTree += ' '.repeat((maxlen - star) / 2) + '*'.repeat(parseInt(star))
             + ' '.repeat((maxlen - star) / 2) + '\n';
 
     }
 
-    stringTree = stringTree + ' '.repeat((maxlen - 1) / 2) + '|' + ' '.repeat((maxlen - 1) / 2) + '\n';
-
+    stringTree += ' '.repeat((maxlen - 1) / 2) + '|' + ' '.repeat((maxlen - 1) / 2) + '\n';
     return stringTree;
 };
+

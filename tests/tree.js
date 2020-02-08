@@ -8,6 +8,8 @@ QUnit.module('Тестируем функцию tree', function () {
 		};
 		assert.strictEqual(tree('abc'), null);
 		assert.strictEqual(tree(obj), null);
+		assert.strictEqual(tree(null), null);
+		assert.strictEqual(tree(undefined), null);
 		assert.notStrictEqual(tree(7), null);
 	});
 
