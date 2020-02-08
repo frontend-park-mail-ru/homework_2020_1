@@ -18,12 +18,14 @@
  *      или строки последовательности полей
  */
 function set(object, request, value) {
-    if (!typeof(object) === "object") {
+    if (typeof object != 'object' || 
+        Array.isArray(object) || 
+        object === null) {
         throw new TypeError(`Переданный параметр ${object} не является объектом`);
     }
 
     const fieldList = request.slice(1).split('.');
-    if (fieldList.includes("")) {
+    if (fieldList.includes('')) {
         throw new TypeError('Переданная строка полей некорретна');
     }
 

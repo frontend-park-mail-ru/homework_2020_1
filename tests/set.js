@@ -98,13 +98,14 @@ QUnit.module('Тестируем функцию set', function () {
 	});
 
 	QUnit.test('set кидает исключение TypeError при передаче параметра "не объекта" или null', function (assert) {
-		assert.throws(func => {set("asd", '.value.for.fields', 'seted value')}, TypeError);
-		assert.throws(func => {set(123, '.value.for.fields', 'seted value')}, TypeError);
-		assert.throws(func => {set(null, '.value.for.fields', 'seted value')}, TypeError);
+		assert.throws(func => {set("asd", '.value.for.fields', 'seted value')}, TypeError('Переданный параметр asd не является объектом'));
+		assert.throws(func => {set(123, '.value.for.fields', 'seted value')}, TypeError('Переданный параметр 123 не является объектом'));
+		assert.throws(func => {set(null, '.value.for.fields', 'seted value')}, TypeError('Переданный параметр null не является объектом'));
+		assert.throws(func => {set([], '.value.for.fields', 'seted value')}, TypeError('Переданный параметр  не является объектом'));
 	});
 
 	QUnit.test('set кидает исключение TypeError при передаче некорректной строки полей', function (assert) {
-		assert.throws(func => {set({}, '..string.with.empty.field', 'seted value')}, TypeError);
-		assert.throws(func => {set({}, '.', 'seted value')}, TypeError);
+		assert.throws(func => {set({}, '..string.with.empty.field', 'seted value')}, TypeError('Переданная строка полей некорретна'));
+		assert.throws(func => {set({}, '.', 'seted value')}, TypeError('Переданная строка полей некорретна'));
 	});
 });
