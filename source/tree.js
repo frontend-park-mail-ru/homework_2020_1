@@ -1,3 +1,8 @@
+/** @description Drawing a beautiful fir-tree.Final picture dependent on number of tree levels
+ * @param {number} quantity of tree levels.
+ * @return {string} well drawn tree that consists of star symbols and pipe symbol as trunk
+ */
+
 'use strict';
 
 const tree = (lvl) => {
@@ -9,15 +14,15 @@ const tree = (lvl) => {
         return null;
     }
 
+    const MAXLENGTH = 2 * (lvl - 2) + 1;
     let star = 1;
-    const maxlen = 2 * (lvl - 2) + 1;
-    let stringTree = '*'.padStart((maxlen - star) / 2 + star).padEnd((maxlen - star) + star) + '\n';
+    let stringTree = '*'.padStart((MAXLENGTH - star) / 2 + star).padEnd((MAXLENGTH - star) + star) + '\n';
 
     for (let i = 0; i < lvl - 2; i++) {
         star += 2;
-        stringTree += '*'.repeat(star).padStart((maxlen - star) / 2 + star).padEnd((maxlen - star) + star) + '\n';
+        stringTree += '*'.repeat(star).padStart((MAXLENGTH - star) / 2 + star).padEnd((MAXLENGTH - star) + star) + '\n';
     }
 
-    stringTree += '|'.padStart((maxlen - 1) / 2 + 1).padEnd((maxlen - 1) + 1) + '\n';
+    stringTree += '|'.padStart((MAXLENGTH - 1) / 2 + 1).padEnd((MAXLENGTH - 1) + 1) + '\n';
     return stringTree;
 };
