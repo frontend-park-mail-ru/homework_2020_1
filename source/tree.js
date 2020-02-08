@@ -1,11 +1,9 @@
 'use strict';
 
-let tree = (lvl) => {
-
+const tree = (lvl) => {
     if (!(/\d+/.test(lvl))) {
         return null
     }
-
 
     if (lvl < 3) {
         return null;
@@ -13,16 +11,16 @@ let tree = (lvl) => {
 
     let star = 1;
     const maxlen = 2 * (lvl - 2) + 1;
-    let stringTree = ' '.repeat((maxlen - star) / 2) + '*' + ' '.repeat((maxlen - star) / 2) + '\n';
+    let stringTree = '*'.padStart((maxlen - star) / 2 + star).padEnd((maxlen - star) + star) + '\n';
 
     for (let i = 0; i < lvl - 2; i++) {
-        star = star + 2;
-        stringTree += ' '.repeat((maxlen - star) / 2) + '*'.repeat(parseInt(star))
-            + ' '.repeat((maxlen - star) / 2) + '\n';
-
+        star += 2;
+        stringTree += '*'.repeat(star).padStart((maxlen - star) / 2 + star).padEnd((maxlen - star) + star) + '\n';
     }
 
-    stringTree += ' '.repeat((maxlen - 1) / 2) + '|' + ' '.repeat((maxlen - 1) / 2) + '\n';
+    stringTree += '|'.padStart((maxlen - 1) / 2 + 1).padEnd((maxlen - 1) + 1) + '\n';
+    console.log(stringTree);
     return stringTree;
 };
 
+tree("7");
