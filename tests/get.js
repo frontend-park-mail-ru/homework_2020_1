@@ -108,4 +108,26 @@ QUnit.module('Тестируем функцию get', function () {
 		assert.strictEqual(get(object, '.foo.0'), undefined);
 		assert.strictEqual(get(object, '.foo.length'), undefined);
 	});
+
+	QUnit.test('get работает правильно c null', function (assert) {
+		const object = null;
+
+		assert.strictEqual(get(object, '.foo.0'), undefined);
+		assert.strictEqual(get(object, '.foo.length'), undefined);
+	});
+
+	QUnit.test('get работает правильно c неправильно заданным путем к свойству', function (assert) {
+		const object = {
+			foo: 'bar',
+			deep: {
+				hested: {
+					field: 'baz'
+				}
+			}
+		};
+
+		assert.strictEqual(get(object, 'foo'), undefined);
+		assert.strictEqual(get(object, 'deephested.field'), undefined);
+		assert.deepEqual(get(object, ''), undefined);
+	});
 });
