@@ -5,7 +5,13 @@
  * @return {(string|null)} well drawn tree that consists of star symbols and pipe symbol as trunk
  */
 
+const TYPE_ERROR = 'Something wrong with type of input param';
+
 const tree = (lvl) => {
+    if (typeof lvl !== "number" && typeof lvl !== "string") {
+        throw new TypeError(TYPE_ERROR);
+    }
+
     if (!(/\d+/.test(lvl))) {
         return null
     }

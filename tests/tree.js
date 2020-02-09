@@ -5,10 +5,13 @@ QUnit.module('Тестируем функцию tree', function () {
 	QUnit.test('Высота ёлочки задается циферкой', function (assert) {
 
 		assert.strictEqual(tree('abc'), null);
-		assert.strictEqual(tree({item:'objItem'}), null);
-		assert.strictEqual(tree(null), null);
-		assert.strictEqual(tree(undefined), null);
 		assert.notStrictEqual(tree(7), null);
+	});
+
+	QUnit.test('Входные данные для ёлочки должны быть верного типа', function (assert) {
+		assert.throws(()=> tree({item:'objItem'}),TypeError);
+		assert.throws(()=> tree(null),TypeError);
+		assert.throws(()=> tree(undefined),TypeError);
 	});
 
 	QUnit.test('Ёлочек высотой ниже трёх не бывает', function (assert) {
