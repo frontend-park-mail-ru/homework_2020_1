@@ -7,7 +7,10 @@
  * @return {number} - Вычесленный результат
  */
 const solve = (text, x) => {
-    let str = text.replace(/[()+\-*]/g, ' ' + '$&' + ' ').replace(/x/g, x).split(' ').filter(elem => elem !== "");
+    let str = text.replace(/[()+\-*]/g, ' ' + '$&' + ' ')
+        .replace(/x/g, x)
+        .split(' ')
+        .filter(elem => elem !== "");
 
     const prior = {'+': 1, '-': 1, '*': 2};
     let stackNumbers = new Stack();//стек чисел
