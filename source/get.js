@@ -3,7 +3,7 @@
 /**
  * Check if first letter is '.' and next are alphabetic or numeric ones or nothing except '.'
  *
- * @const {[RegExp]}
+ * @const {RegExp[]}
  * @todo Improve the rule (maybe not to use RegExp?)
  */
 
