@@ -33,4 +33,8 @@ QUnit.module('Тестируем функцию inverse', function () {
 		assert.deepEqual(inverse([ 1, 2, 3, 4, 5 ], -5), [ 1, 2, 3, 4, 5 ]);
 		assert.deepEqual(inverse([ 1, 2, 3, 4, 5 ], -15), [ 1, 2, 3, 4, 5 ]);
 	});
+
+	QUnit.test('Функция работает с четным количеством элементов', function (assert) {
+		assert.deepEqual(inverse([ 1, 2, 3, 4 ], 2), [ 1, 2, 4, 3 ]);
+	});
 });
