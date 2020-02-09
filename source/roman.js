@@ -46,13 +46,13 @@ const fromRomanToArabic = (number) => {
  */
 const fromArabicToRoman = (number) => {
     return SYMBOL_AR.reduceRight((interimResult, current, index) => {
-        if (number >= current) {
-            let mult = Math.floor(number / current);
-            number -= current * mult;
-
-            return interimResult + SYMBOL_ROM[index].repeat(mult);
-        } else {
+        if (number < current) {
             return interimResult;
         }
+        
+        let mult = Math.floor(number / current);
+        number -= current * mult;
+
+        return interimResult + SYMBOL_ROM[index].repeat(mult);
     }, '');
 }
