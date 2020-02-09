@@ -27,4 +27,4 @@ const get = (object, prop) =>
         .reduce((subObject, propValue) => 
                     (subObject && subObject[propValue]) ? subObject[propValue] : (!propValue) ? object : undefined, 
                 object);
-
+                
