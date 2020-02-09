@@ -8,12 +8,22 @@ const HTML_ESCAPES = {
     '>': '&gt;'
 };
 
-// /**
-//  * Get object type
-//  * @param obj - object
-//  * @returns {string} - result type
-//  */
-// const toType = obj => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+/**
+ * Custom exception
+ * @param {string} message - error message
+ * @constructor
+ */
+function CustomError(message) {
+    this.message = message;
+}
+
+/**
+ * Convert exception to string
+ * @returns {string}
+ */
+CustomError.prototype.toString = function () {
+    return this.message;
+};
 
 /**
  * Escape right brackets in string
@@ -44,8 +54,9 @@ const removeExtraBrackets = (string) => {
  */
 const filter = (htmlString, tags) => {
     if (typeof htmlString !== 'string') {
-        return '';
+        throw new CustomError('Type Error');
     }
+    
     let allowedTags = [];
     tags.forEach((tag, index, object) => {
         if (typeof tag === 'string') {
@@ -53,11 +64,12 @@ const filter = (htmlString, tags) => {
         }
     });
 
-    htmlString = htmlString.replace(/[&"']/g, (match) => {
-        return HTML_ESCAPES[match];
-    }).replace(/<[^<>]+>/g, (match) => {
+    htmlString = htmlString.replace(/<[^<>]+>|[&"']/g, (match) => {
         const strictTag = match.replace(/[<>/]/g, '');
         if (!allowedTags.includes(strictTag)) {
+            match = match.replace(/[&"']/g, (match) => {
+                return HTML_ESCAPES[match];
+            });
             match = match.replace('<', HTML_ESCAPES['<']);
             match = match.replace('>', HTML_ESCAPES['>']);
         }

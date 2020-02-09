@@ -48,7 +48,11 @@ QUnit.module('Проверка работы функции filter', function () 
 	});
 
 	QUnit.test('filter корректно обрабатывает невалидные аргументы', function (assert) {
-		assert.strictEqual(filter(1000, [ 'strong', 'em' ]), '');
+		try {
+			filter(1000, [ 'strong', 'em' ]);
+		} catch (e) {
+			assert.ok(e instanceof CustomError)
+		}
 		assert.strictEqual(filter('<strong>string<1>not valid</1></strong>', [ 'strong', 1 ]), '<strong>string&lt;1&gt;not valid&lt;/1&gt;</strong>');
 	});
 });
