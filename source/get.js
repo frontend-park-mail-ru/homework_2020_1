@@ -7,7 +7,7 @@
  * @todo Improve the rule (maybe not to use RegExp?)
  */
 
-const regexArr = [
+const REGEX_ARR = [
     RegExp('[.]'),
     RegExp('^\.\w+'),
     RegExp('^\.\d+')
