@@ -1,6 +1,6 @@
 'use strict';
 
-const htmlEscapes = {
+const HTML_ESCAPES = {
     '&': '&amp;',
     '"': '&quot;',
     '\'': '&#39;',
@@ -8,12 +8,12 @@ const htmlEscapes = {
     '>': '&gt;'
 };
 
-/**
- * Get object type
- * @param obj - object
- * @returns {string} - result type
- */
-const toType = obj => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+// /**
+//  * Get object type
+//  * @param obj - object
+//  * @returns {string} - result type
+//  */
+// const toType = obj => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 
 /**
  * Escape right brackets in string
@@ -27,7 +27,7 @@ const removeExtraBrackets = (string) => {
         if (symbol === '<') {
             ++counter;
         } else if (symbol === '>' && counter === 0) {
-            symbol = symbol.replace('>', htmlEscapes['>'])
+            symbol = symbol.replace('>', HTML_ESCAPES['>'])
         } else if (symbol === '>') {
             --counter;
         }
@@ -42,25 +42,24 @@ const removeExtraBrackets = (string) => {
  * @param {array} tags - array of allowed tags
  * @returns {string} - parsed string
  */
-const filter = (htmlString, ...tags) => {
-    if (toType(htmlString) !== 'string') {
+const filter = (htmlString, tags) => {
+    if (typeof htmlString !== 'string') {
         return '';
     }
-    tags.forEach((set) => {
-        set.forEach((tag, index, object) => {
-            if (toType(tag) !== 'string') {
-                object.splice(index, 1);
-            }
-        });
+    let allowedTags = [];
+    tags.forEach((tag, index, object) => {
+        if (typeof tag === 'string') {
+            allowedTags.push(tag);
+        }
     });
 
-    htmlString = htmlString.replace(/[&"']/g, (match, position) => {
-        return htmlEscapes[match];
-    }).replace(/<[^<>]+>/g, (match, position) => {
-        const copy = match.replace(/[<>/]/g, '');
-        if (tags[0].indexOf(copy) === -1) {
-            match = match.replace('<', htmlEscapes['<']);
-            match = match.replace('>', htmlEscapes['>']);
+    htmlString = htmlString.replace(/[&"']/g, (match) => {
+        return HTML_ESCAPES[match];
+    }).replace(/<[^<>]+>/g, (match) => {
+        const strictTag = match.replace(/[<>/]/g, '');
+        if (!allowedTags.includes(strictTag)) {
+            match = match.replace('<', HTML_ESCAPES['<']);
+            match = match.replace('>', HTML_ESCAPES['>']);
         }
         return match;
     }).replace(/<(?![^<]*>)/g, '&lt;');
