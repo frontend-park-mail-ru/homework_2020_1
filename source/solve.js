@@ -6,12 +6,14 @@
  * @param {number} x - Значение входной переменной
  * @return {number} - Вычесленный результат
  */
-const solve = function (text, x) {
+const solve = (text, x) => {
     let str = text.replace(/[()+\-*]/g, " " + "$&" + " ").replace(/x/g, x).split(' ');
     str = str.filter(element => element !== "");
+
     const prior = {'+': 1, '-': 1, '*': 2};
     let stackNumbers = new Stack();//стек чисел
     let stackOperators = new Stack();//стек операций
+
     for (let i = 0; i < str.length; i++) {
         if (str[i].search(/^-?\d+$/) > -1)
             stackNumbers.push(parseInt(str[i]));//всегда пушим числа в первый стек
@@ -25,18 +27,17 @@ const solve = function (text, x) {
                     if (topStackOperand === '(') {
                         stackOperators.pop();
                         break;
-                    }//просто скипаем все
-                    else {
+                    } else {
                         i--;//еще раз раасматриваем скобку
-                        makeOperation(stackNumbers, stackOperators)
+                        makeOperation(stackNumbers, stackOperators);
                     }
                     break;
                 case '-':
                 case '*':
                 case '+':
-                    if (stackOperators.is_empty() || stackOperators.top() === '(' || stackOperators.top() === ')' || prior[str[i]] > prior[stackOperators.top()])//сравнили приоритет нашей хрени с приоритетом верхушки стека
-                        stackOperators.push(str[i]);//пушиться все
-                    else { //тащим двух челов из стека и операцию к ним
+                    if (stackOperators.is_empty() || stackOperators.top() === '(' || stackOperators.top() === ')' || prior[str[i]] > prior[stackOperators.top()]) {//сравнили приоритет нашей хрени с приоритетом верхушки стека
+                        stackOperators.push(str[i]);
+                    } else { //тащим двух челов из стека и операцию к ним
                         i--;
                         makeOperation(stackNumbers, stackOperators)
                     }
@@ -45,12 +46,13 @@ const solve = function (text, x) {
                     return "Incorrect data";
             }
     }
-    while (!stackOperators.is_empty())
+    while (!stackOperators.is_empty()) {
         makeOperation(stackNumbers, stackOperators);
+    }
     return stackNumbers.pop();
 };
 
-function makeOperation(stackNumbers, stackOperators) {
+let makeOperation = (stackNumbers, stackOperators) => {
     let operand1 = stackNumbers.pop();
     let operand2 = stackNumbers.pop();
     switch (stackOperators.pop()) {
@@ -64,7 +66,7 @@ function makeOperation(stackNumbers, stackOperators) {
             stackNumbers.push(operand1 * operand2);
             break;
     }
-}
+};
 
 function Stack() {
     this._size = 0;
