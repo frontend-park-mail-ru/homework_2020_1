@@ -19,17 +19,18 @@ const isObject = (obj) => {
  */
 const partialCopy = (obj) => {
     const needToUpdate = Symbol.for('needToUpdate');
-    let partialObjCopy = {[needToUpdate]: Array()};
+    const partialObjCopy =  Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+    partialObjCopy[needToUpdate] = [];
 
     for (let prop in obj) {
         if (isObject(obj[prop])) {
-            partialObjCopy[needToUpdate].push(Array(prop, obj[prop]));
+            partialObjCopy[needToUpdate].push([prop, obj[prop]]);
         } else {
             partialObjCopy[prop] = obj[prop];
         }
     }
 
-    return (partialObjCopy);
+    return partialObjCopy;
 };
 
 /**
@@ -62,7 +63,7 @@ const deepCopy = (src) => {
 
     while (objQueue.length) {
         const obj = objQueue.pop();
-        let partialObjCopy = partialCopy(obj);
+        const partialObjCopy = partialCopy(obj);
         copyObjsMap.set(obj, partialObjCopy);
 
         for (let propPair of partialObjCopy[needToUpdate]){
@@ -95,6 +96,6 @@ const zip = (...src) => {
     });
 
     let zipObj = {};
-    Object.assign(zipObj, ...(src.reverse()));
+    Object.assign(zipObj, ...src.reverse());
     return deepCopy(zipObj);
 };
