@@ -137,7 +137,7 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 			{prop1: 2, id: '1'},
 			{prop1: 2, id: '2'},
 		];
-		const actual = sorting(initial, [ 'id', 'prop1' ]);
+		const actual = sorting(initial, ['id', 'prop1']);
 
 		const expected = [
 			{prop1: true, id: '1'},
@@ -185,7 +185,7 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 			{prop1: -54, prop2: 13, id: 'l'},
 			{prop1: 2, prop2: -123, id: 'A'},
 		];
-		const actual = sorting(initial, [ 'prop1', 'prop2', 'id' ]);
+		const actual = sorting(initial, ['prop1', 'prop2', 'id']);
 
 		const expected = [
 			{prop1: -54, prop2: 13, id: 'l'},

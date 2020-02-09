@@ -17,7 +17,7 @@ const sorting = (initial, properties) => {
 
     properties.reverse().forEach((property) => {
         initial.sort( (first, second) => {
-            if (first[property] === undefined || second[property] === undefined) {
+            if (typeof first[property] === 'undefined' || typeof second[property] === 'undefined') {
                 throw Error('Сравнение с неопределенным занчением');
             }
             if (first[property] === second[property]) return 0;
