@@ -1,6 +1,10 @@
 'use strict';
 
 const inverse = function (array, index = 0) {
+    if (!Array.isArray(array) || typeof index != "number" ) {
+        return undefined
+    }
+
     if (Math.abs(index) >= array.length || array.length === 0) {
         return array;
     }
