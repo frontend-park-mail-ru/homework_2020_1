@@ -61,39 +61,13 @@ QUnit.module('Тестируем функцию get', function () {
 	});
 
 	QUnit.test('get работает правильно c объектом с большим количеством вложений', function (assert) {
-		const object = {
-			foo: {
-				foo: {
-					foo: {
-						foo: {
-							foo: {
-								foo: {
-									foo: {
-										foo: {
-											foo: {
-												bar: 1488
-											},
-											bar: 42
-										},
-										bar: 42
-									},
-									bar: 42
-								},
-								bar: 42
-							},
-							bar: 228
-						},
-						bar: 42
-					},
-					bar: 42
-				},
-				bar: 42
-			}
-		};
+		const object = [...Array(11)].map(x => "foo").reduce((prev, current, i = 0) => (
+			{[current]:{...prev}, bar: i++}
+		), {});
 
-		assert.strictEqual(get(object, '.foo.foo.foo.foo.bar'), 228);
-		assert.strictEqual(get(object, '.foo.foo.foo.foo.foo.foo.foo.foo.foo.bar'), 1488);
-		assert.strictEqual(get(object, '.foo.bar'), 42);
+		assert.strictEqual(get(object, '.foo.foo.foo.foo.bar'), 6);
+		assert.strictEqual(get(object, '.foo.foo.foo.foo.foo.foo.foo.foo.foo.bar'), 1);
+		assert.strictEqual(get(object, '.foo.bar'), 9);
 	});
 
 	QUnit.test('get работает правильно c пустыми массивами', function (assert) {
