@@ -10,18 +10,20 @@
 */
 
 const letters = (str, flag) => {
-    if (typeof str !== 'string' || (typeof flag !== 'boolean' && typeof flag !== 'undefined')) {
-        throw new Error('Invalid params.');
-    }
 
-    if (typeof flag === 'undefined') {
-        return str.split('').filter((value, index, str) => {
-            return str.lastIndexOf(value) === str.indexOf(value);
-        }).join('')
-    } else if (typeof flag === 'boolean') {
-        return str.split('').filter((value, index, str) => {
-            return (flag === true) ? (str.indexOf(value) === index) : (str.lastIndexOf(value) === index);
-        }).join('')
+    switch(true) {
+        case typeof flag === 'undefined' && typeof str === 'string': {
+            return str.split('').filter((value, index, str) => {
+                return str.lastIndexOf(value) === str.indexOf(value);
+            }).join('')
+        }
+        case typeof flag === 'boolean' && typeof str === 'string': {
+            return str.split('').filter((value, index, str) => {
+                return (flag === true) ? (str.indexOf(value) === index) : (str.lastIndexOf(value) === index);
+            }).join('')
+        }
+        default: {
+            throw new Error('Invalid params.');
+        }
     }
 }
-
