@@ -169,8 +169,8 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 
 		assert.throws(
 			function () {
-				sorting(initial, ["prop1", "id"]);
-			}, new Error("Сравнение с неопределенным занчением"));
+				sorting(initial, ['prop1', 'id']);
+			}, new Error('Сравнение с неопределенным занчением'));
 
 	});
 
@@ -206,8 +206,8 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 
 		assert.throws(
 			function () {
-				sorting(initial, "hello");
-			}, new Error("Некорректный тип входных данных"));
+				sorting(initial, ['id']);
+			}, new Error('Некорректный тип входных данных'));
 	});
 
 	QUnit.test('sorting неправильынй вызов: properties', function (assert) {
@@ -218,8 +218,8 @@ QUnit.module('Тестируем функцию sorting Aleksey Sirmais tests', 
 
 		assert.throws(
 			function () {
-				sorting(initial, "hello");
-			}, new Error("Некорректный тип входных данных"));
+				sorting(initial, 'hello');
+			}, new Error('Некорректный тип входных данных'));
 	});
 
 });

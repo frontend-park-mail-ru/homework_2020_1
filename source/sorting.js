@@ -9,8 +9,8 @@
  */
 const sorting = (initial, properties) => {
 
-    if (initial.constructor !== Array || properties.constructor !== Array) {
-        throw Error("Некорректный тип входных данных");
+    if (!Array.isArray(initial) || !Array.isArray(properties)) {
+        throw Error('Некорректный тип входных данных');
     }
 
     if (!properties.length) return initial;
@@ -18,10 +18,10 @@ const sorting = (initial, properties) => {
     properties.reverse().forEach((property) => {
         initial.sort( (first, second) => {
             if (first[property] === undefined || second[property] === undefined) {
-                throw Error("Сравнение с неопределенным занчением");
+                throw Error('Сравнение с неопределенным занчением');
             }
             if (first[property] === second[property]) return 0;
-            return (first[property] < second[property]) ? -1: 1;
+            return (first[property] < second[property]) ? -1 : 1;
         });
 
     }, initial);
