@@ -6,26 +6,41 @@
  * @return {string} Formatted string.
  */
 const format = (input, collums) => {
-	if (collums <= 0 || !Array.isArray(input)) {
+
+	if ( typeof(collums) !== "number" || collums <= 0 || !Array.isArray(input)) {
 		return '';
 	}
+
+	const widthOfCollums = getCollumsWidth(input, collums);
+
+	return input.map( (item, index) => getIndent(widthOfCollums, index, collums, item.toString().length) + item + charAtEndOfLine(index, collums, input.length))
+		.join('');
+};
+
+function getCollumsWidth(input, collums) {
 
 	const isItemOfCollum = (inputIndex, collumIndex) => inputIndex % collums === collumIndex;
 
 	const widthOfItem = (item, collumIndex) => item.toString().length + (collumIndex !== 0 ? 1 : 0);
 
-	const widthOfCollums = input.slice(0, collums)
+	return input.slice(0, collums)
 		.map( (_, collumIndex) => max(input.filter( (_, inputIndex) => isItemOfCollum(inputIndex, collumIndex))
 			.map( item => widthOfItem(item, collumIndex) )));
+}
 
-	const indent = (item, index) => ' '.repeat(widthOfCollums[index % collums] - item.toString().length);
+function getIndent(widthOfCollums, index, collums, itemLength) {
+	return ' '.repeat(widthOfCollums[index % collums] - itemLength);
+}
 
-	const isEndOfLine = index => (index + 1) % collums === 0;
+function charAtEndOfLine(index, collums, inputLength) {
+	return isEndOfLine(index, collums) && !isLast(index, inputLength) ? '\n' : '';
+}
 
-	const isLast = index => (index + 1) === input.length;
+function isEndOfLine(index, collums) {
+	return (index + 1) % collums === 0;
+}
 
-	const charAtEndOfLine = index => isEndOfLine(index) && !isLast(index) ? '\n' : '';
+function isLast(index, inputLength) {
+	return (index + 1) === inputLength;
+}
 
-	return input.map( (item, index) => indent(item, index) + item + charAtEndOfLine(index))
-		.join('');
-};
