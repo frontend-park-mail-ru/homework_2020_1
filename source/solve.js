@@ -21,19 +21,16 @@ const solve = (expr, value) => {
         throw new SyntaxError(INVALID_EXPR);
     }
 
-    expr = expr.split('x').join(value);
-
-    let postfixNotation = createPostfixNotation(expr);
+    const postfixNotation = createPostfixNotation(expr.split('x').join(value));
     if (postfixNotation === null) {
         throw new SyntaxError(INVALID_EXPR);
     }
 
-    let result = evaluatePostfixExpr(postfixNotation);
+    const result = evaluatePostfixExpr(postfixNotation);
     if (result === null) {
         throw new SyntaxError(INVALID_EXPR);
-    } else {
-        return result;
     }
+    return result;
 };
 
 
@@ -87,9 +84,10 @@ const createPostfixNotation = (expr) => {
         }
     }
 
-    while(operatorsStack.length) {
+    while (operatorsStack.length) {
         postfixNotation.push(operatorsStack.pop());
     }
+
     return postfixNotation;
 };
 
@@ -106,24 +104,24 @@ const evaluatePostfixExpr = (expr) => {
         '*': (x, y) => x * y
     };
 
-    let operandsStack = [];
-
-    for (let symbol of expr) {
-        if (typeof symbol === 'number') {
-            operandsStack.push(symbol);
-            continue;
+    const operandsStack = expr.reduce((stack, current) => {
+        if (typeof current === 'number') {
+            stack.push(current);
+            return stack;
         }
 
-        if (operandsStack.length < 2) {
+        if (stack.length < 2) {
             return null;
         }
 
-        let [y, x] = [operandsStack.pop(), operandsStack.pop()];
-        operandsStack.push(operators[symbol](x, y));
-    }
+        const [y, x] = [stack.pop(), stack.pop()];
+        stack.push(operators[current](x, y));
+        return stack;
+    }, []);
 
     if (operandsStack.length !== 1) {
         return null;
     }
+
     return operandsStack[0];
 };
