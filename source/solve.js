@@ -7,8 +7,7 @@
  * @return {number} - Вычесленный результат
  */
 const solve = (text, x) => {
-    let str = text.replace(/[()+\-*]/g, " " + "$&" + " ").replace(/x/g, x).split(' ');
-    str = str.filter(element => element !== "");
+    let str = text.replace(/[()+\-*]/g, ' ' + '$&' + ' ').replace(/x/g, x).split(' ').filter(elem => elem !== "");
 
     const prior = {'+': 1, '-': 1, '*': 2};
     let stackNumbers = new Stack();//стек чисел
@@ -35,7 +34,9 @@ const solve = (text, x) => {
                 case '-':
                 case '*':
                 case '+':
-                    if (stackOperators.is_empty() || stackOperators.top() === '(' || stackOperators.top() === ')' || prior[str[i]] > prior[stackOperators.top()]) {//сравнили приоритет нашей хрени с приоритетом верхушки стека
+                    if (stackOperators.is_empty() ||
+                        stackOperators.top() === '(' || stackOperators.top() === ')'
+                        || prior[str[i]] > prior[stackOperators.top()]) {//сравнили приоритет нашей хрени с приоритетом верхушки стека
                         stackOperators.push(str[i]);
                     } else { //тащим двух челов из стека и операцию к ним
                         i--;
@@ -43,7 +44,7 @@ const solve = (text, x) => {
                     }
                     break;
                 default:
-                    return "Incorrect data";
+                    return 'Incorrect data';
             }
     }
     while (!stackOperators.is_empty()) {
