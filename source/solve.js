@@ -17,13 +17,113 @@ const solve = (expr, value) => {
         throw new TypeError(WRONG_PARAMS);
     }
 
-    if (!/^[\d+\-*()x ]+$/.test(expr)) {
+    if (/(x *){2,}/.test(expr) || /([+\-*] *){2,}/.test(expr) || /(\d+\b *){2,}/.test(expr)) {
         throw new SyntaxError(INVALID_EXPR);
     }
 
-    if (/(x *){2,}/.test(expr) || /([+\-*] *){2,}/.test(expr) || /(\d+ *){2,}/.test(expr)) {
+    expr = expr.split('x').join(value);
+
+    let postfixNotation = createPostfixNotation(expr);
+    if (postfixNotation === null) {
         throw new SyntaxError(INVALID_EXPR);
     }
 
-    return new Function('x', `return ${expr}`)(value);
+    let result = evaluatePostfixExpr(postfixNotation);
+    if (result === null) {
+        throw new SyntaxError(INVALID_EXPR);
+    } else {
+        return result;
+    }
+};
+
+
+/**
+ * Converts an infix math expression to the postfix expression.
+ * @param {String} expr - Math expression
+ * @returns {Array|null} Postfix notation or null if math expression is invalid
+ */
+const createPostfixNotation = (expr) => {
+    expr = expr.split(' ').join('');
+    let postfixNotation = [];
+    let operatorsStack = [];
+
+    for (let i = 0; i < expr.length; i++) {
+        if (expr[i] >= '0' && expr[i] <= '9') {
+            const number = expr.slice(i).match(/\d+/);
+            postfixNotation.push(Number(number));
+            i += number[0].length - 1;
+            continue;
+        }
+
+        switch (expr[i]) {
+            case '-':
+                if (i === 0 || expr[i - 1] === '(') {
+                    postfixNotation.push(0);
+                    operatorsStack.push('-');
+                    break;
+                }
+            case '+':
+                while (operatorsStack.length && operatorsStack[operatorsStack.length - 1] === '*') {
+                    postfixNotation.push(operatorsStack.pop());
+                }
+                operatorsStack.push(expr[i]);
+                break;
+            case '*':
+            case '(':
+                operatorsStack.push(expr[i]);
+                break;
+            case ')':
+                while (operatorsStack.length && operatorsStack[operatorsStack.length - 1] !== '(') {
+                    postfixNotation.push(operatorsStack.pop());
+                }
+                if (operatorsStack.length === 0) {
+                    return null;
+                }
+
+                operatorsStack.pop();
+                break;
+            default:
+                return null;
+        }
+    }
+
+    while(operatorsStack.length) {
+        postfixNotation.push(operatorsStack.pop());
+    }
+    return postfixNotation;
+};
+
+
+/**
+ * Evaluates postfix expression.
+ * @param {Array} expr - Postfix expression
+ * @returns {Number|null} Result of evaluation or null if the expression has mistakes
+ */
+const evaluatePostfixExpr = (expr) => {
+    const operators = {
+        '+': (x, y) => x + y,
+        '-': (x, y) => x - y,
+        '*': (x, y) => x * y
+    };
+
+    let operandsStack = [];
+
+    for (let symbol of expr) {
+        if (typeof symbol === 'number') {
+            operandsStack.push(symbol);
+            continue;
+        }
+
+        if (operandsStack.length < 2) {
+            return null;
+        }
+
+        let [y, x] = [operandsStack.pop(), operandsStack.pop()];
+        operandsStack.push(operators[symbol](x, y));
+    }
+
+    if (operandsStack.length !== 1) {
+        return null;
+    }
+    return operandsStack[0];
 };

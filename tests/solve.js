@@ -11,6 +11,7 @@ QUnit.module('Тестируем функцию solve', function () {
 		assert.strictEqual(solve('(x - 6) * (x + 4) - 5 * x', 2), -34);
 		assert.strictEqual(solve('1 + 8 * x * x', 10), 801);
 		assert.strictEqual(solve('5 - (x - 1) * (x + 2) * (x + 3)', 3), -55);
+		assert.strictEqual(solve('-6 * (-x)', 7), 42);
 	});
 
 	QUnit.test('solve работает с невалидными входными данными', function (assert) {
