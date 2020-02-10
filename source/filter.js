@@ -56,7 +56,7 @@ const filter = (htmlString, tags) => {
 
     let counter = 0;
     return htmlString.split('').reduce((string, symbol) => {
-        if (string[0] === '<') {
+        if (string[0] === '<' && string.length === 1) {
             ++counter;
         }
 
