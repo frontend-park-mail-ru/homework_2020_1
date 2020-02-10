@@ -42,7 +42,7 @@ const filter = (htmlString, tags) => {
         throw new CustomError('Type Error');
     }
 
-    let allowedTags = tags.filter(tag => typeof tag === 'string');
+    const allowedTags = tags.filter(tag => typeof tag === 'string');
 
     htmlString = htmlString.replace(/<[^<>]+>|[&"']/g, (match) => {
         const strictTag = match.replace(/[<>/]/g, '');
