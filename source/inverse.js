@@ -9,15 +9,15 @@ const inverse = function (array, index = 0) {
         return array;
     }
 
-    let start, len;
+    let start, length;
     if (index <= 0) {
         start = 0;
-        len = index;
+        length = index;
     } else {
         start = index;
-        len = 0;
+        length = 0;
     }
-    let reversedPart = array.slice(start, array.length + len).reverse();
+    let reversedPart = array.slice(start, array.length + length).reverse();
     array.splice(start, reversedPart.length, ...reversedPart);
     return array;
 };
