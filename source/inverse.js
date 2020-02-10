@@ -11,8 +11,8 @@
  */
 
 const inverse = function (array, index = 0) {
-    if (!Array.isArray(array) || typeof index != "number" ) {
-        return "invalid arguments"
+    if (!Array.isArray(array) || typeof index != 'number' ) {
+        return 'invalid arguments'
     }
 
     if (Math.abs(index) >= array.length || array.length === 0) {
