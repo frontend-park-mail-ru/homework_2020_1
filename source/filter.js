@@ -53,6 +53,7 @@ const filter = (htmlString, tags) => {
         }
         return match;
     }).replace(/<(?![^<]*>)/g, '&lt;');
+
     let counter = 0;
     return htmlString.split('').reduce((string, symbol) => {
         if (string[0] === '<') {
