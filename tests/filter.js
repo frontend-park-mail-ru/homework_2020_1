@@ -53,6 +53,11 @@ QUnit.module('Проверка работы функции filter', function () 
 		} catch (e) {
 			assert.ok(e instanceof CustomError)
 		}
+		try {
+			filter('<strong>string<1>not valid</1></strong>', 1000);
+		} catch (e) {
+			assert.ok(e instanceof CustomError)
+		}
 		assert.strictEqual(filter('<strong>string<1>not valid</1></strong>', [ 'strong', 1 ]), '<strong>string&lt;1&gt;not valid&lt;/1&gt;</strong>');
 	});
 });

@@ -38,7 +38,7 @@ class CustomError {
  * @returns {string} - parsed string
  */
 const filter = (htmlString, tags) => {
-    if (typeof htmlString !== 'string') {
+    if (typeof htmlString !== 'string' || !Array.isArray(tags)) {
         throw new CustomError('Type Error');
     }
 
@@ -59,13 +59,27 @@ const filter = (htmlString, tags) => {
         if (string[0] === '<') {
             ++counter;
         }
-        if (symbol === '<') {
-            ++counter;
-        } else if (symbol === '>' && counter === 0) {
-            symbol = symbol.replace('>', HTML_ESCAPES['>'])
-        } else if (symbol === '>') {
-            --counter;
+        switch (symbol) {
+            case '<': {
+                ++counter;
+                break;
+            }
+            case '>' && counter === 0: {
+                symbol = symbol.replace('>', HTML_ESCAPES['>']);
+                break;
+            }
+            case '>': {
+                --counter;
+                break;
+            }
         }
+        // if (symbol === '<') {
+        //     ++counter;
+        // } else if (symbol === '>' && counter === 0) {
+        //     symbol = symbol.replace('>', HTML_ESCAPES['>']);
+        // } else if (symbol === '>') {
+        //     --counter;
+        // }
         return string + symbol;
     });
 };
