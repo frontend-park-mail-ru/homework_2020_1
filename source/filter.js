@@ -48,9 +48,7 @@ const filter = (htmlString, tags) => {
     htmlString = htmlString.replace(/<[^<>]+>|[&"']/g, (match) => {
         const strictTag = match.replace(/[<>/]/g, '');
         if (!allowedTags.includes(strictTag)) {
-            match = match.replace(/[&"']/g, (match) => {
-                return HTML_ESCAPES[match];
-            });
+            match = match.replace(/[&"']/g, (match) => HTML_ESCAPES[match]);
             match = match.replace('<', HTML_ESCAPES['<']);
             match = match.replace('>', HTML_ESCAPES['>']);
         }
