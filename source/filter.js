@@ -44,7 +44,6 @@ const filter = (htmlString, tags) => {
 
     let allowedTags = tags.filter(tag => typeof tag === 'string');
 
-
     htmlString = htmlString.replace(/<[^<>]+>|[&"']/g, (match) => {
         const strictTag = match.replace(/[<>/]/g, '');
         if (!allowedTags.includes(strictTag)) {
@@ -54,9 +53,8 @@ const filter = (htmlString, tags) => {
         }
         return match;
     }).replace(/<(?![^<]*>)/g, '&lt;');
-    let test = htmlString.split('');
     let counter = 0;
-    return test.reduce((string, symbol) => {
+    return htmlString.split('').reduce((string, symbol) => {
         if (string[0] === '<') {
             ++counter;
         }
