@@ -59,6 +59,7 @@ const filter = (htmlString, tags) => {
         if (string[0] === '<') {
             ++counter;
         }
+
         switch (symbol) {
             case '<': {
                 ++counter;
@@ -73,13 +74,6 @@ const filter = (htmlString, tags) => {
                 break;
             }
         }
-        // if (symbol === '<') {
-        //     ++counter;
-        // } else if (symbol === '>' && counter === 0) {
-        //     symbol = symbol.replace('>', HTML_ESCAPES['>']);
-        // } else if (symbol === '>') {
-        //     --counter;
-        // }
         return string + symbol;
     });
 };
