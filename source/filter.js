@@ -9,42 +9,27 @@ const HTML_ESCAPES = {
 };
 
 /**
- * Custom exception
- * @param {string} message - error message
- * @constructor
+ * Custom error class for filter function
  */
-function CustomError(message) {
-    this.message = message;
-}
+class CustomError {
 
-/**
- * Convert exception to string
- * @returns {string}
- */
-CustomError.prototype.toString = function () {
-    return this.message;
-};
-
-/**
- * Escape right brackets in string
- * @param {string} string - html string
- * @returns {string} - parsed string
- */
-const removeExtraBrackets = (string) => {
-    let counter = 0;
-    let output = '';
-    for (let symbol of string) {
-        if (symbol === '<') {
-            ++counter;
-        } else if (symbol === '>' && counter === 0) {
-            symbol = symbol.replace('>', HTML_ESCAPES['>'])
-        } else if (symbol === '>') {
-            --counter;
-        }
-        output += symbol;
+    /**
+     * Set error message
+     * @param {string} message
+     * @constructor
+     */
+    constructor(message) {
+        this.message = message;
     }
-    return output;
-};
+
+    /**
+     * Get error message
+     * @returns {string}
+     */
+    what() {
+        return this.message;
+    }
+}
 
 /**
  * Function returns parsed string by tags that user set in brackets
@@ -56,13 +41,9 @@ const filter = (htmlString, tags) => {
     if (typeof htmlString !== 'string') {
         throw new CustomError('Type Error');
     }
-    
-    let allowedTags = [];
-    tags.forEach((tag, index, object) => {
-        if (typeof tag === 'string') {
-            allowedTags.push(tag);
-        }
-    });
+
+    let allowedTags = tags.filter(tag => typeof tag === 'string');
+
 
     htmlString = htmlString.replace(/<[^<>]+>|[&"']/g, (match) => {
         const strictTag = match.replace(/[<>/]/g, '');
@@ -75,5 +56,19 @@ const filter = (htmlString, tags) => {
         }
         return match;
     }).replace(/<(?![^<]*>)/g, '&lt;');
-    return removeExtraBrackets(htmlString);
+    let test = htmlString.split('');
+    let counter = 0;
+    return test.reduce((string, symbol) => {
+        if (string[0] === '<') {
+            ++counter;
+        }
+        if (symbol === '<') {
+            ++counter;
+        } else if (symbol === '>' && counter === 0) {
+            symbol = symbol.replace('>', HTML_ESCAPES['>'])
+        } else if (symbol === '>') {
+            --counter;
+        }
+        return string + symbol;
+    });
 };
