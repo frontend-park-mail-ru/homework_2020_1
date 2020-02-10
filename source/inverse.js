@@ -10,7 +10,7 @@
  * @returns {Array} - перевернутый массив
  */
 
-const inverse = function (array, index = 0) {
+const inverse = (array, index = 0) => {
     if (!Array.isArray(array) || typeof index != 'number' ) {
         return 'invalid arguments'
     }
@@ -27,7 +27,7 @@ const inverse = function (array, index = 0) {
         start = index;
         length = 0;
     }
-    let reversedPart = array.slice(start, array.length + length).reverse();
+    const reversedPart = array.slice(start, array.length + length).reverse();
     array.splice(start, reversedPart.length, ...reversedPart);
     return array;
 };
