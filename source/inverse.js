@@ -6,13 +6,14 @@
  * @author EgorBedov - https://github.com/EgorBedov
  * @param {Array} array - исходный массив
  * @param {number} index - число элементов, не нуждающихся в перестановке
- * @returns {string} - сообщение об ошибке
- * @returns {Array} - перевернутый массив
+ * @returns {(Array|string)} - перевернутый массив, сообщение об ошибке
  */
+
+const TYPE_ERROR = 'invalid arguments';
 
 const inverse = (array, index = 0) => {
     if (!Array.isArray(array) || typeof index != 'number' ) {
-        return 'invalid arguments'
+        return TYPE_ERROR
     }
 
     if (Math.abs(index) >= array.length || array.length === 0) {
