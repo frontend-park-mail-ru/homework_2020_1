@@ -35,13 +35,13 @@ const REGEX_ARR = [
     }, '.foo')
  */
 
-const get = (object, prop) =>
-    REGEX_ARR.some(regex => regex.test(prop)) && Object.prototype.toString.call(object) === '[object Object]' ?
-        prop.split('.')
+const get = (object, objectPropPath) =>
+    REGEX_ARR.some(regex => regex.test(objectPropPath)) && Object.prototype.toString.call(object) === '[object Object]' ?
+        objectPropPath.split('.')
             .slice(1)
-            .reduce((subObject, propValue) => {
-                if (subObject && subObject[propValue]) return subObject[propValue];
-                else if (!propValue) return object;
+            .reduce((nestedObject, propPath) => {
+                if (nestedObject && nestedObject[propPath]) return nestedObject[propPath];
+                else if (!propPath) return object;
                 else return undefined;
             }, {...object})
         : undefined;
