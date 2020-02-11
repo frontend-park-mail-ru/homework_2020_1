@@ -19,9 +19,9 @@ const REGEX_ARR = [
  * @author Sergey Malyshev
  * @see https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
  * @see https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
- * @param {Object} object - An object param
- * @param {String} prop - A path to the object's property
- * @return {String} Object's property value
+ * @param {object} object - An object param
+ * @param {string} prop - A path to the object's property
+ * @return {string} Object's property value
  *
  * @example
  *
