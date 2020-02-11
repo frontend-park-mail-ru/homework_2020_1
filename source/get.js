@@ -20,8 +20,8 @@ const REGEX_ARR = [
  * @see https://medium.com/javascript-inside/safely-accessing-deeply-nested-values-in-javascript-99bf72a0855a
  * @see https://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
  * @param {object} object - An object param
- * @param {string} prop - A path to the object's property
- * @return {string} Object's property value
+ * @param {string} objectPropPath - A path to the object's property
+ * @returns {(string|undefined)} Object's property value
  *
  * @example
  *
