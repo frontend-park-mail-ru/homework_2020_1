@@ -43,5 +43,5 @@ const get = (object, prop) =>
                 if (subObject && subObject[propValue]) return subObject[propValue];
                 else if (!propValue) return object;
                 else undefined;
-            }, object)
+            }, {...object})
         : undefined;
