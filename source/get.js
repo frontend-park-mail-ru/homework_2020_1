@@ -42,6 +42,6 @@ const get = (object, prop) =>
             .reduce((subObject, propValue) => {
                 if (subObject && subObject[propValue]) return subObject[propValue];
                 else if (!propValue) return object;
-                else undefined;
+                else return undefined;
             }, {...object})
         : undefined;
