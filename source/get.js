@@ -43,5 +43,5 @@ const get = (object, objectPropPath) =>
                 if (nestedObject && nestedObject[propPath]) return nestedObject[propPath];
                 else if (!propPath) return object;
                 else return undefined;
-            }, {...object})
+            }, object)
         : undefined;
