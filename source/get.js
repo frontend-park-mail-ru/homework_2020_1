@@ -36,10 +36,12 @@ const REGEX_ARR = [
  */
 
 const get = (object, prop) =>
-    regexArr.some(regex => regex.test(prop)) && Object.prototype.toString.call(object) === '[object Object]' ?
+    REGEX_ARR.some(regex => regex.test(prop)) && Object.prototype.toString.call(object) === '[object Object]' ?
         prop.split('.')
             .slice(1)
-            .reduce((subObject, propValue) => 
-                        (subObject && subObject[propValue]) ? subObject[propValue] : (!propValue) ? object : undefined,
-                    object)
+            .reduce((subObject, propValue) => {
+                if (subObject && subObject[propValue]) return subObject[propValue];
+                else if (!propValue) return object;
+                else undefined;
+            }, object)
         : undefined;
