@@ -23,7 +23,12 @@ const makeNewWord = (word) => {
  * @returns {string}
  */
 const sort = (str) => {
+    if (str.type !== "string" || str === "") {
+        return "";
+    }
     const newArr = str.split(' ').map(makeNewWord);
     newArr.sort(collator.compare);
     return newArr.join(' ');
 };
+
+sort("");
