@@ -24,11 +24,9 @@ const makeNewWord = (word) => {
  */
 const sort = (str) => {
     if (str.type !== "string" || str === "") {
-        return "";
+        return null;
     }
     const newArr = str.split(' ').map(makeNewWord);
     newArr.sort(collator.compare);
     return newArr.join(' ');
-};
-
-sort("");
+}
