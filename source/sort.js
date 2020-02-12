@@ -8,13 +8,11 @@ const collator = new Intl.Collator();
  * @param {string} word - слово из массива str
  * @returns {string}
  */
-
 const makeNewWord = (word) => {
     const symbols = word.split('');
     symbols.sort(collator.compare);
-    let tmpStr = symbols.join('');
-    tmpStr = tmpStr[0].toUpperCase() + tmpStr.slice(1).toLowerCase();
-    return tmpStr;
+    const tmpStr = symbols.join('');
+    return tmpStr[0].toUpperCase() + tmpStr.slice(1).toLowerCase();
 }
 
 /**
@@ -24,9 +22,8 @@ const makeNewWord = (word) => {
  * @param {string} str - входная строка слов
  * @returns {string}
  */
-
 const sort = (str) => {
     const newArr = str.split(' ').map(makeNewWord);
     newArr.sort(collator.compare);
-    return(newArr.join(' '));
+    return newArr.join(' ');
 };
