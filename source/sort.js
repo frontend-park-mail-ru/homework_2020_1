@@ -23,7 +23,7 @@ const makeNewWord = (word) => {
  * @returns {string}
  */
 const sort = (str) => {
-    if (str.type !== "string" || str === "") {
+    if (typeof(str) != "string" || str === "") {
         return null;
     }
     const newArr = str.split(' ').map(makeNewWord);
