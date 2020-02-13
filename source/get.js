@@ -52,22 +52,21 @@ const isCorrectInput = (object, objectPropPath) => {
  */
 
 const get = (object, objectPropPath) => {
-    if (isCorrectInput(object, objectPropPath)) {
-        return objectPropPath.split('.')
-            .slice(1)
-            .reduce((nestedObject, propPath) => {
-                 if (nestedObject) {
-                    switch (true) {
-                        case propPath === '':
-                            return object;
-                        case (nestedObject.constructor === Object):
-                        case (nestedObject.constructor === Array):
-                        case (nestedObject.constructor === String):
-                            return nestedObject[propPath];
-                    }
-                }
-            }, object)
-    } else {
+    if (!isCorrectInput(object, objectPropPath)) {
         return undefined;
     }
+    return objectPropPath.split('.')
+        .slice(1)
+        .reduce((nestedObject, propPath) => {
+                if (nestedObject) {
+                switch (true) {
+                    case propPath === '':
+                        return object;
+                    case (nestedObject.constructor === Object):
+                    case (nestedObject.constructor === Array):
+                    case (nestedObject.constructor === String):
+                        return nestedObject[propPath];
+                }
+            }
+        }, object);
 }
