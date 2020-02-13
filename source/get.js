@@ -1,19 +1,6 @@
 'use strict';
 
 /**
- * Check if first letter is '.' and next are alphabetic or numeric ones or nothing except '.'
- *
- * @const {RegExp[]}
- * @todo Improve the rule (maybe not to use RegExp?)
- */
-
-const REGEX_ARR = [
-    RegExp('[.]'),
-    RegExp('^\.\w+'),
-    RegExp('^\.\d+')
-];
-
-/**
  * Get an object and path to the object's property and return its value (or undefined if property doesn't exist)
  *
  * @author Sergey Malyshev
@@ -36,7 +23,7 @@ const REGEX_ARR = [
  */
 
 const get = (object, objectPropPath) =>
-    REGEX_ARR.some(regex => regex.test(objectPropPath)) && Object.prototype.toString.call(object) === '[object Object]' ?
+    typeof objectPropPath === 'string' && objectPropPath.startsWith('.') && typeof object === 'object' ?
         objectPropPath.split('.')
             .slice(1)
             .reduce((nestedObject, propPath) => {
