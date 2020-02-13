@@ -12,7 +12,7 @@
  *
  * @example
  *
- *  inputPreCheck({
+ *  isCorrectInput({
         foo: 'bar',
         deep: {
             hested: {
@@ -22,7 +22,7 @@
     }, '.foo')
  */
 
-const inputPreCheck = (object, objectPropPath) => {
+const isCorrectInput = (object, objectPropPath) => {
     return typeof objectPropPath === 'string' &&
     objectPropPath.startsWith('.') &&
     object && object.constructor === Object;
@@ -52,7 +52,7 @@ const inputPreCheck = (object, objectPropPath) => {
  */
 
 const get = (object, objectPropPath) =>
-    inputPreCheck(object, objectPropPath) ?
+    isCorrectInput(object, objectPropPath) ?
         objectPropPath.split('.')
             .slice(1)
             .reduce((nestedObject, propPath) => {
