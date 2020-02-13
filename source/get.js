@@ -31,7 +31,11 @@ const get = (object, objectPropPath) =>
                     switch (true) {
                         case propPath==='':
                             return object;
-                        case (nestedObject.constructor === Object) || (nestedObject[propPath] !== undefined):
+                        case (nestedObject.constructor === Object):
+                            return nestedObject[propPath];
+                        case (nestedObject.constructor === Array):
+                            return nestedObject[propPath];
+                        case (nestedObject.constructor === String):
                             return nestedObject[propPath];
                     }
                 }
