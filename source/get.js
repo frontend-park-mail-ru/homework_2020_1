@@ -51,9 +51,9 @@ const isCorrectInput = (object, objectPropPath) => {
     }, '.foo')
  */
 
-const get = (object, objectPropPath) =>
-    isCorrectInput(object, objectPropPath) ?
-        objectPropPath.split('.')
+const get = (object, objectPropPath) => {
+    if (isCorrectInput(object, objectPropPath)) {
+        return objectPropPath.split('.')
             .slice(1)
             .reduce((nestedObject, propPath) => {
                  if (nestedObject) {
@@ -67,4 +67,7 @@ const get = (object, objectPropPath) =>
                     }
                 }
             }, object)
-        : undefined;
+    } else {
+        return undefined;
+    }
+}
