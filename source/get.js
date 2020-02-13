@@ -23,12 +23,17 @@
  */
 
 const get = (object, objectPropPath) =>
-    typeof objectPropPath === 'string' && objectPropPath.startsWith('.') && typeof object === 'object' ?
+    typeof objectPropPath === 'string' && objectPropPath.startsWith('.') && object && object.constructor === Object ?
         objectPropPath.split('.')
             .slice(1)
             .reduce((nestedObject, propPath) => {
-                if (nestedObject && nestedObject[propPath]) return nestedObject[propPath];
-                else if (!propPath) return object;
-                else return undefined;
+                 if (nestedObject) {
+                    switch (true) {
+                        case propPath==='':
+                            return object;
+                        case (nestedObject.constructor === Object) || (nestedObject[propPath] !== undefined):
+                            return nestedObject[propPath];
+                    }
+                }
             }, object)
         : undefined;
