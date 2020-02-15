@@ -1,6 +1,18 @@
 'use strict';
 
 /**
+ * Provide access to undefiened value
+ *
+ * @author Sergey Malyshev
+ * @returns {undefined}
+ *
+ * @example
+ *
+ *  noop()
+ */
+const noop = () => void 0;
+
+/**
  * Get an object and path to the object's property and make some prechecks
  * to be sure in object and path states and their correctness
  *
@@ -53,7 +65,7 @@ const isCorrectInput = (object, objectPropPath) => {
 
 const get = (object, objectPropPath) => {
     if (!isCorrectInput(object, objectPropPath)) {
-        return undefined;
+        return noop();
     }
     return objectPropPath.split('.')
         .slice(1)
