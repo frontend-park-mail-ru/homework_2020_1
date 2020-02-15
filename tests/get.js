@@ -70,17 +70,18 @@ QUnit.module('Тестируем функцию get', function () {
 		assert.strictEqual(get(object, '.foo.bar'), 9);
 	});
 
-	QUnit.test('get работает правильно c пустыми массивами', function (assert) {
+	QUnit.test('get работает правильно c несуществующими массивами/объектами/строками', function (assert) {
 		const object = {
-			foo: null,
-			baz: [ 1, 2, 3 ],
-			deep: [
-				{foobar: '42'}
-			]
+			foo: undefined,
+			bar: null
 		};
 
 		assert.strictEqual(get(object, '.foo.0'), undefined);
+		assert.strictEqual(get(object, '.bar.0'), undefined);
+		assert.strictEqual(get(object, '.foo'), undefined);
+		assert.strictEqual(get(object, '.bar'), null);
 		assert.strictEqual(get(object, '.foo.length'), undefined);
+		assert.strictEqual(get(object, '.bar.length'), undefined);
 	});
 
 	QUnit.test('get работает правильно c null', function (assert) {
